@@ -15,3 +15,36 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+
+```cpp
+void main() {}
+```
+
+$$
+1+1=2
+$$
+
+<figure markdown="span">
+  ![Image title](https://dummyimage.com/600x400/){ width="300" }
+  <figcaption>Image caption</figcaption>
+</figure>
+
+* Hello 1
+
+* Hello 2
+
+11
+
+1. World 1
+
+2. World 2
+
+- [x] OK
+
+- [ ] Not OK
+
+!!! note
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
