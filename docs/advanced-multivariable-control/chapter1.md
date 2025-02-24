@@ -139,7 +139,7 @@ To find the equilibrium pairs, we can consider the following 2 conditions:
         $$
 
         <figure markdown="span">
-            ![](pics/chapter1/figure1.png){width = "100"}
+            ![](pics/chapter1/figure1.png){ width="200" }
         </figure>
 
         
