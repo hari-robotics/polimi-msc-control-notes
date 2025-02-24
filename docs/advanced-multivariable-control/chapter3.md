@@ -101,10 +101,85 @@ z_2(t) &= e^{a_2 t}z_2(0)
 \end{aligned}
 $$
 
-This converts $a_1$, $a_2$ to real eigen vectors $z_1$, $z_2$
+$a_1$, $a_2$ can be referred to $v_1$, $v_2$ as eigen vectors.
 
 <figure markdown="span">
     ![](pics/chapter3/figure4.png){ width="600" }
     ![](pics/chapter3/figure5.png){ width="320" }
 </figure>
 
+When $x(0) = \alpha v_i$,
+
+$$
+\begin{aligned}
+&x(t) = e^{a_i t} \alpha v_i \\
+&\Rightarrow\frac{d}{dt}(e^{a_i t} \alpha v_i) = \alpha a_i e^{a_i t}v_i\\
+&\Rightarrow A\alpha e^{a_i t}v_i = \alpha e^{a_i t}Av_i = \alpha e^{a_i t} a_i v_i
+\end{aligned}
+$$
+
+<figure markdown="span">
+    ![](pics/chapter3/figure6.png){ width="600" }
+    ![](pics/chapter3/figure7.png){ width="400" }
+</figure>
+
+!!!abstract "Example"
+    <figure markdown="span">
+        ![](pics/chapter3/figure8.png){ width="200" }
+    </figure>
+    For a pundulum system, the dynamic equation is:
+
+    $$
+    \begin{aligned}
+    mL^2 \ddot v(t) &= -K\dot v(t) -mgL \sin (v(t)) + u(t)\\
+    \dot x_1(t) &= x_2(t) \\
+    \dot x_2(t) &= -\frac{K}{mL^2}x_2(t) - \frac{g}{L}\sin (x_1(t)) + \frac{1}{mL^2}u(t)\\
+    \end{aligned}
+    $$
+
+    Given $u(t) = 0$, $t\geq 0$, find $\bar x$,
+
+    $$
+    \left\{\begin{aligned}
+    &\bar x_2 = 0\\
+    &\sin(\bar x_1) = 0
+    \end{aligned}\right. \Rightarrow 
+    \left\{\begin{aligned}
+    &\bar x_2 = 0\\
+    &\bar x_1 = h\pi
+    \end{aligned}\right.
+    $$
+
+    Linearize the model at equilibrium point,
+
+    $$
+    \begin{aligned}
+    A &= \begin{bmatrix}
+    0 & 1\\
+    -\frac{g}{L}\cos(\bar x_1)& -\frac{K}{mL^2}
+    \end{bmatrix}\\
+    x_A(\lambda) &= det(\lambda I - A) = \lambda^2 + \frac{K}{mL^2}\lambda + \frac{g}{L}\cos(\bar x_1)
+    \end{aligned}
+    $$
+
+    When $\bar x_1 = 2h\pi$,
+
+    $$
+    \begin{aligned}
+    x_A(\lambda) &= \lambda^2 + \frac{K}{mL^2}\lambda + \frac{g}{L} = \lambda^2 +\lambda +9.8\\
+    \lambda &= \frac{-1\pm i\sqrt{9.8\cdot 4 -1}}{2}, \text{A.S.}
+    \end{aligned}
+    $$
+
+    When $\bar x_1 = \pi + 2h\pi$,
+
+    $$
+    \begin{aligned}
+    x_A(\lambda) &= \lambda^2 + \frac{K}{mL^2}\lambda - \frac{g}{L} = \lambda^2 +\lambda -9.8\\
+    \lambda_1 &> 0, \lambda_2 < 0, \text{Unstable}
+    \end{aligned}
+    $$
+
+    <figure markdown="span">
+        ![](pics/chapter3/figure9.jpg){ width="600" }
+    </figure>
