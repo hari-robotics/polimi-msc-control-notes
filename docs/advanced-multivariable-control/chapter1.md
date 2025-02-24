@@ -1,5 +1,5 @@
-# System Formulation and Equilibrium 
-## 1. System Formulation
+# 1. System Formulation and Equilibrium 
+## 1.1 System Formulation
 The general continues time and time invarient systems have the following formulations:
 
 $$
@@ -22,7 +22,7 @@ $$
 \dot{x}(t) = Ax(t) + Bu(t)
 $$
 
-## 2. Equilibrium
+## 1.2 Equilibrium
 Give the defination of equilibrium of a system:
 !!!note "Defination"
     Giving the equilibrium state $\bar x$, $\exists u = \bar u$, at $t \geq 0$, that makes $f(\bar x, \bar u) = 0$, such a point $(\bar x, \bar u)$ is called equibrium pair, and $\bar x$ is an isolated equilibrium.
@@ -139,7 +139,7 @@ To find the equilibrium pairs, we can consider the following 2 conditions:
         $$
 
         <figure markdown="span">
-            ![](pics/chapter_1/figure1.png){width = "100"}
+            ![](pics/chapter1/figure1.png){width = "100"}
         </figure>
 
         

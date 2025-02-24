@@ -1,5 +1,11 @@
 site_name: PoliMi MSc Control Notes
 site_url: https://polimi-msc-control-notes.vercel.app/
+
+nav:
+- Advanced Multivariable Control:
+    - '1. System Formulation and Equilibrium': 'advanced-multivariable-control/chapter1.md'
+    - '2. Stability': 'advanced-multivariable-control/chapter2.md'
+
 theme:
   name: material
   features:
