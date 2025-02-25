@@ -1,50 +1,15 @@
-# Welcome to MkDocs
+# Welcome to PoliMi MSc Control Notes
+This project is an unofficial site that contains the lecture notes of: 
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+* A.Y.24/25 2nd Semester in MSc. of Automation and Control Engineering
+    * 096129 - ADVANCED AND MULTIVARIABLE CONTROL
+    * 088860 - DYNAMICS OF ELECTRICAL MACHINES AND DRIVES
+    * 089013 - ROBOTICS
+    * 088882 - FORMAL METHODS FOR CONCURRENT AND REAL-TIME SYSTEMS
 
-## Commands
+Due to the authors limitation, not all elective courses could be uploaded, if you want to contribute to this page, please go to the [github page](https://github.com/hari-robotics/polimi-msc-control-notes) of this project.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+All the page is still updating, some draft notes may also uploaded, if you don't see the complete lecture notes, please keep waiting and check them regularly.
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-
-```cpp
-void main() {}
-```
-
-$$
-1+1=2
-$$
-
-<figure markdown="span">
-  ![Image title](https://dummyimage.com/600x400/){ width="300" }
-  <figcaption>Image caption</figcaption>
-</figure>
-
-* Hello 1
-
-* Hello 2
-
-11
-
-1. World 1
-
-2. World 2
-
-- [x] OK
-
-- [ ] Not OK
-
-!!! note
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
-    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-    massa, nec semper lorem quam in massa.
+---
+Contributor: [Zihao Zheng](https://github.com/hari-robotics)
