@@ -7,6 +7,7 @@ $$
 
 ## 3.1 Linearization
 We know that for a linear system, 
+
 * Stability is a properity of the system
 * The system is A.S. if and only if all the eigenvalues of its dynamic matrix $A$ have negative real parts
 
