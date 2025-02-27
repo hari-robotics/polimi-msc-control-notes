@@ -167,3 +167,168 @@ For the Lyapunov Theory, there have following conditions:
     </figure>
 
     $\bar x$ is A.S.
+
+## 4.4 Conclusion on Lyapunov Theory
+
+$$
+\begin{aligned}
+\dot x(t) = \varphi (x(t)) \\
+\end{aligned}
+$$
+
+$\bar x$ is equilibrium $\Rightarrow$ $\varphi (\bar x) = 0$,
+
+* $\varphi: \mathbb R^n \to \mathbb R^n$ 
+* Lipschitz on $D$ in the neighbor of $\bar x$
+
+If $\exists V(x) \in C^1$, $\bar x$ is PD,
+
+1. $\bar x$ is stable if $\dot V(x)$ is NSD
+2. $\bar x$ is A.S. if $\dot V(x)$ is ND
+3. $\bar x$ is unstable if $\dot V(x)$ is PD
+
+If $V(x)$ is globally PD in $\bar x$, $\bar x$ is G.A.S. when:
+
+* $V(x)$ is radially unbounded
+* $\dot V(x)$ is globally ND in $\bar x$
+
+## 4.5 Candidate Lyapunov Functions
+To choose a suitable Lyapunov function, we should meet the condition below:
+
+* Lyapunov function should be an energy function
+
+One possible option is: $V(x) = (x-\bar x)^TP(x-\bar x)$
+
+$$
+\begin{aligned}
+P = P^T \succ \mathbf 0 &\Rightarrow V^TPV > 0, \forall V \neq 0\\
+&\Rightarrow V^TPV = 0, V = 0
+\end{aligned}
+$$
+
+!!!abstract "Example"
+    $$
+    \left\{\begin{aligned}
+    \dot x_1 &= x_1 x_2 - x_1\\
+    \dot x_2 &= -x_1^2 - x_2^3
+    \end{aligned}\right.
+    $$
+    
+    $\bar x = \begin{bmatrix} 0\\0 \end{bmatrix}$ is an equilibrium point, find the stability.
+
+    1. Linearization
+
+        $$
+        \left\{\begin{aligned}
+        \delta \dot x_1 &= -\delta x_1\\
+        \delta \dot x_2 &= 0
+        \end{aligned}\right. \Rightarrow A = \begin{bmatrix}
+        -1 & 0\\
+        0 & 0
+        \end{bmatrix}
+        $$
+
+    2. Lyapunov Theory
+
+        $$
+        V(x) = \frac12 (x_1^2 + x_2^2)
+        $$
+
+        Which is globally PD in $\bar x = 0$ and radially unbounded
+
+        $$
+        \begin{aligned}
+        \dot V(x) &= x_1 \dot x_1 + x_2 \dot x_2 \\
+        &= x_1^2 x_2 - x_1^2 -x_2 x_1^2 - x_2^4 \\
+        &= -(x_1^2 + x_2^4) \leq 0
+        \end{aligned}
+        $$
+
+        $\dot V(x)$ is globally ND in $\bar x = 0$
+
+!!!abstract "Example"
+    For the pendulum system, give the state space function:
+
+    $$
+    \left\{\begin{aligned}
+    \dot x_1 &= x_2 \\
+    \dot x_2 &= -\frac{g}{L} \sin(x_1) - \frac{K}{mL^2}x_2 + \frac{1}{mL^2}\bar u
+    \end{aligned}\right.
+    $$
+    
+    $\bar u = 0$, $\bar x = \begin{bmatrix} 0\\0 \end{bmatrix}$ is an equilibrium point, find the stability.
+
+    $$
+    \begin{aligned}
+    V(x) &= T(x) + U(x)\\
+    &= \frac12 m (x_2L)^2 + mg(L-L\cos(x_1)) \\
+    \end{aligned}
+    $$
+
+    $V(\bar x) = 0$, $D = \{x \in \mathbb R^2, |x_1| < 2\pi\}$
+
+    $$
+    \begin{aligned}
+    \dot V(x) &= mL^2 x_2 \dot x_2 + mgL \sin(x_1) \dot x_1 \\
+    &= -Kx_2^2
+    \end{aligned}
+    $$
+
+    is ND in $\bar x = 0$, $\bar x$ is stable, but we cannot find the region of attraction.
+ 
+## 4.6 Krasowski - La Salle Theorem
+To solve the example above, we introduce the Krasowski - La Salle theorem, it gives:
+
+$\dot x = \varphi(x)$, $\varphi(x)$ is lipscchitz on $D$, $\bar x$ is a equilibrium, $\varphi(\bar x) = 0$, let:
+
+$V: D \to \mathbb R \in C^1$ is PD in $\bar x$ on $D$ and $\dot V(x)$ is NSD in $\bar x$ on $D$
+
+If set $S = \{x\in D: \dot V(x) = 0\}$ does not contain any perturbed trajectory of the system, $\bar x$ is an A.S. equilibrium.
+
+$$
+\dot V (x) = -Kx_2^2
+$$
+
+$S = \{x\in D: x_2 = 0\}$
+
+* $\dot x_1 = 0 \to x_1(t) = \bar x_1, \forall t$
+
+    $\begin{aligned}0 = \dot x_2 &= -\frac{g}{L} \sin(x_1) \\ &\Rightarrow \sin(\bar x_1) = 0 \\ &\Rightarrow x_1 = h\pi \\ &\Rightarrow x = 0, \pm1, \pm2 \dots\end{aligned}$
+
+$\Rightarrow D = \{x: |x_1|<\pi\}$, $\bar x$ is A.S.
+
+If $V$ is globally PD in $\bar x$ and radially unbounded, $\dot V(x)$ is NSD on $D = \mathbb R^n$ and $S = \{x \in \mathbb R^n: \dot V(x) = 0\}$,
+
+* If $S$ does not contain any perturbed trajectory $\bar x$ is G.A.S.
+
+!!!abstract "Example"
+    $$
+    \left\{\begin{aligned}
+    &\dot x_1(t) = x_2(t)\\
+    &\dot x_2(t) = \frac{1}{m}(-bx_2(t)|x_2(t)| - K_0x_1(t) - K_1x_1^3(t)+u(t))
+    \end{aligned}\right.
+    $$
+
+    $\bar x = \begin{bmatrix} 0\\0 \end{bmatrix}$ is an equilibrium point, find the stability.
+
+    $$
+    \begin{aligned}
+    V(x) = \frac12 m x_2^2 + \frac12 K_0 x_1^2 + \frac14 K_1 x_2^4 \\
+    \dot V(x) = -bx_2^2|x_2|
+    \end{aligned}
+    $$
+     
+    is ND in $\bar x = 0$, $\bar x$ is stable.
+
+    $$
+    \begin{aligned}
+    S &= \{x \in \mathbb R^2: \dot V(x) = 0\} \\
+    &= \{\begin{bmatrix} \alpha \\ 0 \end{bmatrix}, \alpha \in \mathbb R \}
+    \end{aligned}
+    $$
+    
+    $x_2(t) = 0 \Rightarrow \dot x_1 = x_2 = 0 \Rightarrow x_1(t) = \bar x_1$
+
+    $\begin{aligned}0 = \dot x_2 &= \frac{1}{m} (-K_0 \bar x_1 - K_1 \bar x_1^3) \\ &\Rightarrow \bar x_1 (K_0 + K_1 \bar x_1^2 = 0) \\ &\Rightarrow \bar x_1 = 0\end{aligned}$
+
+    $\bar x = \begin{bmatrix} 0\\0 \end{bmatrix}$ is G.A.S.

@@ -62,9 +62,19 @@ Most servo motor have the restriction of 180° travel range.
 * Extrocemptive sensors $\to$ measure the external state in the environments
 
 ### 1.2.1 Position Sensors
-* Encoders
-    * Incremental rotary enoders
-    * Absolute rotary encoders
+* Position Sensors
+    * GPS
+        * Not work indoor, underwater, in urban canyon
+    * Encoders
+        * Incremental rotary enoders
+
+            2 sensors with the phase shifted by 90°, and the resolution then becomes $360°/4N$, $N$ is the number of the steps, and also for this installment, we can find the rotating directions:
+
+            CCW for `11` followed by `10`
+
+            CW for `11` followed by `01`
+
+        * Absolute rotary encoders
 
 * Inertial sensor
     * Gyroscopes

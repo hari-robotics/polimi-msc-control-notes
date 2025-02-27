@@ -7,7 +7,9 @@ nav:
     - '2. Stability of Linear Systems': 'advanced-multivariable-control/chapter2.md'
     - '3. Linearization and Stability of Nonlinear Systems': 'advanced-multivariable-control/chapter3.md'
     - '4. Lyapunov Theory': 'advanced-multivariable-control/chapter4.md'
-    - 'E.1 Experiment 1': 'advanced-multivariable-control/experiment1.md'
+    - '5. Linear Quadratic Problem (LQ)': 'advanced-multivariable-control/chapter5.md'
+    - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
+    - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
 - Dynamics for Electric Machines and Drives:
     - '1. Magenetic Circuits': 'dynamics-for-electric-machines-and-drives/chapter1.md'
     - '2. Dynamics of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter2.md'
