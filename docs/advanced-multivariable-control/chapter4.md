@@ -169,6 +169,7 @@ For the Lyapunov Theory, there have following conditions:
     $\bar x$ is A.S.
 
 ## 4.4 Conclusion on Lyapunov Theory
+For the system,
 
 $$
 \begin{aligned}
@@ -295,7 +296,7 @@ $S = \{x\in D: x_2 = 0\}$
 
     $\begin{aligned}0 = \dot x_2 &= -\frac{g}{L} \sin(x_1) \\ &\Rightarrow \sin(\bar x_1) = 0 \\ &\Rightarrow x_1 = h\pi \\ &\Rightarrow x = 0, \pm1, \pm2 \dots\end{aligned}$
 
-$\Rightarrow D = \{x: |x_1|<\pi\}$, $\bar x$ is A.S.
+$\Rightarrow$ in $D = \{x: |x_1|<\pi\}$, $\bar x$ is A.S.
 
 If $V$ is globally PD in $\bar x$ and radially unbounded, $\dot V(x)$ is NSD on $D = \mathbb R^n$ and $S = \{x \in \mathbb R^n: \dot V(x) = 0\}$,
 
