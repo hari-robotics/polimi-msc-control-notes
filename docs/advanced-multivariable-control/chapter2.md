@@ -1,4 +1,3 @@
-# 2. Stability of Linear Systems
 ## 2.1 Stability Definitions
 Since we have find the trajectory of the equilibrium in the last part, it gives $\dot{x}(t) = \varphi(x(t))$, take the equilibrium $\bar x$ into the equation, we can get $\varphi(\bar x) = 0$, this is a function of $\bar x$.
 

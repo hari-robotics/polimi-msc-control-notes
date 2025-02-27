@@ -1,4 +1,3 @@
-## 5.1 Linear Quadratic Problem (LQ)
 Considering a linear system: $\dot x = Ax + Bu$ is A.S. $\Leftrightarrow$ (is necessary and sufficient to (N&S) ) $\dot x = Ax$ is A.S. Thus, we can give the theorem:
 
 A N&S condition for the A.S. of a linear system is :

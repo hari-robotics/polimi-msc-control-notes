@@ -1,4 +1,3 @@
-# 3. Linearization and Stability of Nonlinear Systems
 From last part, we have known how to define the stability of linear systems, for solving the stability question of nonlinear systems, we could apply the linearization to the nonlinear systems,
 
 $$

@@ -1,4 +1,3 @@
-# 4. Lyapunov Theory
 ## 4.1 Lyapunov Function
 To introduce the Lyapunov Theory, we can start from an example:
 !!!abstract "Example"

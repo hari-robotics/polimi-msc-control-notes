@@ -1,4 +1,3 @@
-# 1. System Formulation and Equilibrium 
 ## 1.1 System Formulation
 The general continues time and time invarient systems have the following formulations:
 

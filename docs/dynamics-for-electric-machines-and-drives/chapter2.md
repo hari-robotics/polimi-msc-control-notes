@@ -1,4 +1,3 @@
-# 2. DC Machine Dynamics
 ## 2.1 
 
 $$

@@ -1,4 +1,3 @@
-# 3. Basics of Power Converter
 A power converter is a module that accepts the voltage inputs and output a controllable voltage to control the loads.
 <figure markdown="span">
     ![](pics/chapter3/figure1.png){ width="400" }

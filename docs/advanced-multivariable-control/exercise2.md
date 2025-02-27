@@ -1,4 +1,3 @@
-# Exercise 2
 Ex.1 Given the continues system
 
 $$
