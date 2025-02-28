@@ -8,6 +8,7 @@ nav:
     - '3. Linearization and Stability of Nonlinear Systems': 'advanced-multivariable-control/chapter3.md'
     - '4. Lyapunov Theory': 'advanced-multivariable-control/chapter4.md'
     - '5. Linear Quadratic Problem (LQ)': 'advanced-multivariable-control/chapter5.md'
+    - '6. Controller Design within Lyapunov Methods and Backstepping': 'advanced-multivariable-control/chapter6.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
     - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
 - Dynamics for Electric Machines and Drives:
@@ -20,6 +21,7 @@ nav:
 
 theme:
   name: material
+  custom_dir: overrides
   features:
     - content.tabs.link
     - content.code.copy
@@ -82,3 +84,8 @@ plugins:
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  analytics:
+    provider: vercel
+
