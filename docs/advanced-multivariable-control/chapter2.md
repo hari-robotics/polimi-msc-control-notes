@@ -10,7 +10,7 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
     * $\exists \delta > 0$ that when $\lim\limits_{t\to \infty}||x_{x_0}(t)-\bar{x}|| = 0$, $\forall x_0 \in B_\delta(\bar x)$
     Thus, $\bar x$ is convergent and A.S. 
 
-    !!!abstract "Example"
+    !!! example
         $$
         \begin{aligned}
         \dot x_1(t) &= x_1^2(t) - x_2(t)\\
@@ -20,10 +20,10 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
 
         $\bar x = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$ is an equilibrium but not a stable equilibrium.
     
-    !!!warning "Remarks"
+    !!! quote
         A.S is a local property
 
-    !!!abstract "Example"
+    !!! example
         $$
         \begin{aligned}
         \dot x (t) &= x(t)(x(t) - 1)u(t)\\
@@ -54,7 +54,7 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
 
 2. Considering the stability properities depend on $\bar u$, we can give a similar example below:
 
-    !!!abstract "Example"
+    !!! example
         $$
         \begin{aligned}
         \dot x(t) &= x^3(t) +u(t)x(t) \\

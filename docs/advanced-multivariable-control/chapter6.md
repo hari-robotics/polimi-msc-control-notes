@@ -1,95 +1,91 @@
-## 6.1 Control Design via Lyapunov Theory
+First we introduce some form of discreate systems:
 
-!!!abstract "Example"
-    $$
-    \left\{\begin{aligned}
-    \dot x_1 &= -3 x_1 + 2x_1 x_2^2 + u \\
-    \dot x_2 &= -x_2^3 - x_2
-    \end{aligned}\right.
-    $$
+1. Nonlinear system: $x(k+1) = f(x(k), u(k)), x \in \mathbb R^n, u \in \mathbb R^n$
+2. Autonomous system: $x(k+1) = f(x(k))$
+3. Linear system: $x(k+1) = Ax(k) + Bu(k)$
 
-    Design $u = k(x_1, x_2)$ such that $\bar x$ is G.A.S.
+### 6.1 Equilibrium of Linear Systems
+Let $u(k) = \bar u$, $k \geq 0$, $\bar x = f(\bar x, \bar u)$, where $(\bar x, \bar u)$ is an equilibrium pair, for linear systems, we have:
 
-    $$
-    V(x) = \frac12 (x_1^2 + x_2^2)
-    $$ 
+$$
+\bar x = A \bar x + B \bar u
+$$
 
-    is globally PD in $\bar x = 0$ and radially unbounded
+* if $A$ has no eigenvalue $\lambda = 1$, $\Rightarrow$ $\bar x = -(\mathbf I - A)^{-1}B\bar u$.
 
-    $$
-    \begin{aligned}
-    \dot V(x) &= x_1\dot x_1 + x_2 \dot x_2 \\
-    &= -3x_1^2 +2x_1^2x_2^2 + x_1u - x_2^4 - x_2^2 \\
-    \end{aligned}
-    $$
+### 6.2 Stability of Linear Systems
+Consider the stability of $(\bar x, \bar u)$ of the equilibrium pair:
 
-    To make $\dot V$ ND, one possiable choice is $u = -2x_1x_2^2$, hence,
+* $\forall \varepsilon$, $\exists \delta > 0$, such that $\forall x_0 \in B_\delta(\bar x)$, it holds that $x_{x_0}(k) \in B_\varepsilon (\bar x)$, $\forall k \geq 0$
 
-    $$
-    \dot V(x) = -3x_1^2 -x_2^2 - x_2^4
-    $$
+$(\bar x, \bar u)$ is an equlibrium pair if:
 
-    is globally ND in $\bar x = 0$. $\Rightarrow$ $\bar x = 0$ is a G.A.S. equilibrium for the closed loop system.
+1. $(\bar x, \bar u)$ is stable
+2. $\exists \delta > 0$, such that $\lim_{k\to \infty}||x_{x_0}(k)-\bar x = 0||$, $\forall x_0 \in B_\delta(\bar x)$
 
-## 6.2 Back-stepping Method
+!!! quote
+    1. Stability depends on the specific equilibrium pair $(\bar x, \bar u)$
+    2. A.S. is a local properity
+
+    For linear systems:
+
+    1. Stability is a property of the system
+    2. A.S. $\Leftrightarrow$ G.A.S.
+
+A N&S condition for a linear system to be A.S. is that all eigenalues of $A$ satisfy $|\lambda| < 1$
+
+<figure markdown="span">
+    ![](pics/chapter5/figure2.HEIC){ width="400" }
+</figure>
+
+### 6.3 Stability of Nonlinear Systems
+Consider a nonlinear system $x(k+1) = f(x(k), u(k)), f \in C^1$, $(\bar x, \bar u)$ is an equilibrium pair, we can do linearization for this system:
+
+$$
+\delta x(k+1) = A\delta x(k) + B\delta u(k)
+$$
+
+Where, $A = \frac{\partial f}{\partial x}|_{x=\bar x, u=\bar u}$, $B = \frac{\partial f}{\partial u}|_{x=\bar x, u=\bar u}$. $\lambda$ is the eigenvalue of matrix $A$, the stability can be judged in following conditions:
+
+* $|\lambda_i| < 1, \forall \lambda_i \in \lambda$ $\Rightarrow$ $(\bar x, \bar u)$ is A.S.
+* $\exists |\lambda_i| > 1, \lambda_i \in \lambda$ $\Rightarrow$ $(\bar x, \bar u)$ is unstable
+* $|\lambda_i| \leq 1, \forall \lambda_i \in \lambda$ and $\exists |\lambda_j| = 1, \lambda_j \in \lambda$ $\Rightarrow$ could not tell the stability
+
+### 6.4 Lyapunov Methods
+Considering the perturbance of the discreate system:
+
+$$
+x(k+1) = \varphi(x(k))
+$$
+
+$\bar x$ is an equlibrium, $\bar x = \varphi (\bar x)$, $\varphi$ is lipschitz, $\Delta V(x) = V(\varphi(x)) - V(x)$
+
+* if $\exists V, V \in C^1, V(\bar x) \succ 0$, and $\Delta V(\bar x) \preceq 0$ $\Rightarrow$ $\bar x$ is stable
+* if $\Delta V(\bar x) \prec 0$ $\Rightarrow$ $\bar x$ is A.S.
+* if $\exists V, V \in C^1, V \in \mathbb R^n \to \mathbb R$, and $V(\bar x) \succ 0, \Delta V(\bar x) \prec 0, \forall \bar x$ $\Rightarrow$ $\bar x$ is G.A.S
+
+### 6.5 Krasowski - La Salle Theorem:
+
+Suppose $\exists V, V(\bar x) \succ 0, \Delta V(\bar x) \preceq 0, \bar x \in D$, if the set: $S = \{x\in D: \Delta V(x) = 0\}$ does not contain any perturbed trajectory of the system, $\Rightarrow$ $\bar x$ is A.S.
+
+!!!note
+    if $D=\mathbb R^n$ and $V \in \mathbb R^n \to \mathbb R$ $\Rightarrow$ $\bar x$ is G.A.S. for the above condition
+
+* For a discreate linear system, the N&S condition of the A.S. of the system is that $\forall Q = Q^T \succ 0$, $\exists P = P^T \succ 0$ that satisfying
+
+$$
+A^TPA - P = -Q
+$$
+
+Proof (Succficiency): 
+
+$\bar u = 0 \to \bar x = 0$, $Q\succ0 \to P \succ 0$
+
 $$
 \begin{aligned}
-\dot x_1(t) &= f(x_1(t)) + g(x_1(t)) x_2(t), x_1 \in \mathbb R^n \\
-\dot x_2(t) &= u(t)
+V(x) &= x^TPx \\
+\delta V(x) &= \underbrace{(Ax)^TP(Ax)}_{V(\dot \varphi(x))} - \underbrace{x^TPx}_{V(x)} = -x^TQx
 \end{aligned}
 $$
 
-* $f$, $g$ $\in C^1$ on the neighbor of $D$ of $\bar x_1 = 0$
-* $f(x) = 0$
-
-Goal: design $u = k(x_1, x_2)$ such that $\bar x = 0$ is an A.S. equilibrium for the closed loop system
-
-suppose that you know a  "fictitious" control law: $x_2 = \Phi(x_1)$ such that $\Phi$ is smooth and $\Phi(0) = 0$ and $\bar x_1 = 0$ is an A.S. equilibrium of $\dot x_1 = f(x_1)g(x_1)\Phi(x_1)$, with $V_1(x_1) \in C^1$ is PD in $\bar x = 0$, such that, 
-
-$$
-\dot V_1(x_1) = \frac{\partial V_1}{x_1}\left[ f(x_1)+g(x_1)\Phi(x_1) \right]
-$$
-
-is ND in $\bar x = 0$ on $D$, then the control law is:
-
-$$
-u = - \frac{\partial V_1}{\partial x_1}(x_1)g(x_1) - \mu(x_2 - \Phi(x_1)) + \frac{\partial \Phi}{\partial x_1}(x_1)(f(x_1) + g(x_1)x_2), \mu > 0
-$$
-
-is A.S. for $\bar x = 0$.
-
-Proof:
-
-$$
-V(x_1, x_2) = V_1(x_1) + \frac12 (x_2 - \Phi(x_1))^2
-$$
-
-Extension:
-
-$$
-\begin{aligned}
-\dot x_1(t) &= f(x_1(t)) + g(x_1(t)) x_2(t), x_1 \in \mathbb R^n \\
-\dot x_2(t) &= a(x_1,x_2) + b(x_1,x_2)u(t)
-\end{aligned}
-$$
-
-If $b(x_1,x_2) \neq 0$ is on the domain of interest,
-
-$$
-\begin{aligned}
-u(t) &= -\frac{1}{b(x_1,x_2)}(a(x_1,x_2)-v) \\
-\dot x_2 &= v
-\end{aligned}
-$$
-
-$v = k(x_1,x_2)$, by backsteppings
-
-## 6.3 Feedback Linearization
-$$
-\begin{aligned}
-\dot x_1 &= A_1x_1 + A_2x_2 \\
-\dot x_2 &= a(x_1,x_2) + b(x_1,x_2)u(t)
-\end{aligned}
-$$
-
-$u = -\frac{1}{b(x_1,x_2)}(a(x_1,x_2)-v)$, $b(x_1,x_2) \neq 0, \forall (x_1, x_2)$, $\dot x_2 = v$, $v = Kx$
+$\Delta V(\bar x) \prec 0$

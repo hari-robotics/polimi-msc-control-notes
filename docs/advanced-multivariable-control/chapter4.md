@@ -1,6 +1,6 @@
 ## 4.1 Lyapunov Function
 To introduce the Lyapunov Theory, we can start from an example:
-!!!abstract "Example"
+!!! example
     <figure markdown="span">
         ![](pics/chapter4/figure1.png){ width="600" }
     </figure>
@@ -87,7 +87,7 @@ $$
 \lim_{||x|| \to \infty} V(x) =+\infty
 $$
 
-!!!abstract "Example"
+!!! example
     $$
     V(x) = \frac{x_1^2}{1+x_1^2} +x_2^2 
     $$
@@ -122,7 +122,7 @@ $$
 $$
 
 Where, $\varphi$ is continuous in $D$
-!!!abstract "Example"
+!!! example
     - $\varphi (x) = x^{\frac13}$ is not lipchitz
     - $\varphi(x) = |x|$ is lipchitz
     - $\varphi \in C^1 \Rightarrow \varphi$ is lipchitz
@@ -143,7 +143,7 @@ For the Lyapunov Theory, there have following conditions:
 - G.A.S $\to$ globally positive definite $V(x)$ in $\bar x$, and globally negative definite $\dot V(x)$ in $\bar x$, **Radially unbounded** $V(x)$
 - Instability $\to$ positive definite $\dot V (x)$ in $\bar x$
 
-!!!abstract "Example"
+!!! example
     $$
     \begin{aligned}
     \dot x_1(t) &= -x_1(t)\\
@@ -206,7 +206,7 @@ P = P^T \succ \mathbf 0 &\Rightarrow V^TPV > 0, \forall V \neq 0\\
 \end{aligned}
 $$
 
-!!!abstract "Example"
+!!! example
     $$
     \left\{\begin{aligned}
     \dot x_1 &= x_1 x_2 - x_1\\
@@ -246,7 +246,7 @@ $$
 
         $\dot V(x)$ is globally ND in $\bar x = 0$
 
-!!!abstract "Example"
+!!! example
     For the pendulum system, give the state space function:
 
     $$
@@ -301,7 +301,7 @@ If $V$ is globally PD in $\bar x$ and radially unbounded, $\dot V(x)$ is NSD on 
 
 * If $S$ does not contain any perturbed trajectory $\bar x$ is G.A.S.
 
-!!!abstract "Example"
+!!! example
     $$
     \left\{\begin{aligned}
     &\dot x_1(t) = x_2(t)\\

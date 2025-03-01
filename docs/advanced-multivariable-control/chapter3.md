@@ -34,7 +34,7 @@ Now the stability of the linearized model can be conclude as:
 3. if $\forall \lambda_i \leq 0$, and $\exists \lambda_j = 0$, the stability cannot be defined unless more information were given
 
 About point 3 above, we can introduce an example to explain this:
-!!!abstract "Example"
+!!! example
     $$
     \dot x(t) = x(t)\cdot u(t)
     $$
@@ -48,7 +48,7 @@ About point 3 above, we can introduce an example to explain this:
 !!!warning
     if $f$ is not continues, then it is not linearizable.
     
-    !!!abstract "Example"
+    !!! example
         $\dot x = |x|$ is not linearizable
 
 Limitation of the linearization approach is:
@@ -57,7 +57,7 @@ Limitation of the linearization approach is:
 2. If $A$ is __semi-negative definite__ (SND), then no conclusion can be made to the stability analysis
 3. If $(\bar x, \bar u)$ is A.S., the domain of attraction is still unknown.
 
-!!!abstract "Example"
+!!! example
     $$
     \dot x(t) = -x(t) +x^2(t) +u(t)
     $$
@@ -123,7 +123,7 @@ $$
     ![](pics/chapter3/figure7.png){ width="400" }
 </figure>
 
-!!!abstract "Example"
+!!! example
     <figure markdown="span">
         ![](pics/chapter3/figure8.png){ width="200" }
     </figure>
