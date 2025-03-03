@@ -83,3 +83,34 @@ A buck converter have the simplified diagram below:
 We also called it step-down converter, and in buck converter, $V_{out} < V_{in}$ alwaysly.
 
 And for the converter which $V_{out} > V_{in}$, we called it boost converter.
+
+## 3.2 Boost Converter
+The boost converter is ued to step-up the voltage
+<figure markdown="span">
+    ![](pics/chapter3/figure17.png){ width="200" }
+</figure>
+
+## 3.3 Buck-boost Converter 
+When 2 switch with diode connected together, it could be called an __arm__ or a __leg__, this structure could realize the stepping dowm or stepping up the voltage, it could be called buck-boost converter.
+<figure markdown="span">
+    ![](pics/chapter3/figure18.png){ width="200" }
+</figure>
+
+It should be mentioned that the 2 swith cannot close at the same time, otherwise it will cause a short circuit.
+
+## 3.4 Full Bridge Converter
+The full bridge contains 2 arms, within the load connected the middle part together:
+<figure markdown="span">
+    ![](pics/chapter3/figure19.png){ width="200" }
+</figure>
+
+The output voltage of full bridge converter is:
+<figure markdown="span">
+    ![](pics/chapter3/figure20.png){ width="400" }
+</figure>
+
+$$
+V_{mean} = \frac{V_{DC}T_{ON} - V_{DC}T_{OFF}}{T_{ON}+T_{OFF}}
+$$
+
+The voltage on the figure is called __bi-polar PWM__.

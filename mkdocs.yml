@@ -17,6 +17,7 @@ nav:
     - '1. Magenetic Circuits': 'dynamics-for-electric-machines-and-drives/chapter1.md'
     - '2. Dynamics of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter2.md'
     - '3. Basics of Power Converter': 'dynamics-for-electric-machines-and-drives/chapter3.md'
+    - '4. Control of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter4.md'
 - Robotics:
     - '1. Sensors and Actuators': 'robotics/chapter1.md'
     - '2. Odometry': 'robotics/chapter2.md'
