@@ -43,7 +43,7 @@ Show that,
 
         !!! warning
             1. $s < 0 \Rightarrow$, locally A.S. at equilibrium point
-            2. $s < 0, \exists s = 0$, no conclusion
+            2. $s \leq 0, \exists s = 0$, no conclusion
             3. $\exists s > 0$, unstable
 
 Given the function $V(x) = \frac12(x_1^2 +x_2^2)$,
@@ -295,7 +295,7 @@ $$
 and the Back-stepping formula (given at the exam)
 
 $$
-u = - \frac{dV_1(x_1)}{dx_1} g_1 (x_1) - k(x_2 - \phi(x_1)) + \frac{\phi(x_1)}{dx_1}(f_1(x_1) + g_1(x_1)x_2)
+u = - \frac{dV_1(x_1)}{dx_1} g_1 (x_1) - k(x_2 - \phi(x_1)) + \frac{d\phi(x_1)}{dx_1}(f_1(x_1) + g_1(x_1)x_2)
 $$
 
 Determine a control law stabilizing the origin using the Back-stepping method.
