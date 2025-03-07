@@ -11,6 +11,7 @@ nav:
     - '5. Linear Quadratic Problem (LQ)': 'advanced-multivariable-control/chapter5.md'
     - '6. Discreate Time Systems': 'advanced-multivariable-control/chapter6.md'
     - '7. Controller Design (Lyapunov and Backstepping)': 'advanced-multivariable-control/chapter7.md'
+    - '8. H-infinity Control': 'advanced-multivariable-control/chapter8.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
     - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
 - Dynamics for Electric Machines and Drives:
