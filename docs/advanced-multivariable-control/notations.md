@@ -9,3 +9,4 @@
 |$X \in C^\infty$|$X$ is __smooth__|
 |$\exists X$|__Exists__ $X$|
 |$\forall X$|__For all__ $X$|
+|$X^*$| __Conjugate transpose__ of matrix $X$|

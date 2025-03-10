@@ -1,95 +1,98 @@
-## 8.1 Norm of a Vector
+## 8.1 L-Norm of a Vector
 
-Given $e = \begin{bmatrix} e_1 \\ \vdots \\ e_m \end{bmatrix}$,
+Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L2-norm of the vector is:
 
-* The 2-norm of the vector is:
+| Discription | Formulation|
+|----|----|
+| $L_2$ norm | $\left\lVert e \right\rVert_2 = \sqrt{e^Te} = \sqrt{\sum_{i=1}^m e_i^2}$ |
+| $L_n$ norm | $\left\lVert e \right\rVert_n = (\sum_{i=1}^m\left\lvert e_i \right\rvert ^n)$ |
+| $L_\infty$ norm | $\left\lVert e \right\rVert_\infty = \sup_i \left\lvert e_i \right\rvert$|
 
-    $$
-    ||e||_2 = \sqrt{e^Te} = \sqrt{\sum_{i=1}^m e_i^2}
-    $$
-
-* The n-norm of the vector is:
-
-    $$
-    ||e||_n = (\sum_{i=1}^m|e_i|^n)
-    $$
-
-* The infinity norm of the vector is:
-
-    $$
-    ||e||_\infty = \sup_i |e_i|
-    $$
-
-If we want to have the norm with the matrix, given $m\times n$ matrix $A$,
-
-* Induced 2-norm
+## 8.2 L2-Norm of a Matrix
+Given $m\times n$ matrix $A$, the __induced 2-norm__ of this matrix is:
     
-    $$
-    ||A||_{i2} = \sup_{x \neq 0} \frac{||Ax||_2}{||x||_2}
-    $$
+$$
+||A||_{i2} = \sup_{x \neq 0} \frac{||Ax||_2}{||x||_2} 
+=\underbrace{\sqrt{\lambda_{max}(A^TA)}}_{\text{max singular value of } A}
+$$
 
-    $$
-    ||A||_{i2} = \underbrace{\sqrt{\lambda_{max}(A^TA)}}_{\text{max singular value of } A}
-    $$
+!!!notes
 
-    * Singular values and SVD of a matrix
+    * Singular value:
 
-        $A \in C^{m,n}$ the singular values of $A$ are $K = \min{\{m,n\}}$ largest roots of $\lambda(A^*A)$ or $\lambda(AA^*)$
+        Given $A \in C^{m,n}$, $i = 1, 2, \dots \min{\{m,n\}}$, the singular values of $A$ are the largest roots between $\lambda_i(A^*A)$ and $\lambda_i(AA^*)$: 
 
         $$
         \begin{aligned}
-        \sigma_i (A) &= \sqrt{\lambda_i(A^*A)} = \sqrt{\lambda_i(AA^*)}, m=n \\
-        \sigma_i (A) &= \sqrt{\lambda_i(A^*A)}, m<n\\
-        \sigma_i (A) &= \sqrt{\lambda_i(AA^*)}, m>n
+        \sigma_i (A) &= \sqrt{\lambda_i(A^*A)} = \sqrt{\lambda_i(AA^*)}, &m=n \\
+        \sigma_i (A) &= \sqrt{\lambda_i(A^*A)}, &m<n\\
+        \sigma_i (A) &= \sqrt{\lambda_i(AA^*)}, &m>n
         \end{aligned}
         $$
 
-    * SVD
+    !!!notes
 
-        $A = U\Sigma V^*$, $\Sigma \in \mathbb R^{m\times n}$, $U \in C^{m,m}$, $V\in C^{n,n}$, $U$ and $V$ are unitary matrices,
+        * SVD decomposition:
 
-        $U^*U = UU^* = I$, $V^*V = VV^* = I$ $\Rightarrow$ ($\sigma_i(U) = 1$, $\sigma_i(V) = 1$)
+            Given the SVD decomposition: $A = U\Sigma V^*$, where $\Sigma \in \mathbb R^{m\times n}$, $U \in C^{m,m}$, $V\in C^{n,n}$, and $U$, $V$ are unitary matrices, thus, there have:
 
-        $\Sigma = \begin{bmatrix}\Sigma_1 \\ \mathbf 0\end{bmatrix}$, $\Sigma_1 \in \mathbb R^{n\times n}$, for $m > n$,
+            $$
+            \begin{aligned}
+            U^*U &= UU^* = I \\
+            V^*V &= VV^* = I
+            \end{aligned} \quad \Rightarrow \quad \begin{aligned}
+            \sigma_i(U) &= 1 \\
+            \sigma_i(V) &= 1
+            \end{aligned}
+            $$
 
-        $\Sigma = \begin{bmatrix}\Sigma_1 & \mathbf 0\end{bmatrix}$, $\Sigma_1 \in \mathbb R^{m\times m}$, for $m < n$,
+            |Condition|Formulation|
+            |---|---|
+            |$m > n$|$\Sigma = \begin{bmatrix}\Sigma_1 \\ \mathbf 0\end{bmatrix}$|
+            |$m < n$|$\Sigma = \begin{bmatrix}\Sigma_1 & \mathbf 0\end{bmatrix}$|
+            |$m = n$|$\Sigma = \Sigma_1$|
 
-        $\Sigma = \Sigma_1$, for $m = n$,
+            where $\Sigma_1 \in \mathbb R^{k\times k}$, $k = \min{\{m,n\}}$, it has:
+            
+            $$
+            \Sigma_1 = \begin{bmatrix}
+            \sigma_1(A) && \\
+            &\ddots& \\
+            &&\sigma_k(A)
+            \end{bmatrix}
+            $$
 
-        $\Sigma_1 = \begin{bmatrix}\sigma_1(A) && \\ &\dots& \\ && \sigma_k(A)\end{bmatrix}$, with $\sigma_1(A) \geq \sigma_2(A) \geq \dots \geq \sigma_k(A)$, $\sigma_i(A) \geq 0, \forall i$
+            $\sigma_1(A) \geq \sigma_2(A) \geq \dots \geq \sigma_k(A) \geq 0$ and we can know that:
 
+            $$
+            \begin{aligned}
+            \bar \sigma(A) &= \max_i \sigma_i (A) = \sigma_1(A) \\
+            \underline \sigma(A) &= \left\{\begin{aligned} \min_i \sigma_i &= \sigma_k &m>n \\ &0 &m<n\end{aligned}\right.
+            \end{aligned}
+            $$
 
-
-
-Proof:
-
-$$
-\begin{aligned}
-||Ax||_2^2 &= x^TA^TAx \leq \lambda_{max}(A^TA)||x||_2^2 \\
-||Ax||_2 &\leq \sqrt{\lambda_{max}(A^TA)}||x||_2 \\
-\frac{||Ax||_2}{||x||_2} &\leq \sqrt{\lambda_{max}(A^TA)}
-\end{aligned}
-$$
-
-## 8.2 Norm of a Signal
-
-Given $e = \begin{bmatrix} e_1 \\ \vdots \\ e_m \end{bmatrix}$,
-
-* 2-norm
+* Proof:
 
     $$
-    ||e||_2 = \sqrt{\int_{-\infty}^{+\infty} e^T(t)e(t)}
+    \begin{aligned}
+    ||Ax||_2^2 &= x^TA^TAx \leq \lambda_{max}(A^TA)||x||_2^2 \\
+    ||Ax||_2 &\leq \sqrt{\lambda_{max}(A^TA)}||x||_2 \\
+    \frac{||Ax||_2}{||x||_2} &\leq \sqrt{\lambda_{max}(A^TA)}
+    \end{aligned}
     $$
 
-* infinity norm
+## 8.2 L-Norm of a Signal
 
-    $$
-    ||e||_\infty = \sup_t(\sup_i |e_i(t)|)
-    $$
+Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of a signal is:
 
-* $L_2$ to $L_2$ Gain,
+| Discription | Formulation|
+|----|----|
+| $L_2$ norm | $\left\lVert e \right\rVert_2 = \sqrt{\int_{-\infty}^{+\infty} e^T(t)e(t)}$ |
+| $L_\infty$ norm | $\left\lVert e \right\rVert_\infty = \sup_t (\sup_i \left\lvert e_i(t) \right\rvert)$|
 
-    let $u(t) = 0, t < 0$,
+From $L_2$ norm of the system, we can give the $L_2$ Gain:
+
+* Given the input of the system, $u(t) = 0, t < 0$, which satisfy:
 
     $$
     \int_{0}^{+\infty} u^T(t)u(t)dt < \infty
@@ -102,7 +105,7 @@ Given $e = \begin{bmatrix} e_1 \\ \vdots \\ e_m \end{bmatrix}$,
     $$
 
     $$
-    \gamma_2 = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{\varphi(u(t))}{||u||_2}
+    \gamma_2 = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{S(u(t))}{||u||_2}
     $$
 
     $||y||_2 \leq \gamma_2||u||_2$, $\forall u \in L_2$, a system is input output $L_2$ stable if its $L_2$ gain is finite.
@@ -178,7 +181,7 @@ $$
 \sigma_2 = ||G||_\infty = \sup_{\omega} \bar \sigma(G(j\omega))
 $$
 
-When $m=n=1$, then $\sigma(G(j\omega)) = \sqrt{G^*(j\omega)G(j\omega)} = |G(j\omega)|$
+When $m=n=1$, then $\bar \sigma(G(j\omega)) = \sqrt{G^*(j\omega)G(j\omega)} = |G(j\omega)|$
 
 Proof:
 
@@ -189,5 +192,124 @@ $$
 &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*G(j\omega)^*G(j\omega)U(j\omega)d\omega \\
 &\leq \underbrace{\lambda_{max}(G(j\omega)^*G(j\omega))}_{\bar \sigma^2(G(j\omega))}U(j\omega)^*U(j\omega) \\
 &\leq \sup_\omega \bar \sigma^2(G(j\omega)) ||u||_2^2
+\end{aligned}
+$$
+
+$$
+\underline{\sigma}(G(j\omega)) \leq \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \leq \bar \sigma(G(j\omega))
+$$
+
+## 8.3 H-norm
+
+If system $S$ is an A.S. strictly proper system, we can define the $H_2$ norm of $G$,
+
+If the system is SISO,
+
+$$
+||G||_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\underbrace{|G(j\omega)|^2}_{G(j\omega)^*G(j\omega)}d\omega}
+$$
+
+Here, $||G||_2$ equals to the impulse response $||\delta||_2$, to evaluate it in bode plot, $|G(j\omega)|_{\text{dB}}^2 = 20\log_{10}|G(j\omega)|^2 = 2|G(j\omega)|_{\text{dB}}$
+
+!!!example
+    $$
+    \begin{aligned}
+    G(j\omega) &= \frac{1}{j\omega+a}, a > 0\\
+    ||G||_\infty &= \sup_\omega |G(j\omega)| = \frac{1}{a}\\
+    ||G||_2 &= \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}|\frac{1}{j\omega+a}|^2d\omega} \\
+    &= \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\frac{1}{\omega^2+a^2}d\omega} \\
+    &= \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\arctan\frac{\omega}{a}d\omega} \\
+    &= \sqrt{\frac{1}{2a}}
+    \end{aligned}
+    $$
+
+If the system is MIMO
+
+$$
+||G||_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\underbrace{\text{tr}(G(j\omega)G^*(j\omega))}_{\sum_i \sigma_i^2(G(j\omega))}d\omega}
+$$
+
+## 8.4 Small Gain Theorem
+
+$S_1$ and $S_2$ are IO $L_2$ stable, then the feedback system is IO $L_2$ stable if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$
+
+$$
+\begin{aligned}
+y_1 &= S_1(e_1) \\
+||y_1||_2 &\leq \gamma_2^{(1)} ||e_1||_2 \\
+e_1 &= u_1 + S_2(y_1 + u_2) \\
+||e_1||_2 &\leq ||u_1||_2 + ||S_2(y_1+u_2)|| \\
+&\leq ||u_1||_2 \gamma_2^{(2)} (||y_1||_2 + ||u_2||_2) \\
+&\leq ||u_1||_2 + \gamma_2^{(1)}\gamma_2^{(2)}||e_1||_2 + \gamma_2^{(2)}||u_1||_2 \\
+||e_1||_2(1-\gamma_2^{(1)}\gamma_2^{(2)}) &\leq ||u_1||_2+\gamma_2^{(2)}||u_2||_2 \\
+||e_1||_2 &\leq \frac{||u_1||_2+\gamma_2^{(2)}||u_2||_2}{1-\gamma_2^{(1)}\gamma_2^{(2)}} \\
+||y_1||_2 &\leq \frac{\gamma_2^{(1)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2
+\end{aligned} 
+$$
+
+Similarly,
+
+$$
+||y_2||_2 \leq \frac{\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2
+$$
+
+If $S_1$ and $S_2$ are linear A.S. in less restrictive condition
+
+$$
+\begin{aligned}
+||G_1G_2||_\infty &< 1 \\
+\underbrace{||G_1||_\infty}_{\gamma_2^{(1)}}\underbrace{||G_2||_\infty}_{\gamma_2^{(2)}} &< 1 
+\end{aligned}
+$$
+
+$G_1$ and $G_2$ is SISO A.S.
+
+$$
+\begin{aligned}
+L &= G_1G_2 \\
+||L||_\infty &= \sup_\omega |L(j\omega)| < 1
+\end{aligned}
+$$
+
+$G$ is the __transfer function (TF)__ of an A.S. SISO linear system
+
+$f$ is a sector nonlinearity, $f: \mathbb R \to \mathbb R, f \in C^1$,
+
+$$
+k_1 e \leq f(e) \leq k_2 e, \forall e
+$$
+
+* $\gamma_2^f ||G||_\infty < 1$ $\Rightarrow$ IO $L_2$ stability
+
+    $\gamma_2^f = \sup_{e \in L_2, ||e||_2 \neq 0} \frac{||f(e)||_2}{||e||_2}\leq k_2$, due to the stability, $k_2||G||_\infty < 1$
+
+Circle criterion:
+
+The closed loop system is IO $L_2$ stable if the nyquist diagram of $G(s)$ does not encompass, intersect or touch, the circle with center on the real axis taht intersects it in $-\frac{1}{k_1}$ and $-\frac{1}{k_2}$
+
+$$
+f(e) = \tilde f(e) + \bar k e
+$$
+
+with $\bar k = \frac{k_1 + k_2}{2}$, $\tilde f$ is a sector of nonlinearty
+
+$$
+(k_1 - \bar k)e \leq \tilde f(e) \leq (k_2 - \bar k)e
+$$
+
+$$
+\begin{aligned}
+e &= r - G(s)(\bar ke + \tilde f(e)) \\
+&= \underbrace{\frac{1}{1+\bar k G(s)}}_{\hat G(s)} r - \underbrace{\frac{G(s)}{1+\bar k G(s)}}_{\tilde G(s)} \tilde f(e)
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\gamma_2^{\tilde f} ||\tilde G||_\infty &< 1 \\
+\bar \gamma ||\tilde G||_\infty &< 1 \\
+\bar \gamma |\tilde(j\omega)| < 1, \forall \omega \\
+|\frac{1}{\tilde G(j\omega)}| > \bar \gamma \\
+|\frac{1}{\tilde G(j\omega)} + \bar k| > \bar \gamma
 \end{aligned}
 $$
