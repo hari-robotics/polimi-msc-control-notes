@@ -83,6 +83,7 @@ $$
 
 ## 8.2 L-Norm of a Signal
 
+### 8.2.1 L-norm for signal
 Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of a signal is:
 
 | Discription | Formulation|
@@ -90,9 +91,15 @@ Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of a s
 | $L_2$ norm | $\left\lVert e \right\rVert_2 = \sqrt{\int_{-\infty}^{+\infty} e^T(t)e(t)}$ |
 | $L_\infty$ norm | $\left\lVert e \right\rVert_\infty = \sup_t (\sup_i \left\lvert e_i(t) \right\rvert)$|
 
+### 8.2.2 L2-gain for system
 From $L_2$ norm of the system, we can give the $L_2$ Gain:
 
-* Given the input of the system, $u(t) = 0, t < 0$, which satisfy:
+* Given a general system,
+    <figure markdown="span">
+        ![](pics/chapter8/figure2.png){ width="300" }
+    </figure>
+
+    We assume that $u(t) = 0, t < 0$, and the input is boundary, which satisfy:
 
     $$
     \int_{0}^{+\infty} u^T(t)u(t)dt < \infty
@@ -101,14 +108,19 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     if $u\in L_2$,
 
     $$
-    ||u||_2 \sqrt{\int_0^{+\infty} u^T(t)u(t)dt}
+    ||u||_2 = \sqrt{\int_0^{+\infty} u^T(t)u(t)dt}
     $$
 
+    Thus, we can get the $L_2$ gain of the system:
+
     $$
-    \gamma_2 = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{S(u(t))}{||u||_2}
+    \begin{aligned}
+    \gamma_2 &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = \sup_{u\in L_2, ||u||_2 \neq 0} \frac{S(u(s))}{||u||_2} \\
+    \gamma_2||u||_2 &\geq ||y||_2, \forall u \in L_2
+    \end{aligned}
     $$
 
-    $||y||_2 \leq \gamma_2||u||_2$, $\forall u \in L_2$, a system is input output $L_2$ stable if its $L_2$ gain is finite.
+    The system is input output $L_2$ stable if its $L_2$ gain is finite.
 
 !!! example
 
@@ -118,17 +130,14 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     u(t) &= \left\{\begin{aligned} 
     1,\quad 0<t<1\\
     0,\quad \text{otherwise}
-    \end{aligned}\right. \\
-    ||u||_2 &= \sqrt{\int_0^{+\infty} u^2(t)dt} = 1 \Rightarrow u \in L_2
+    \end{aligned}\right. \\ \hfill \\
+    ||u||_2 &= \sqrt{\int_0^{+\infty} u^2(t)dt} = 1 \Rightarrow u \in L_2 \\
+    ||y||_2 &= \sqrt{\int_0^{+\infty}y^2(t)dt} = +\infty \\
+    \gamma_{2} &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = +\infty
     \end{aligned}
     $$
 
-    $$
-    \begin{aligned}
-    ||y||_2 &= \sqrt{\int_0^{+\infty}y^2(t)dt} = +\infty \\
-    \sigma_{2} &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = +\infty
-    \end{aligned}
-    $$
+    The system is not $L_2$ stable.
 
 !!! example
 
@@ -142,30 +151,38 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     y(j\omega) = G(j\omega)U(j\omega)
     $$
 
+    Within the Parseval theorem, we have:
+
     $$
     \begin{aligned}
     ||y||_2^2 &= \int_{-\infty}^{+\infty}y^2(t)dt \\
     &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}|y(j\omega)|^2 d\omega \\
-    &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}|G(j\omega)|^2|U(j\omega)|^2 d\omega \leq k^2\frac{1}{2\pi} \int_{-\infty}^{+\infty}|U(j\omega)|^2 d\omega\\
+    &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}|G(j\omega)|^2|U(j\omega)|^2 d\omega
     \end{aligned}
     $$
 
-    if $|G(j\omega)| < k$, with $|G(j\omega)| = k$,
+    if $|G(j\omega)| \leq k$, with $|G(j\bar \omega)| = k$,
 
     $$
     \begin{aligned}
+    ||y||_2^2 &\leq k^2\frac{1}{2\pi} \int_{-\infty}^{+\infty}|U(j\omega)|^2 d\omega\\
     ||y||_2 &\leq k ||u||_2 \\
-    \sigma_2 &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} \leq k = \sup_\omega |G(j\omega)|
+    \gamma_2 &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} \leq k \\
+    &= \sup_\omega |G(j\omega)|
     \end{aligned}
     $$
 
-The system is a SISO A.S. linear system
+## 8.3 H-Norm
+
+### 8.3.1 H-infinity norm for SISO system
+Given a SISO A.S. linear system and its $H_\infty$ norm,
 
 $$
-\omega_2 = \underbrace{||G||_\infty}_{H_\infty \text{ norm of } G} = \sup_\omega |G(j\omega)|
+\gamma_2 = \underbrace{||G||_\infty}_{H_\infty \text{ norm of } G} = \sup_\omega |G(j\omega)|
 $$
 
-How to extend this result to MIMO A.S. linear system,
+### 8.3.2 H-infinity norm for MIMO system
+To extend this result to MIMO A.S. linear system,
 
 $$
 G(j\omega) = \begin{bmatrix}
@@ -178,29 +195,33 @@ $$
 if $m=3$, $n = 4$, there have $k = \min(m,n) = 3$ singular values,
 
 $$
-\sigma_2 = ||G||_\infty = \sup_{\omega} \bar \sigma(G(j\omega))
+\gamma_2 = ||G||_\infty = \sup_{\omega} \bar \sigma(G(j\omega))
 $$
 
-When $m=n=1$, then $\bar \sigma(G(j\omega)) = \sqrt{G^*(j\omega)G(j\omega)} = |G(j\omega)|$
-
-Proof:
+At the position when $m=n=1$, we get the upper bound of the singular value,
 
 $$
-\begin{aligned}
-||y||_2^2 &= \int_{-\infty}^{+\infty}y^T(t)y(t)dt \\
-&= \frac{1}{2\pi} \int_{-\infty}^{+\infty}y(j\omega)^*y(j\omega) d\omega \\
-&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*G(j\omega)^*G(j\omega)U(j\omega)d\omega \\
-&\leq \underbrace{\lambda_{max}(G(j\omega)^*G(j\omega))}_{\bar \sigma^2(G(j\omega))}U(j\omega)^*U(j\omega) \\
-&\leq \sup_\omega \bar \sigma^2(G(j\omega)) ||u||_2^2
-\end{aligned}
+\bar \sigma(G(j\omega)) = \sqrt{G^*(j\omega)G(j\omega)} = |G(j\omega)|
 $$
 
-$$
-\underline{\sigma}(G(j\omega)) \leq \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \leq \bar \sigma(G(j\omega))
-$$
+!!! example
+    * Proof:
 
-## 8.3 H-norm
+        $$
+        \begin{aligned}
+        ||y||_2^2 &= \int_{-\infty}^{+\infty}y^T(t)y(t)dt \\
+        &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}y(j\omega)^*y(j\omega) d\omega \\
+        &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*G(j\omega)^*G(j\omega)U(j\omega)d\omega \\
+        &\leq \underbrace{\lambda_{max}(G(j\omega)^*G(j\omega))}_{\bar \sigma^2(G(j\omega))} \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*U(j\omega) d\omega\\
+        &\leq \sup_\omega \bar \sigma^2(G(j\omega)) ||u||_2^2
+        \end{aligned}
+        $$
 
+        $$
+        \underline{\sigma}(G(j\omega)) \leq \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \leq \bar \sigma(G(j\omega))
+        $$
+
+### 8.3.3 H-2 norm for SISO system
 If system $S$ is an A.S. strictly proper system, we can define the $H_2$ norm of $G$,
 
 If the system is SISO,
@@ -223,11 +244,20 @@ Here, $||G||_2$ equals to the impulse response $||\delta||_2$, to evaluate it in
     \end{aligned}
     $$
 
+### 8.3.4 H-2 norm for MIMO system
 If the system is MIMO
 
 $$
 ||G||_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\underbrace{\text{tr}(G(j\omega)G^*(j\omega))}_{\sum_i \sigma_i^2(G(j\omega))}d\omega}
 $$
+
+### 8.3.1 Conclusion
+| Discription | Formulation|
+|----|----|
+| $H_2$ norm for SISO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \left\lvert G(j\omega) \right\rvert^2 d\omega}$ |
+| $H_2$ norm for MIMO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \text{tr}(G(j\omega)G^*(j\omega)) d\omega}$ |
+| $H_\infty$ norm | $\left\lVert G \right\rVert_\infty = \sup_\omega \left\lvert G(j\omega) \right\rvert$|
+
 
 ## 8.4 Small Gain Theorem
 
