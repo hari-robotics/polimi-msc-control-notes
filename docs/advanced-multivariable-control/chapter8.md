@@ -343,3 +343,60 @@ $$
 |\frac{1}{\tilde G(j\omega)} + \bar k| > \bar \gamma
 \end{aligned}
 $$
+
+## 8.5 Sensitivity
+
+$$
+\begin{aligned}
+M_S &= ||S||_\infty = \sup_\omega |S(j\omega)| \\
+M_T &= ||T||_\infty = \sup_\omega |T(j\omega)|
+\end{aligned}
+$$
+
+To find the maximum stability margin, we need have: $\min_\omega |1 + L(j\omega)|$, and $|1 + L(j\omega)| = |s|^{-1}$, thus, we have $M_S \leq \bar M_S$, where $\bar M_S$ is the upper bound of the stability margin.
+
+To pick the suitable $|T(j\omega)|$, it should be small, and we need to let $M_T \leq \bar M_T$, and there have: 
+
+$$
+\begin{aligned}
+T(s) + S(s) &= 1 \\
+|T(j\omega) + S(j\omega)| &= 1 \\
+||T(j\omega)| - |S(j\omega)|| &\leq |T(j\omega) + S(j\omega)| = 1
+\end{aligned}
+$$
+
+The difference between $M_T$ and $M_S$ cannot exceed $1$. A typical choice is: $\bar M_S = 2$, $\bar M_T = 1.5$.
+
+Now we have a system that $g_m \leq \bar g_m$, we need to repharse it in terms of $S$ and $T$.
+
+$$
+\begin{aligned}
+L(j\omega) &= -\frac{1}{g_m} \\
+|T(j\omega)| &= \frac{L(j\omega)}{1+L(j\omega)} = -\frac{1}{g_m-1} \\
+M_T &\geq |T(j\omega)| = \frac{1}{g_m-1} \\
+g_m &\geq 1 + \frac{1}{M_T} \geq  1 + \frac{1}{\bar M_T} \geq \bar g_m
+\end{aligned}
+$$
+
+and we have $g_m \geq \bar g_m$, which leads to $M_T \leq \bar M_T$. For $M_S$, we have:
+
+$$
+\begin{aligned}
+M_S &\geq |S(j\omega)| = \frac{1}{|1 - \frac{1}{g_m}|} = \frac{g_m}{g_m - 1} \\
+g_m &\geq \frac{M_S}{M_S - 1} \geq \frac{\bar M_S}{\bar M_S - 1} \geq \bar g_m
+\end{aligned}
+$$
+
+We want to repharse the phase margin $\varphi_m$ also, we have: $\varphi_m \geq \bar \varphi_m$
+
+$$
+\frac{1}{M_S} \leq |1+L(j\omega_c)| = 2\sin(\frac{\varphi_m}{2}) \approxeq
+$$
+
+Now we have $\varphi_m \geq \frac{1}{M_S}$, 
+
+$$
+|1+L(j\omega_c)| = |S(j\omega_c)|^{-1} = |T(j\omega_c)|^{-1} = \frac{|L(j\omega_c)|}{|1+L(j\omega_c)|}
+$$
+
+and we have: $\varphi_m \geq \frac{1}{M_T}$.
