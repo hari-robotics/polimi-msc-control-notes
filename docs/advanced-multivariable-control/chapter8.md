@@ -130,7 +130,12 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     u(t) &= \left\{\begin{aligned} 
     1,\quad 0<t<1\\
     0,\quad \text{otherwise}
-    \end{aligned}\right. \\ \hfill \\
+    \end{aligned}\right.
+    \end{aligned}
+    $$
+
+    $$
+    \begin{aligned}
     ||u||_2 &= \sqrt{\int_0^{+\infty} u^2(t)dt} = 1 \Rightarrow u \in L_2 \\
     ||y||_2 &= \sqrt{\int_0^{+\infty}y^2(t)dt} = +\infty \\
     \gamma_{2} &= \sup_{u\in L_2, ||u||_2 \neq 0} \frac{||y||_2}{||u||_2} = +\infty
@@ -251,7 +256,7 @@ $$
 ||G||_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\underbrace{\text{tr}(G(j\omega)G^*(j\omega))}_{\sum_i \sigma_i^2(G(j\omega))}d\omega}
 $$
 
-### 8.3.1 Conclusion
+### 8.3.5 Conclusion
 | Discription | Formulation|
 |----|----|
 | $H_2$ norm for SISO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \left\lvert G(j\omega) \right\rvert^2 d\omega}$ |
@@ -260,54 +265,94 @@ $$
 
 
 ## 8.4 Small Gain Theorem
+Given the system schmetic below,
 
-$S_1$ and $S_2$ are IO $L_2$ stable, then the feedback system is IO $L_2$ stable if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$
+<figure markdown="span">
+    ![](pics/chapter8/figure3.png){ width="400" }
+</figure>
+
+where $S_1$ and $S_2$ are IO $L_2$ stable, if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$, then the feedback system is IO $L_2$ stable
 
 $$
 \begin{aligned}
 y_1 &= S_1(e_1) \\
-||y_1||_2 &\leq \gamma_2^{(1)} ||e_1||_2 \\
-e_1 &= u_1 + S_2(y_1 + u_2) \\
-||e_1||_2 &\leq ||u_1||_2 + ||S_2(y_1+u_2)|| \\
-&\leq ||u_1||_2 \gamma_2^{(2)} (||y_1||_2 + ||u_2||_2) \\
+||y_1||_2 &\leq \gamma_2^{(1)} ||e_1||_2
+\end{aligned}
+$$
+
+Where, $e_1 = u_1 + S_2(y_1 + u_2)$, thus, we have:
+
+$$
+\begin{aligned}
+||e_1||_2 &\leq ||u_1||_2 + ||S_2(y_1+u_2)||_2 \\
+&\leq ||u_1||_2 + \gamma_2^{(2)} (||y_1||_2 + ||u_2||_2) \\
 &\leq ||u_1||_2 + \gamma_2^{(1)}\gamma_2^{(2)}||e_1||_2 + \gamma_2^{(2)}||u_1||_2 \\
-||e_1||_2(1-\gamma_2^{(1)}\gamma_2^{(2)}) &\leq ||u_1||_2+\gamma_2^{(2)}||u_2||_2 \\
+(1-\gamma_2^{(1)}\gamma_2^{(2)})||e_1||_2 &\leq ||u_1||_2+\gamma_2^{(2)}||u_2||_2 \\
 ||e_1||_2 &\leq \frac{||u_1||_2+\gamma_2^{(2)}||u_2||_2}{1-\gamma_2^{(1)}\gamma_2^{(2)}} \\
-||y_1||_2 &\leq \frac{\gamma_2^{(1)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2
+||y_1||_2 \leq \gamma_2^{(1)}||e_1||_2 &\leq \frac{\gamma_2^{(1)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2
 \end{aligned} 
 $$
 
-Similarly,
+Similarly, we have:
 
 $$
 ||y_2||_2 \leq \frac{\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2
 $$
 
-If $S_1$ and $S_2$ are linear A.S. in less restrictive condition
+!!! quote
 
-$$
-\begin{aligned}
-||G_1G_2||_\infty &< 1 \\
-\underbrace{||G_1||_\infty}_{\gamma_2^{(1)}}\underbrace{||G_2||_\infty}_{\gamma_2^{(2)}} &< 1 
-\end{aligned}
-$$
+    If $S_1$ and $S_2$ are linear systems, within the following conditions:
 
-$G_1$ and $G_2$ is SISO A.S.
+    $$
+    \begin{aligned}
+    ||S_1S_2||_\infty &< 1 \\
+    \underbrace{||S_1||_\infty}_{\gamma_2^{(1)}}\underbrace{||S_2||_\infty}_{\gamma_2^{(2)}} &< 1 
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-L &= G_1G_2 \\
-||L||_\infty &= \sup_\omega |L(j\omega)| < 1
-\end{aligned}
-$$
+    The system is A.S., $||S_1S_2||_\infty < 1$ is a less restirctive condition.
 
-$G$ is the __transfer function (TF)__ of an A.S. SISO linear system
+!!! example
 
-$f$ is a sector nonlinearity, $f: \mathbb R \to \mathbb R, f \in C^1$,
+    We try to extend this result into SISO systems, given $G_1(s)$ and $G_2(s)$ are SISO A.S. systems
 
-$$
-k_1 e \leq f(e) \leq k_2 e, \forall e
-$$
+    <figure markdown="span">
+        ![](pics/chapter8/figure4.png){ width="400" }
+    </figure>
+
+    The sign here does not metter because we use the triangular inequality, and we have:
+
+    $$
+    \begin{aligned}
+    L(s) &= G_1(s)G_2(s) \\
+    ||L||_\infty &< 1 \\
+    ||L||_\infty &= \sup_\omega |L(j\omega)| < 1
+    \end{aligned}
+    $$
+
+    Given a example Nyquist plot figure:
+
+    <figure markdown="span">
+        ![](pics/chapter8/figure5.png){ width="400" }
+    </figure>
+
+    In this example, the system have the nyquist plot in orange trajectory, the gain is always smaller than 1, which satisfy the condition $||L||_\infty < 1$, the system is A.S.
+    
+    But even if the system does not satisfy the condition (the pink trajectory), the system is still A.S.
+
+    As long as the nyquist plot the system does not includes the $(-1,0)$ point, the system is stable.
+
+Considering the nonlinear system,
+
+<figure markdown="span">
+    ![](pics/chapter8/figure6.png){ width="400" }
+</figure>
+
+Where $G$ is the __transfer function (TF)__ that are A.S., and $f$ is a sector nonlinearity, $f: \mathbb R \to \mathbb R, f \in C^1$, and satisfy: $k_1 e \leq f(e) \leq k_2 e, \forall e$.
+
+<figure markdown="span">
+    ![](pics/chapter8/figure7.png){ width="400" }
+</figure>
 
 * $\gamma_2^f ||G||_\infty < 1$ $\Rightarrow$ IO $L_2$ stability
 
