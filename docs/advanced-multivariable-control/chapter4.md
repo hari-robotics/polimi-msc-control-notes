@@ -130,7 +130,10 @@ Where, $\varphi$ is continuous in $D$
 ## 4.3 Lyapunov Theory
 Giving Lyapunov function $V$, $\exists V(x) \in C^1$, that are PD in $\bar x$, and $\dot V$ is NSD in $\bar x$, then $\bar x$ is stable.
 
-!!!note "Proof"
+!!!info 
+    
+    Proof
+    
     $\bar x = 0$
     <figure markdown="span">
         ![](pics/chapter4/figure4.png){ width="300" }

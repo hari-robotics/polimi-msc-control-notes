@@ -77,15 +77,17 @@ $$
 A^TPA - P = -Q
 $$
 
-Proof (Succficiency): 
+!!! info
 
-$\bar u = 0 \to \bar x = 0$, $Q\succ0 \to P \succ 0$
+    Proof (Succficiency): 
 
-$$
-\begin{aligned}
-V(x) &= x^TPx \\
-\delta V(x) &= \underbrace{(Ax)^TP(Ax)}_{V(\dot \varphi(x))} - \underbrace{x^TPx}_{V(x)} = -x^TQx
-\end{aligned}
-$$
+    $\bar u = 0 \to \bar x = 0$, $Q\succ0 \to P \succ 0$
 
-$\Delta V(\bar x) \prec 0$
+    $$
+    \begin{aligned}
+    V(x) &= x^TPx \\
+    \delta V(x) &= \underbrace{(Ax)^TP(Ax)}_{V(\dot \varphi(x))} - \underbrace{x^TPx}_{V(x)} = -x^TQx
+    \end{aligned}
+    $$
+
+    $\Delta V(\bar x) \prec 0$

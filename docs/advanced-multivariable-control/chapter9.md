@@ -1,77 +1,163 @@
-## 1. H-infinity Control Approach
+## 1. Small Gain Theorem
+### 1.1 for MIMO Linear Systems
+Given the system schmetic below,
+
+<figure markdown="span">
+    ![](pics/chapter9/figure1.png){ width="400" }
+</figure>
+
+where $S_1$ and $S_2$ are IO $L_2$ stable, if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$, then the feedback system is IO $L_2$ stable.
+
+!!! info
+
+    Proof
+
+    $$
+    \begin{aligned}
+    y_1 &= S_1(e_1) \\
+    ||y_1||_2 &\leq \gamma_2^{(1)} ||e_1||_2
+    \end{aligned}
+    $$
+
+    Where, $e_1 = u_1 + S_2(y_1 + u_2)$, thus, we have:
+
+    $$
+    \begin{aligned}
+    ||e_1||_2 &\leq ||u_1||_2 + ||S_2(y_1+u_2)||_2 \\
+    &\leq ||u_1||_2 + \gamma_2^{(2)} (||y_1||_2 + ||u_2||_2) \\
+    &\leq ||u_1||_2 + \gamma_2^{(1)}\gamma_2^{(2)}||e_1||_2 + \gamma_2^{(2)}||u_1||_2 \\
+    (1-\gamma_2^{(1)}\gamma_2^{(2)})||e_1||_2 &\leq ||u_1||_2+\gamma_2^{(2)}||u_2||_2 \\
+    ||e_1||_2 &\leq \frac{||u_1||_2+\gamma_2^{(2)}||u_2||_2}{1-\gamma_2^{(1)}\gamma_2^{(2)}}
+    \end{aligned} 
+    $$
+
+    We can get the result,
+
+    $$
+    ||y_1||_2 \leq \gamma_2^{(1)}||e_1||_2 \leq \frac{\gamma_2^{(1)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2
+    $$
+
+    Similarly, we have:
+
+    $$
+    ||y_2||_2 \leq \frac{\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2
+    $$
+
+    If $S_1$ and $S_2$ are linear systems, within the following conditions:
+
+    $$
+    \begin{aligned}
+    ||S_1S_2||_\infty &< 1 \\
+    \underbrace{||S_1||_\infty}_{\gamma_2^{(1)}}\underbrace{||S_2||_\infty}_{\gamma_2^{(2)}} &< 1 
+    \end{aligned}
+    $$
+
+    The system is A.S., $||S_1S_2||_\infty < 1$ is a less restirctive condition.
+
+### 1.2 for SISO Linear Systems
+We try to extend this result into SISO systems, given $G_1(s)$ and $G_2(s)$ are SISO A.S. systems
+
+<figure markdown="span">
+    ![](pics/chapter9/figure2.png){ width="400" }
+</figure>
+
+The sign here does not metter because we use the triangular inequality, and we have:
 
 $$
 \begin{aligned}
-&S(j\omega) < \frac{1}{|W_S(j\omega)|}, \forall \omega \\
-\Rightarrow& ||SW_S||_\infty < 1
+L(s) &= G_1(s)G_2(s) \\
+||L||_\infty &< 1 \\
+||L||_\infty &= \sup_\omega |L(j\omega)| < 1
 \end{aligned}
 $$
 
-A possible (standard) choice for $W_S$:
+Given a example Nyquist plot figure:
+
+<figure markdown="span">
+    ![](pics/chapter9/figure3.png){ width="400" }
+</figure>
+
+In this example, the system have the nyquist plot in orange trajectory, the gain is always smaller than 1, which satisfy the condition $||L||_\infty < 1$, the system is A.S.
+
+But even if the system does not satisfy the condition (the pink trajectory), the system is still A.S.
+
+As long as the nyquist plot the system does not includes the $(-1,0)$ point, the system is stable.
+
+### 1.3 for Nonlinear Systems
+Considering the nonlinear system,
+
+<figure markdown="span">
+    ![](pics/chapter9/figure4.png){ width="400" }
+</figure>
+
+Where $G$ is the __transfer function (TF)__ that are A.S., and $f$ is a sector of nonlinearity, where $f: \mathbb R \to \mathbb R, f \in C^1$, and satisfy: $k_1 e \leq f(e) \leq k_2 e, \forall e$. We can draw the figure:
+
+<figure markdown="span">
+    ![](pics/chapter9/figure5.png){ width="400" }
+</figure>
+
+* if we have $\gamma_2^f ||G||_\infty < 1$ $\Rightarrow$ the system is IO $L_2$ stable
+
+    Where, $\gamma_2^f = \sup_{e \in L_2, ||e||_2 \neq 0} \frac{||f(e)||_2}{||e||_2}$. because $f(e)$ has an upper bound of $k_2e$ such that:
+
+    $$
+    \begin{aligned}
+    \gamma_2^f &= \sup_{e \in L_2, ||e||_2 \neq 0} \frac{||f(e)||_2}{||e||_2} \\
+    &\leq \frac{k_2||e||_2}{||e||_2} \\
+    &\leq k_2
+    \end{aligned}
+    $$
+
+    and $\gamma_2^f ||G||_\infty \leq k_2 ||G||_\infty < 1$
+
+    !!! warning
+        When we increase $k_2$, above condition of stability is still satisfied, which means this condition does not considered the width of the sector.
+
+        <figure markdown="span">
+            ![](pics/chapter9/figure6.png){ width="300" }
+        </figure>
+
+
+!!! example
+    We consider a SISO system case with following schematics:
+    <figure markdown="span">
+        ![](pics/chapter9/figure4.png){ width="400" }
+    </figure>
+
+    We can draw the boundary for this system:
+    <figure markdown="span">
+        ![](pics/chapter9/figure7.png){ width="300" }
+    </figure>
+
+    
+
+Circle criterion:
+
+The closed loop system is IO $L_2$ stable if the nyquist diagram of $G(s)$ does not encompass, intersect or touch, the circle with center on the real axis taht intersects it in $-\frac{1}{k_1}$ and $-\frac{1}{k_2}$
 
 $$
-W_S(s) = \frac{s/M + \omega_B}{s+A\omega_B}
+f(e) = \tilde f(e) + \bar k e
 $$
 
-$A << 1$ is the desired attenuation at low frequency
+with $\bar k = \frac{k_1 + k_2}{2}$, $\tilde f$ is a sector of nonlinearty
 
-Design specifications for the complementary function
-
-* shape of $T(s)$
-    * $\approxeq 1$ at low frequency
-    * small at high frequency
-    * small pick of resonance
-
-* Max frequency $\omega_{BT}$
-* $M_T$ is small enough
-
-Thus, $T_{desired}^{-1}(s) = W_T(s)$, where $W_T$ is the complementary sensitivity shaping function.
+$$
+(k_1 - \bar k)e \leq \tilde f(e) \leq (k_2 - \bar k)e
+$$
 
 $$
 \begin{aligned}
-&|T(j\omega)| < \frac{1}{W_T(j\omega)}, \forall \omega \\
-\Rightarrow& ||SW_S||_\infty < 1
+e &= r - G(s)(\bar ke + \tilde f(e)) \\
+&= \underbrace{\frac{1}{1+\bar k G(s)}}_{\hat G(s)} r - \underbrace{\frac{G(s)}{1+\bar k G(s)}}_{\tilde G(s)} \tilde f(e)
 \end{aligned}
 $$
-
-A possible (standard) choice for $W_T$ is :
-
-$$
-W(s) = \frac{s + \omega_{BT}/M}{As + \omega_{BT}}
-$$
-
-And $K_{desired}(s)$ is the desired control sensitivity function, the control sensitivity shaping function is $W_K(s)$,
 
 $$
 \begin{aligned}
-&K(j\omega) < \frac{1}{|W_K(j\omega)|}, \forall \omega \\
-\Rightarrow& ||KW_K||_\infty < 1
+\gamma_2^{\tilde f} ||\tilde G||_\infty &< 1 \\
+\bar \gamma ||\tilde G||_\infty &< 1 \\
+\bar \gamma |\tilde(j\omega)| < 1, \forall \omega \\
+|\frac{1}{\tilde G(j\omega)}| > \bar \gamma \\
+|\frac{1}{\tilde G(j\omega)} + \bar k| > \bar \gamma
 \end{aligned}
 $$
-
-## 2. H-infinity Control
-
-For $H_\infty$ control, our goal is to design an $R(s)$ such that $||W_SS||_\infty < 1$, $||W_TT||_\infty < 1$, $||W_KK||_\infty < 1$
-
-We can go for more general formulation of $H_\infty$ control,
-
-Missing figure 
-
-Where $z = \begin{bmatrix} z_S & z_T & z_K \end{bmatrix}^T$ is performance variables. $W$ is external signals, and we have: $z = \underbrace{\begin{bmatrix} W_SS & W_TT & W_KK \end{bmatrix}^T}_{G_{ZW}} w$
-
-Now, our goal is to design $R(s)$ to minimize $||G_{ZW}||_\infty$, so that if you obtain that $||G_{ZW}||_\infty < \gamma$, we have $||W_SS||_\infty < \gamma$.
-
-$$
-||G_{ZW}||_2^2 = \frac{1}{2\pi} \int_{-\infty}^{\infty} |G_{ZW}(j\omega)|^2 d\omega
-$$
-
-
-$$
-W = \begin{bmatrix} du \\ dy \\ y^\circ \\ n \end{bmatrix}
-$$
-
-is the vector of exogenous signals, and $u$ is the control input, $v$ is the measured variable.
-
-Missing Figure
-
-Design $R(s)$ such that the $H_2/H_\infty$ norm of the transfer matrix $G_{ZW}$ between $W$ and $Z$ is minimized. 

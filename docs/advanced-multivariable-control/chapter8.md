@@ -1,6 +1,6 @@
 ## 8.1 L-Norm of a Vector
 
-Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L2-norm of the vector is:
+Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of the vector is:
 
 | Discription | Formulation|
 |----|----|
@@ -71,7 +71,9 @@ $$
             \end{aligned}
             $$
 
-* Proof:
+!!! info
+
+    Proof:
 
     $$
     \begin{aligned}
@@ -123,6 +125,7 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     The system is input output $L_2$ stable if its $L_2$ gain is finite.
 
 !!! example
+    Given the system,
 
     $$
     \begin{aligned}
@@ -133,6 +136,8 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     \end{aligned}\right.
     \end{aligned}
     $$
+
+    We can find the $L_2$ norm and $L_2$ gain of the system,
 
     $$
     \begin{aligned}
@@ -145,18 +150,19 @@ From $L_2$ norm of the system, we can give the $L_2$ Gain:
     The system is not $L_2$ stable.
 
 !!! example
+    Given a cascaded system,
 
     $$
     y(s) = G(s)U(s)
     $$
 
-    $u \in L_2$ $\to$ $U(j\omega)$ with Fourier Transform,
+    Where, $u \in L_2$ $\to$ $U(j\omega)$, with the __Fourier Transform (FT)__,
 
     $$
     y(j\omega) = G(j\omega)U(j\omega)
     $$
 
-    Within the Parseval theorem, we have:
+    Within the Parseval Theorem, we have:
 
     $$
     \begin{aligned}
@@ -209,22 +215,23 @@ $$
 \bar \sigma(G(j\omega)) = \sqrt{G^*(j\omega)G(j\omega)} = |G(j\omega)|
 $$
 
-!!! example
-    * Proof:
+!!! info
 
-        $$
-        \begin{aligned}
-        ||y||_2^2 &= \int_{-\infty}^{+\infty}y^T(t)y(t)dt \\
-        &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}y(j\omega)^*y(j\omega) d\omega \\
-        &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*G(j\omega)^*G(j\omega)U(j\omega)d\omega \\
-        &\leq \underbrace{\lambda_{max}(G(j\omega)^*G(j\omega))}_{\bar \sigma^2(G(j\omega))} \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*U(j\omega) d\omega\\
-        &\leq \sup_\omega \bar \sigma^2(G(j\omega)) ||u||_2^2
-        \end{aligned}
-        $$
+    Proof:
 
-        $$
-        \underline{\sigma}(G(j\omega)) \leq \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \leq \bar \sigma(G(j\omega))
-        $$
+    $$
+    \begin{aligned}
+    ||y||_2^2 &= \int_{-\infty}^{+\infty}y^T(t)y(t)dt \\
+    &= \frac{1}{2\pi} \int_{-\infty}^{+\infty}y(j\omega)^*y(j\omega) d\omega \\
+    &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*G(j\omega)^*G(j\omega)U(j\omega)d\omega \\
+    &\leq \underbrace{\lambda_{max}(G(j\omega)^*G(j\omega))}_{\bar \sigma^2(G(j\omega))} \frac{1}{2\pi} \int_{-\infty}^{+\infty} U(j\omega)^*U(j\omega) d\omega\\
+    &\leq \sup_\omega \bar \sigma^2(G(j\omega)) ||u||_2^2
+    \end{aligned}
+    $$
+
+    $$
+    \underline{\sigma}(G(j\omega)) \leq \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \leq \bar \sigma(G(j\omega))
+    $$
 
 ### 8.3.3 H-2 norm for SISO system
 If system $S$ is an A.S. strictly proper system, we can define the $H_2$ norm of $G$,
@@ -235,7 +242,11 @@ $$
 ||G||_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty}\underbrace{|G(j\omega)|^2}_{G(j\omega)^*G(j\omega)}d\omega}
 $$
 
-Here, $||G||_2$ equals to the impulse response $||\delta||_2$, to evaluate it in bode plot, $|G(j\omega)|_{\text{dB}}^2 = 20\log_{10}|G(j\omega)|^2 = 2|G(j\omega)|_{\text{dB}}$
+Here, $||G||_2$ equals to the impulse response $||\delta||_2$, to evaluate it in bode plot, we let:
+
+$$
+|G(j\omega)|_{\text{dB}}^2 = 20\log_{10}|G(j\omega)|^2 = 2|G(j\omega)|_{\text{dB}}
+$$
 
 !!!example
     $$
@@ -262,236 +273,3 @@ $$
 | $H_2$ norm for SISO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \left\lvert G(j\omega) \right\rvert^2 d\omega}$ |
 | $H_2$ norm for MIMO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \text{tr}(G(j\omega)G^*(j\omega)) d\omega}$ |
 | $H_\infty$ norm | $\left\lVert G \right\rVert_\infty = \sup_\omega \left\lvert G(j\omega) \right\rvert$|
-
-
-## 8.4 Small Gain Theorem
-Given the system schmetic below,
-
-<figure markdown="span">
-    ![](pics/chapter8/figure3.png){ width="400" }
-</figure>
-
-where $S_1$ and $S_2$ are IO $L_2$ stable, if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$, then the feedback system is IO $L_2$ stable
-
-$$
-\begin{aligned}
-y_1 &= S_1(e_1) \\
-||y_1||_2 &\leq \gamma_2^{(1)} ||e_1||_2
-\end{aligned}
-$$
-
-Where, $e_1 = u_1 + S_2(y_1 + u_2)$, thus, we have:
-
-$$
-\begin{aligned}
-||e_1||_2 &\leq ||u_1||_2 + ||S_2(y_1+u_2)||_2 \\
-&\leq ||u_1||_2 + \gamma_2^{(2)} (||y_1||_2 + ||u_2||_2) \\
-&\leq ||u_1||_2 + \gamma_2^{(1)}\gamma_2^{(2)}||e_1||_2 + \gamma_2^{(2)}||u_1||_2 \\
-(1-\gamma_2^{(1)}\gamma_2^{(2)})||e_1||_2 &\leq ||u_1||_2+\gamma_2^{(2)}||u_2||_2 \\
-||e_1||_2 &\leq \frac{||u_1||_2+\gamma_2^{(2)}||u_2||_2}{1-\gamma_2^{(1)}\gamma_2^{(2)}} \\
-||y_1||_2 \leq \gamma_2^{(1)}||e_1||_2 &\leq \frac{\gamma_2^{(1)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2
-\end{aligned} 
-$$
-
-Similarly, we have:
-
-$$
-||y_2||_2 \leq \frac{\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_2||_2 + \frac{\gamma_2^{(1)}\gamma_2^{(2)}}{1-\gamma_2^{(1)}\gamma_2^{(2)}}||u_1||_2
-$$
-
-!!! quote
-
-    If $S_1$ and $S_2$ are linear systems, within the following conditions:
-
-    $$
-    \begin{aligned}
-    ||S_1S_2||_\infty &< 1 \\
-    \underbrace{||S_1||_\infty}_{\gamma_2^{(1)}}\underbrace{||S_2||_\infty}_{\gamma_2^{(2)}} &< 1 
-    \end{aligned}
-    $$
-
-    The system is A.S., $||S_1S_2||_\infty < 1$ is a less restirctive condition.
-
-!!! example
-
-    We try to extend this result into SISO systems, given $G_1(s)$ and $G_2(s)$ are SISO A.S. systems
-
-    <figure markdown="span">
-        ![](pics/chapter8/figure4.png){ width="400" }
-    </figure>
-
-    The sign here does not metter because we use the triangular inequality, and we have:
-
-    $$
-    \begin{aligned}
-    L(s) &= G_1(s)G_2(s) \\
-    ||L||_\infty &< 1 \\
-    ||L||_\infty &= \sup_\omega |L(j\omega)| < 1
-    \end{aligned}
-    $$
-
-    Given a example Nyquist plot figure:
-
-    <figure markdown="span">
-        ![](pics/chapter8/figure5.png){ width="400" }
-    </figure>
-
-    In this example, the system have the nyquist plot in orange trajectory, the gain is always smaller than 1, which satisfy the condition $||L||_\infty < 1$, the system is A.S.
-    
-    But even if the system does not satisfy the condition (the pink trajectory), the system is still A.S.
-
-    As long as the nyquist plot the system does not includes the $(-1,0)$ point, the system is stable.
-
-Considering the nonlinear system,
-
-<figure markdown="span">
-    ![](pics/chapter8/figure6.png){ width="400" }
-</figure>
-
-Where $G$ is the __transfer function (TF)__ that are A.S., and $f$ is a sector nonlinearity, $f: \mathbb R \to \mathbb R, f \in C^1$, and satisfy: $k_1 e \leq f(e) \leq k_2 e, \forall e$.
-
-<figure markdown="span">
-    ![](pics/chapter8/figure7.png){ width="400" }
-</figure>
-
-* $\gamma_2^f ||G||_\infty < 1$ $\Rightarrow$ IO $L_2$ stability
-
-    $\gamma_2^f = \sup_{e \in L_2, ||e||_2 \neq 0} \frac{||f(e)||_2}{||e||_2}\leq k_2$, due to the stability, $k_2||G||_\infty < 1$
-
-Circle criterion:
-
-The closed loop system is IO $L_2$ stable if the nyquist diagram of $G(s)$ does not encompass, intersect or touch, the circle with center on the real axis taht intersects it in $-\frac{1}{k_1}$ and $-\frac{1}{k_2}$
-
-$$
-f(e) = \tilde f(e) + \bar k e
-$$
-
-with $\bar k = \frac{k_1 + k_2}{2}$, $\tilde f$ is a sector of nonlinearty
-
-$$
-(k_1 - \bar k)e \leq \tilde f(e) \leq (k_2 - \bar k)e
-$$
-
-$$
-\begin{aligned}
-e &= r - G(s)(\bar ke + \tilde f(e)) \\
-&= \underbrace{\frac{1}{1+\bar k G(s)}}_{\hat G(s)} r - \underbrace{\frac{G(s)}{1+\bar k G(s)}}_{\tilde G(s)} \tilde f(e)
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-\gamma_2^{\tilde f} ||\tilde G||_\infty &< 1 \\
-\bar \gamma ||\tilde G||_\infty &< 1 \\
-\bar \gamma |\tilde(j\omega)| < 1, \forall \omega \\
-|\frac{1}{\tilde G(j\omega)}| > \bar \gamma \\
-|\frac{1}{\tilde G(j\omega)} + \bar k| > \bar \gamma
-\end{aligned}
-$$
-
-## 8.5 Sensitivity
-
-$$
-\begin{aligned}
-M_S &= ||S||_\infty = \sup_\omega |S(j\omega)| \\
-M_T &= ||T||_\infty = \sup_\omega |T(j\omega)|
-\end{aligned}
-$$
-
-To find the maximum stability margin, we need have: $\min_\omega |1 + L(j\omega)|$, and $|1 + L(j\omega)| = |s|^{-1}$, thus, we have $M_S \leq \bar M_S$, where $\bar M_S$ is the upper bound of the stability margin.
-
-To pick the suitable $|T(j\omega)|$, it should be small, and we need to let $M_T \leq \bar M_T$, and there have: 
-
-$$
-\begin{aligned}
-T(s) + S(s) &= 1 \\
-|T(j\omega) + S(j\omega)| &= 1 \\
-||T(j\omega)| - |S(j\omega)|| &\leq |T(j\omega) + S(j\omega)| = 1
-\end{aligned}
-$$
-
-The difference between $M_T$ and $M_S$ cannot exceed $1$. A typical choice is: $\bar M_S = 2$, $\bar M_T = 1.5$.
-
-Now we have a system that $g_m \leq \bar g_m$, we need to repharse it in terms of $S$ and $T$.
-
-$$
-\begin{aligned}
-L(j\omega) &= -\frac{1}{g_m} \\
-|T(j\omega)| &= \frac{L(j\omega)}{1+L(j\omega)} = -\frac{1}{g_m-1} \\
-M_T &\geq |T(j\omega)| = \frac{1}{g_m-1} \\
-g_m &\geq 1 + \frac{1}{M_T} \geq  1 + \frac{1}{\bar M_T} \geq \bar g_m
-\end{aligned}
-$$
-
-and we have $g_m \geq \bar g_m$, which leads to $M_T \leq \bar M_T$. For $M_S$, we have:
-
-$$
-\begin{aligned}
-M_S &\geq |S(j\omega)| = \frac{1}{|1 - \frac{1}{g_m}|} = \frac{g_m}{g_m - 1} \\
-g_m &\geq \frac{M_S}{M_S - 1} \geq \frac{\bar M_S}{\bar M_S - 1} \geq \bar g_m
-\end{aligned}
-$$
-
-We want to repharse the phase margin $\varphi_m$ also, we have: $\varphi_m \geq \bar \varphi_m$
-
-$$
-\frac{1}{M_S} \leq |1+L(j\omega_c)| = 2\sin(\frac{\varphi_m}{2}) \approxeq
-$$
-
-Now we have $\varphi_m \geq \frac{1}{M_S}$, 
-
-$$
-|1+L(j\omega_c)| = |S(j\omega_c)|^{-1} = |T(j\omega_c)|^{-1} = \frac{|L(j\omega_c)|}{|1+L(j\omega_c)|}
-$$
-
-and we have: $\varphi_m \geq \frac{1}{M_T}$.
-
-|Description|Formulation|
-|---|---|
-|Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
-|Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
-|Control sensitivity function |$K(s) = R(s)S(s)$|
-
-$$
-\begin{aligned}
-y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s)+G(s)S(s)D_u(s) \\
-U(s) &= K(s)(y^\circ(s)-N(s) - D_y(s)) + S(s)D_u(s)
-\end{aligned}
-$$
-
-Stability margin: $\varphi_m \geq \bar \varphi_m$, $g_m \geq \bar g_m$
-
-$$
-G(s) = \bar G(s) + \Delta G_\delta(s)
-$$
-
-Assuming that:
-
-* $\Delta G_\delta (s)$ is A.S. ($\Rightarrow P_G=P_{\bar G}$)
-
-!!! example
-    $$
-    \begin{aligned}
-    \bar G(s) &= \frac{1}{s} \\
-    G(s) &= \frac{1}{s} e^{\tau s},\quad (\tau > 0)
-    \end{aligned}
-    $$
-    
-    $$
-    G(s) = \bar G(s)(1+\Delta G_m(s)) \Rightarrow \Delta G_m(s) = e^{\tau s} - 1
-    $$
-
-## 8.6 Design Specifications in terms of the sensitivity function
-
-Concerning the shape of $S(s)$, 
-
-1. it should be small at low frequency, $\leftarrow$ to compensate the disturbances, amall or null error when tracking a constant $y^\circ$. $M_L$ is integrator in $L(s)$.
-2. $\approxeq 1$ at high frequency
-3. small pick of resonance
-
-* Minimum frequency $\omega_B$,
-* $M_S \leq \bar M_S$, where $\bar M_S$ is the robustness of the stability.
-
-This defines a "desired sensitivity function" $S_{desired}(s)$,
-
-We introduce the sensitivity shaping function: $W(s) = S^{-1}_{desired}(s)$
