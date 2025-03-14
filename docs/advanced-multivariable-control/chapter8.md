@@ -445,3 +445,53 @@ $$
 $$
 
 and we have: $\varphi_m \geq \frac{1}{M_T}$.
+
+|Description|Formulation|
+|---|---|
+|Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
+|Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
+|Control sensitivity function |$K(s) = R(s)S(s)$|
+
+$$
+\begin{aligned}
+y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s)+G(s)S(s)D_u(s) \\
+U(s) &= K(s)(y^\circ(s)-N(s) - D_y(s)) + S(s)D_u(s)
+\end{aligned}
+$$
+
+Stability margin: $\varphi_m \geq \bar \varphi_m$, $g_m \geq \bar g_m$
+
+$$
+G(s) = \bar G(s) + \Delta G_\delta(s)
+$$
+
+Assuming that:
+
+* $\Delta G_\delta (s)$ is A.S. ($\Rightarrow P_G=P_{\bar G}$)
+
+!!! example
+    $$
+    \begin{aligned}
+    \bar G(s) &= \frac{1}{s} \\
+    G(s) &= \frac{1}{s} e^{\tau s},\quad (\tau > 0)
+    \end{aligned}
+    $$
+    
+    $$
+    G(s) = \bar G(s)(1+\Delta G_m(s)) \Rightarrow \Delta G_m(s) = e^{\tau s} - 1
+    $$
+
+## 8.6 Design Specifications in terms of the sensitivity function
+
+Concerning the shape of $S(s)$, 
+
+1. it should be small at low frequency, $\leftarrow$ to compensate the disturbances, amall or null error when tracking a constant $y^\circ$. $M_L$ is integrator in $L(s)$.
+2. $\approxeq 1$ at high frequency
+3. small pick of resonance
+
+* Minimum frequency $\omega_B$,
+* $M_S \leq \bar M_S$, where $\bar M_S$ is the robustness of the stability.
+
+This defines a "desired sensitivity function" $S_{desired}(s)$,
+
+We introduce the sensitivity shaping function: $W(s) = S^{-1}_{desired}(s)$
