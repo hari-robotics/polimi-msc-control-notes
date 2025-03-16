@@ -174,190 +174,107 @@ $$
     * The system has delay, $e^{-\tau s}G(s)$: the delay will contributes to a negative phase at $\omega_c$, $\varphi_{delay} = -\tau \omega_c$.
     * The system has positive real part zeros, $(1-\tau s)G(s)$, $\tau > 0$: it will limits $\omega_c$ smaller than $\frac{1}{\tau}$, any $\omega_c$ beyond this range will not have an acceptable $\varphi_m$.
 
+## 4. Formulating System Stability within Sensitivity Function
 
-!!! bug "Content below has not updated yet, and it is under maintaince."
-    
-    ## 1. Sensitivity
+Given the infinity norm of the sensitivity functions:
 
-    $$
-    \begin{aligned}
-    M_S &= ||S||_\infty = \sup_\omega |S(j\omega)| \\
-    M_T &= ||T||_\infty = \sup_\omega |T(j\omega)|
-    \end{aligned}
-    $$
+$$
+\begin{aligned}
+M_S &= ||S||_\infty = \sup_\omega |S(j\omega)| \\
+M_T &= ||T||_\infty = \sup_\omega |T(j\omega)|
+\end{aligned}
+$$
 
-    To find the maximum stability margin, we need have: $\min_\omega |1 + L(j\omega)|$, and $|1 + L(j\omega)| = |s|^{-1}$, thus, we have $M_S \leq \bar M_S$, where $\bar M_S$ is the upper bound of the stability margin.
+The bode plot of these functions like below:
 
-    To pick the suitable $|T(j\omega)|$, it should be small, and we need to let $M_T \leq \bar M_T$, and there have: 
+<figure markdown="span">
+    ![](pics/chapter10/figure6.png){ width="600" }
+</figure>
 
-    $$
-    \begin{aligned}
-    T(s) + S(s) &= 1 \\
-    |T(j\omega) + S(j\omega)| &= 1 \\
-    ||T(j\omega)| - |S(j\omega)|| &\leq |T(j\omega) + S(j\omega)| = 1
-    \end{aligned}
-    $$
-
-    The difference between $M_T$ and $M_S$ cannot exceed $1$. A typical choice is: $\bar M_S = 2$, $\bar M_T = 1.5$.
-
-    Now we have a system that $g_m \leq \bar g_m$, we need to repharse it in terms of $S$ and $T$.
-
-    $$
-    \begin{aligned}
-    L(j\omega) &= -\frac{1}{g_m} \\
-    |T(j\omega)| &= \frac{L(j\omega)}{1+L(j\omega)} = -\frac{1}{g_m-1} \\
-    M_T &\geq |T(j\omega)| = \frac{1}{g_m-1} \\
-    g_m &\geq 1 + \frac{1}{M_T} \geq  1 + \frac{1}{\bar M_T} \geq \bar g_m
-    \end{aligned}
-    $$
-
-    and we have $g_m \geq \bar g_m$, which leads to $M_T \leq \bar M_T$. For $M_S$, we have:
-
-    $$
-    \begin{aligned}
-    M_S &\geq |S(j\omega)| = \frac{1}{|1 - \frac{1}{g_m}|} = \frac{g_m}{g_m - 1} \\
-    g_m &\geq \frac{M_S}{M_S - 1} \geq \frac{\bar M_S}{\bar M_S - 1} \geq \bar g_m
-    \end{aligned}
-    $$
-
-    We want to repharse the phase margin $\varphi_m$ also, we have: $\varphi_m \geq \bar \varphi_m$
-
-    $$
-    \frac{1}{M_S} \leq |1+L(j\omega_c)| = 2\sin(\frac{\varphi_m}{2}) \simeq
-    $$
-
-    Now we have $\varphi_m \geq \frac{1}{M_S}$, 
-
-    $$
-    |1+L(j\omega_c)| = |S(j\omega_c)|^{-1} = |T(j\omega_c)|^{-1} = \frac{|L(j\omega_c)|}{|1+L(j\omega_c)|}
-    $$
-
-    and we have: $\varphi_m \geq \frac{1}{M_T}$.
-
-    |Description|Formulation|
-    |---|---|
-    |Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
-    |Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
-    |Control sensitivity function |$K(s) = R(s)S(s)$|
-
-    $$
-    \begin{aligned}
-    y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s)+G(s)S(s)D_u(s) \\
-    U(s) &= K(s)(y^\circ(s)-N(s) - D_y(s)) + S(s)D_u(s)
-    \end{aligned}
-    $$
-
-    Stability margin: $\varphi_m \geq \bar \varphi_m$, $g_m \geq \bar g_m$
-
-    $$
-    G(s) = \bar G(s) + \Delta G_\delta(s)
-    $$
-
-    Assuming that:
-
-    * $\Delta G_\delta (s)$ is A.S. ($\Rightarrow P_G=P_{\bar G}$)
-
-    !!! example
-        $$
-        \begin{aligned}
-        \bar G(s) &= \frac{1}{s} \\
-        G(s) &= \frac{1}{s} e^{\tau s},\quad (\tau > 0)
-        \end{aligned}
-        $$
-        
-        $$
-        G(s) = \bar G(s)(1+\Delta G_m(s)) \Rightarrow \Delta G_m(s) = e^{\tau s} - 1
-        $$
-
-    ## 2. Design Specifications in terms of the sensitivity function
-
-    Concerning the shape of $S(s)$, 
-
-    1. it should be small at low frequency, $\leftarrow$ to compensate the disturbances, amall or null error when tracking a constant $y^\circ$. $M_L$ is integrator in $L(s)$.
-    2. $\simeq 1$ at high frequency
-    3. small pick of resonance
-
-    * Minimum frequency $\omega_B$,
-    * $M_S \leq \bar M_S$, where $\bar M_S$ is the robustness of the stability.
-
-    This defines a "desired sensitivity function" $S_{desired}(s)$,
-
-    We introduce the sensitivity shaping function: $W(s) = S^{-1}_{desired}(s)$
-
-    ## 3. H-infinity Control Approach
-
-    $$
-    \begin{aligned}
-    &S(j\omega) < \frac{1}{|W_S(j\omega)|}, \forall \omega \\
-    \Rightarrow& ||SW_S||_\infty < 1
-    \end{aligned}
-    $$
-
-    A possible (standard) choice for $W_S$:
-
-    $$
-    W_S(s) = \frac{s/M + \omega_B}{s+A\omega_B}
-    $$
-
-    $A << 1$ is the desired attenuation at low frequency
-
-    Design specifications for the complementary function
-
-    * shape of $T(s)$
-        * $\simeq 1$ at low frequency
-        * small at high frequency
-        * small pick of resonance
-
-    * Max frequency $\omega_{BT}$
-    * $M_T$ is small enough
-
-    Thus, $T_{desired}^{-1}(s) = W_T(s)$, where $W_T$ is the complementary sensitivity shaping function.
-
-    $$
-    \begin{aligned}
-    &|T(j\omega)| < \frac{1}{W_T(j\omega)}, \forall \omega \\
-    \Rightarrow& ||SW_S||_\infty < 1
-    \end{aligned}
-    $$
-
-    A possible (standard) choice for $W_T$ is :
-
-    $$
-    W(s) = \frac{s + \omega_{BT}/M}{As + \omega_{BT}}
-    $$
-
-    And $K_{desired}(s)$ is the desired control sensitivity function, the control sensitivity shaping function is $W_K(s)$,
-
-    $$
-    \begin{aligned}
-    &K(j\omega) < \frac{1}{|W_K(j\omega)|}, \forall \omega \\
-    \Rightarrow& ||KW_K||_\infty < 1
-    \end{aligned}
-    $$
-
-    ## 4. H-infinity Control
-
-    For $H_\infty$ control, our goal is to design an $R(s)$ such that $||W_SS||_\infty < 1$, $||W_TT||_\infty < 1$, $||W_KK||_\infty < 1$
-
-    We can go for more general formulation of $H_\infty$ control,
-
-    Missing figure 
-
-    Where $z = \begin{bmatrix} z_S & z_T & z_K \end{bmatrix}^T$ is performance variables. $W$ is external signals, and we have: $z = \underbrace{\begin{bmatrix} W_SS & W_TT & W_KK \end{bmatrix}^T}_{G_{ZW}} w$
-
-    Now, our goal is to design $R(s)$ to minimize $||G_{ZW}||_\infty$, so that if you obtain that $||G_{ZW}||_\infty < \gamma$, we have $||W_SS||_\infty < \gamma$.
-
-    $$
-    ||G_{ZW}||_2^2 = \frac{1}{2\pi} \int_{-\infty}^{\infty} |G_{ZW}(j\omega)|^2 d\omega
-    $$
+$S$ behaves like a high pass filter, and $T$ behaves like a low pass filter. $M_S$, $M_T$ is the peak of the bode plot.
 
 
-    $$
-    W = \begin{bmatrix} du \\ dy \\ y^\circ \\ n \end{bmatrix}
-    $$
+### 4.1 Reformulating with stability margin
 
-    is the vector of exogenous signals, and $u$ is the control input, $v$ is the measured variable.
+To reformulate the robustness, we look at the stability margin, given the Nyquist diagram:
 
-    Missing Figure
+<figure markdown="span">
+    ![](pics/chapter10/figure7.png){ width="400" }
+</figure>
 
-    Design $R(s)$ such that the $H_2/H_\infty$ norm of the transfer matrix $G_{ZW}$ between $W$ and $Z$ is minimized. 
+From the diagram, we can know the stability margin is: $\min_\omega |1 + L(j\omega)|$.
+
+And we know that $S(j\omega) = \frac{1}{1 + L(j\omega)}$, thus we have: $|1 + L(j\omega)| = |S(j\omega)|^{-1}$, we want $|1 + L(j\omega)|$ to be large, $|S(j\omega)|^{-1}$ should be small. This could be expressed as:
+
+$$
+M_S \leq \bar M_S
+$$
+
+where $\bar M_S$ is the upper bound of the stability margin.
+
+The pick the suitable $|T(j\omega)|$ should be small, $\Rightarrow$ $M_T \leq \bar M_T$. 
+
+$T(s)$ and $S(s)$ are related, there have following relations:
+
+$$
+\begin{aligned}
+T(s) + S(s) &= 1 \\
+|T(j\omega) + S(j\omega)| &= 1, \forall \omega \\
+||T(j\omega)| - |S(j\omega)|| &\leq |T(j\omega) + S(j\omega)| = 1, \forall \omega
+\end{aligned}
+$$
+
+$|M_T - M_S| \leq 1$. A typical choice is: $\bar M_S = 2$, $\bar M_T = 1.5$.
+
+### 4.2 Rephase to Gain Margin
+
+We want to reformulate the system with gain margin, given:
+
+$g_m \geq \bar g_m$ $\Rightarrow$ repharse it in terms of $S$ and $T$.
+
+$$
+\begin{aligned}
+L(j\omega_\pi) &= -\frac{1}{g_m} \\
+|T(j\omega_\pi)| &= \frac{L(j\omega_\pi)}{1+L(j\omega_\pi)} = -\frac{1}{g_m-1} \\
+M_T &\geq |T(j\omega_\pi)| = \frac{1}{g_m-1} \\
+g_m &\geq 1 + \frac{1}{M_T} \geq  1 + \frac{1}{\bar M_T} \geq \bar g_m
+\end{aligned}
+$$
+
+and we can know that $g_m \geq \bar g_m$, $\Rightarrow$ $M_T \leq \bar M_T$.
+
+### 4.3 Rephase to Phase Margin
+
+For $M_S$, we have:
+
+$$
+\begin{aligned}
+M_S &\geq |S(j\omega)| = \frac{1}{|1 - \frac{1}{g_m}|} = \frac{g_m}{g_m - 1} \\
+g_m &\geq \frac{M_S}{M_S - 1} \geq \frac{\bar M_S}{\bar M_S - 1} \geq \bar g_m
+\end{aligned}
+$$
+
+We want to repharse the phase margin $\varphi_m$, we have: $\varphi_m \geq \bar \varphi_m$
+
+<figure markdown="span">
+    ![](pics/chapter10/figure8.png){ width="400" }
+</figure>
+
+When $\varphi_m$ is small, we have:
+
+$$
+\frac{1}{M_S} \leq |1+L(j\omega_c)| = 2\sin(\frac{\varphi_m}{2}) \simeq \varphi_m
+$$
+
+From above equation, we can know: $\varphi_m \geq \frac{1}{M_S}$, 
+
+And we look at the $M_T$, at $\omega_c$, we have $L(j\omega_c) = 1$, thus:
+
+$$
+\begin{aligned}
+|1+L(j\omega_c)| = |S(j\omega_c)|^{-1} = &|T(j\omega_c)|^{-1} \\
+&|T(j\omega_c)| = \frac{|L(j\omega_c)|}{|1+L(j\omega_c)|} = \frac{1}{|1+L(j\omega_c)|}
+\end{aligned}
+$$
+
+We can get: $\varphi_m \geq \frac{1}{M_S} = \frac{1}{M_T}$.
