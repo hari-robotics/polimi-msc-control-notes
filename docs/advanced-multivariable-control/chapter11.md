@@ -1,26 +1,80 @@
 ## 1. Review on Sensitivity Functions
+
+First, look at the linear system with disturbance,
+
+<figure markdown="span">
+    ![](pics/chapter11/figure1.png){ width="500" }
+</figure>
+
+Give the transfer function of this system:
+
+$$
+\begin{aligned}
+Y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s)+G(s)S(s)D_u(s) \\
+U(s) &= K(s)(y^\circ(s)-N(s) - D_y(s)) + S(s)D_u(s)
+\end{aligned}
+$$
+
+And give the sensitivity functions:
+
 |Description|Formulation|
 |---|---|
 |Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
 |Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
 |Control sensitivity function |$K(s) = R(s)S(s)$|
 
-$$
-\begin{aligned}
-y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s)+G(s)S(s)D_u(s) \\
-U(s) &= K(s)(y^\circ(s)-N(s) - D_y(s)) + S(s)D_u(s)
-\end{aligned}
-$$
+Where $L(s) = R(s)G(s)$.
 
-Stability margin: $\varphi_m \geq \bar \varphi_m$, $g_m \geq \bar g_m$
+We have the Stability margin: $\varphi_m \geq \bar \varphi_m$, $g_m \geq \bar g_m$, 
+
+$\Rightarrow$ $M_T = ||T||_\infty \leq \bar M_T$, $M_S = ||S||_\infty \leq \bar M_S$
+
+And the noise and disturbance distributes like figure below:
+
+<figure markdown="span">
+    ![](pics/chapter11/figure2.png){ width="400" }
+</figure>
+
+And we look at the bode diagram of the noise and disturbance distribution,
+
+<figure markdown="span">
+    ![](pics/chapter11/figure3.png){ width="600" }
+</figure>
+
+Given a nominal model without considering any disturbance and noise, we have the following schematics:
+
+<figure markdown="span">
+    ![](pics/chapter11/figure4.png){ width="400" }
+</figure>
+
+And we designed an $R(s)$ to make this closed loop nominal model A.S.. We want to research the stability of this nominal model at $G(s) \neq \bar G(s)$.
+
+## 2. Additive Uncertainty
+
+We can represent the uncertainty part with nominal part and the error on system:
 
 $$
 G(s) = \bar G(s) + \Delta G_\delta(s)
 $$
 
-Assuming that:
+Thus, we can change the system schematics:
 
-* $\Delta G_\delta (s)$ is A.S. ($\Rightarrow P_G=P_{\bar G}$)
+<figure markdown="span">
+    ![](pics/chapter11/figure5.png){ width="400" }
+</figure>
+
+Assume that: 
+
+1. $\Delta G_\delta (s)$ is A.S. ($\Rightarrow P_G=P_{\bar G}$)
+2. There have no zero-pole cancellation between $R(s)$ and $G(s)$ in the positive real part.
+
+Now, we can know the TF of $\eta \to \phi$: $-\frac{R(s)}{1+R(s)\bar G(s)}$
+
+And we can simplify the control schematics:
+
+<figure markdown="span">
+    ![](pics/chapter11/figure6.png){ width="400" }
+</figure>
 
 !!! example
     $$
