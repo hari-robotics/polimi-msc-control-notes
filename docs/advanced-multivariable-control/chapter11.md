@@ -165,7 +165,7 @@ Given the bode plot for $|S|$ and $|T|$,
 
 And the phase margin for this system have: $\varphi_m < 90^\circ$, and $\omega_{BS} < \omega_c < \omega_{BT}$.
 
-## 2. Design Specifications in Terms of the Sensitivity Function
+## 4. Design Specifications in Terms of the Sensitivity Function
 
 For the design specifications, we need to concern about:
 
@@ -186,7 +186,7 @@ These specifications defines a "desired sensitivity function" $S_{des}(s)$, and 
 
 We introduce the sensitivity shaping function: $W_S(s) = S^{-1}_{des}(s)$.
 
-### 2.1. H-infinity Control Approach
+### 4.1. H-infinity Control Approach
 
 We want to find a regulator $R(s)$ that satisfying:
 
@@ -213,7 +213,7 @@ We can draw the bode plot:
 * $M$ relates to $M_S$
 
 
-## 3. Design Specifications in Terms of the Complementary Sensitivity Function
+## 5. Design Specifications in Terms of the Complementary Sensitivity Function
 
 For the design specifications, we need to concern about:
 
@@ -263,7 +263,7 @@ $$
 \end{aligned}
 $$
 
-## 4. General H-infinity Control Approach
+## 6. General H-infinity Control Approach
 
 To design a $H_\infty$ controller, our goal is to design a $R(s)$ such that:
 
@@ -285,7 +285,7 @@ Where $z = \begin{bmatrix} z_S & z_T & z_K \end{bmatrix}^T$ is the performance v
 
 Now, our goal is to design $R(s)$ to minimize $||G_{ZW}||_\infty$, so that if you obtain that $||G_{ZW}||_\infty < \gamma$, $\Rightarrow$ $||W_SS||_\infty < \gamma$, $||W_KK||_\infty < \gamma$, $||W_TT||_\infty < \gamma$.
 
-### 4.1 H-2 Control
+### 6.1 H-2 Control
 
 For $H_2$ control, we want to design a $R(s)$ for minimizing:
 
@@ -302,7 +302,7 @@ $$
 and $u$ is the control input, $v$ is the measured variable.
 
 <figure markdown="span">
-    ![](pics/chapter11/figure18.png){ width="400" }
+    ![](pics/chapter11/figure18.png){ width="300" }
 </figure>
 
 Design $R(s)$ such that the $H_2/H_\infty$ norm of the transfer matrix $G_{ZW}$ between $W$ and $Z$ is minimized. 
