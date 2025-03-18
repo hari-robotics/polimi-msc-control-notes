@@ -18,7 +18,7 @@ nav:
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
     - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
 - Dynamics for Electric Machines and Drives:
-    - '1. Magenetic Circuits': 'dynamics-for-electric-machines-and-drives/chapter1.md'
+    - '1. Basic Electromegnetics': 'dynamics-for-electric-machines-and-drives/chapter1.md'
     - '2. Dynamics of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter2.md'
     - '3. Basics of Power Converter': 'dynamics-for-electric-machines-and-drives/chapter3.md'
     - '4. Control of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter4.md'
