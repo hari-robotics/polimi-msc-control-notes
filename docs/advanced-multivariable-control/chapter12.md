@@ -141,7 +141,8 @@ $$
 G(s) = s\tilde G(s)
 $$
 
-Missing Figure
+!!!bug
+    Missing Figure
 
 
 <figure markdown="span">
@@ -270,3 +271,188 @@ P(z) &= \begin{bmatrix} zI-A & -B \\ C & D \end{bmatrix} \\
 G(z) &= (z-1)\tilde G(z)
 \end{aligned}
 $$
+
+## 2. MIMO Linear System Analysis
+
+### 2.1 Cascade
+!!!bug
+    Missing Figure
+
+* $G_1$ is a $m_1 \times n_1$ Matrix,
+* $G_2$ is a $m_2 \times n_2$ Matrix, $n_1 = m_2$
+
+We can describe the system:
+
+$$
+\begin{aligned}
+y &= G_2(s)u_2 = G_2(s)G_1(s)u \\
+G(s) &= \underbrace{G_2(s)G_1(s)}_{n_2 \times m_1}
+\end{aligned}
+$$
+
+Now we looks at the feedback system:
+
+!!!bug
+    Missing Figure
+
+$u_1 = u - y_2$, $G_1$ is $n \times m$, and $G_2$ is $m\times n$, we want to calcuate the transfer matrix of the system.
+
+$$
+\begin{aligned}
+y(s) &= (I_n + G_1(s)G_2(s))^{-1}G_1(s)U(s) \\
+y(s) &= G_1(s)(I_m + G_1(s)G_2(s))^{-1}U(s)
+\end{aligned}
+$$
+
+Proof:
+
+$$
+\begin{aligned}
+y(s) &= G_1(s)U_1(s) = G_1(s) [U(s) - G_2(s)y(s)] \\
+(I_n + G_1(s)G_2(s))y(s) &= G_1(s)U(s) \\
+y(s) &= (I_n + G_1(s)G_2(s))^{-1}G_1(s)U(s)
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+y(s) &= G_1(s)U_1(s) \\
+U_1(s) &= U(s) - G_2(s)y(s) \\
+&= U(s) - G_2(s)G_1(s)U_1(s) \\
+(I_m + G_2(s)G_1(s))U_1(s) &= U(s)
+\end{aligned}
+$$
+
+### 2.2 Frequency Response 
+We consider a SISO A.S. system, with its TF of $G(s)$
+
+!!!bug
+    Missing Figure
+
+$y = U|G(j\omega)|$, $\alpha = \angle G(j\omega)$. The gain at $\omega$ of the TF $G(s)$ is:
+
+$$
+|G(j\omega)| = \frac{|y(j\omega)|}{|U(j\omega)|}
+$$
+
+Now we deal with MIMO systems, we have the same as SISO one, which gives the gain of the MIMO system with TF $G(s)$ at $\omega$:
+
+$$
+\begin{aligned}
+\frac{||y(j\omega)||_2}{||U(j\omega)||_2} &= \frac{||G(j\omega)U(j\omega)||_2}{||U(j\omega)||_2} \\
+\end{aligned}
+$$
+
+
+$$
+||G(j\omega)U(j\omega)||_2^2 = U^*(j\omega)\underbrace{G^*(j\omega)G(j\omega)}_{m \times m}U(j\omega)
+$$
+
+$$
+\lambda_{\min} (G^*(j\omega)G(j\omega))||U(j\omega)||_2^2 \leq U^*(j\omega)\underbrace{G^*(j\omega)G(j\omega)}_{symmetric, \succeq 0}U(j\omega) \leq \lambda_{\max} (G^*(j\omega)G(j\omega))||U(j\omega)||_2^2
+$$
+
+$$
+\simeq G(j\omega) \left\{\begin{aligned} 
+&\sigma_\min, &m\leq p\\
+&0, &m>n
+\end{aligned}\right.
+$$
+
+!!!bug
+    Missing Figure
+
+And we have $\gamma(G(j\omega)) = \frac{\bar \sigma (G(j\omega))}{\underline \sigma (G(j\omega))}$, is the condition number at $\omega$.
+
+!!!example
+    Consider a static system,
+
+    $$
+    \begin{aligned} 
+    &G = \begin{bmatrix} 1&2 \\3&4 \end{bmatrix} &  \\
+    &U_1 = \begin{bmatrix} 1\\0 \end{bmatrix} &y_1 = \begin{bmatrix} 1\\3 \end{bmatrix} \\
+    & U_2 = \begin{bmatrix} 0\\1 \end{bmatrix} &y_2 = \begin{bmatrix} 2\\4 \end{bmatrix} \\
+    & U_3 = \begin{bmatrix} \frac{\sqrt 2}{2}\\\frac{\sqrt 2}{2} \end{bmatrix} &y_3 = \begin{bmatrix} 2.12\\4.95 \end{bmatrix} \\
+    & U_4 = \begin{bmatrix} \frac{\sqrt 2}{2}\\-\frac{\sqrt 2}{2} \end{bmatrix} &y_4 = \begin{bmatrix} -\frac{\sqrt 2}{2}\\-\frac{\sqrt 2}{2} \end{bmatrix} \\
+    & U_5 = \begin{bmatrix} 0.8\\-0.6 \end{bmatrix} &y_5 = \begin{bmatrix} -0.4\\0 \end{bmatrix}
+    \end{aligned}
+    $$
+
+    $||y_1||_2 = 3.16$, $||y_2||_2 = 4.45$, $||y_3||_2 = 5.38$, $||y_4||_2 = 1$, $||y_5||_2 = 0.4$,
+
+    $\underline \sigma(G) = 0.37$, $\bar \sigma(G) = 5.17$
+
+!!!bug 
+    missing figure
+
+* $G(s)$ is $n\times m$ matrix, 
+* $R(s)$ is $m \times n$ matrix, 
+* $L=G(s)R(s)$ is $n\times n$ matrix,
+* $L_u(s) = R(s)G(s)$ is $m\times m$ matrix.
+
+$$
+\begin{aligned} 
+y(s) &= T(s)(y^\circ(s)-N(s)) + S(s)D_y(s) + S(s)G(s)D_u(s) \\
+T(s) &= (I_n + L(s))^{-1}L(s) = L(s)(I+L(s))^{-1} \\
+S(s) &= (I_n + L(s))^{-1} \\
+T(s) + S(s) &= I \\
+U(s) &= (I_m + L_u(s))^{-1}R(s)(y^\circ(s)-D_y(s)-N(s)) + (I_m + L_u(s))^{-1}D_u(s)
+\end{aligned}
+$$
+
+The feedback system is A.S. if:
+
+1. There is no cancellation if unstable poles inside the blocks 
+2. Bounded input applied at any point of the feedback system produce bounded outputs at any point of the system 
+
+The feedback system with $R(s)$ and $G(s)$ are stabilizable and detectable, is A.S. if and only if the transfer matrices:
+
+$$
+\begin{aligned} 
+k_1(s) &= (I+L(s))^{-1} L(s) \\
+k_2(s) &= (I+L(s))^{-1} \\
+k_3(s) &= (I+L(s))^{-1} G(s) \\
+k_4(s) &= (I+L_u(s))^{-1} R(s) \\
+k_5(s) &= (I+L_u(s))^{-1}
+\end{aligned}
+$$
+
+Have all poles with $Re < 0$.
+
+Remark 
+
+!!! bug
+    missing figure
+
+$$
+\begin{aligned} 
+G_1(s) &= \begin{bmatrix}\frac{4}{s+3}&0 \\ 0&\frac{4(s-1)}{s} \end{bmatrix} \\
+G_2(s) &= \begin{bmatrix}\frac{4}{s-3}&0 \\ 0&\frac{1}{s+8} \end{bmatrix} 
+\end{aligned}
+$$
+
+* Poles for $G_1$: $-3$, $0$,
+* Zeros for $G_1$: $1$
+* Poles for $G_2$: $1$, $-8$,
+
+$$
+G(s) = G_2(s)G_1(s) = \begin{bmatrix}\frac{16}{(s-1)(s-3)}&0 \\ 0&\frac{-4(s-1)}{s(s+8)} \end{bmatrix} 
+$$
+
+* Poles for $G$: $1$, $-8$, $-3$, $0$,
+* Zeros for $G$: $1$
+
+### 2.3 Nyquist Criterion
+
+!!! bug
+    missing figure
+
+$L(s) = G(s)R(s)$, assuming $L(s)$ is the transfer matrix of a stabilizable and detectable system,
+
+$p_d$ is the number of the poles of $L(s)$ with $Re > 0$
+
+Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+L(s))$ does not pass through the origin, and the number of its enciclements around the origin is $p_d$.
+
+Sufficient Condition:
+
+* A closed loop system with loop transfer matrix $L(s)$ made by A.S. systems is A.S. if $||L(s)||_\infty = \sup_\omega \bar \sigma(L(j\omega))< 1$.
