@@ -25,6 +25,7 @@ nav:
     - '4. Control of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter4.md'
     - '5. Clarke-Park Transform': 'dynamics-for-electric-machines-and-drives/chapter5.md'
     - '6. Induction Machine': 'dynamics-for-electric-machines-and-drives/chapter6.md'
+    - '7. Control of Induction Machine': 'dynamics-for-electric-machines-and-drives/chapter7.md'
     - 'E.2 Exercise 2': 'dynamics-for-electric-machines-and-drives/exercise2.md'
 - Robotics:
     - '1. Sensors and Actuators': 'robotics/chapter1.md'
