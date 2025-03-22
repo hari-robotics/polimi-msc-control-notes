@@ -40,17 +40,27 @@ $$
 e = \frac{d\psi}{dt}
 $$
 
-Where, $\psi = N\phi = \int_S (\vec B \vec n) dS$.
+Where, $\psi = N\phi = \int_S (\vec B \cdot \vec n) dS$.
 
 * $\psi$ is flux linkage
 * $N$ is the number of turns of the coil
 * $\phi$ is flux
+* $\vec n$ is the unit vector perpendicular to the plane
+* $\vec B$ is the magnetic field
 
 We can use the right hand rule to define the direction of $e$:
 
 <figure markdown="span">
     ![](pics/chapter1/figure3.png){ width="300" }
 </figure>
+
+If the magnetic field is uniform, then the EMF is:
+
+$$
+e = \frac{d\psi}{dt} = \frac{d}{dt}(BS\cos \theta) = -BS\omega \sin(\omega t)
+$$
+
+Where $\theta$ is the angle between $\vec B$ and $\vec n$.
 
 ## 4. Ampere's Law
 
