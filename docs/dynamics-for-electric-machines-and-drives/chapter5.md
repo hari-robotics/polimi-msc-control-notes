@@ -207,15 +207,15 @@ $$
 
 Finally, we can get the summation of flux density, it rotates with respect to time:
 
+$$
+\begin{aligned}
+B(\theta, t) &= \bar B_m\Re(( e^{-j\omega t} + \frac12 e^{-j\omega t}e^{-j\frac23\pi} + \frac12 e^{-j\omega t}e^{j\frac23\pi})e^{-j\theta}) \\
+&= \frac32\bar B_m\Re(e^{-j\omega t}e^{-j\theta})
+\end{aligned}
+$$
+
+And we can draw the figure for this calculation:
+
 <figure markdown="span">
     ![](pics/chapter5/figure13.gif){ width="400" }
 </figure>
-
-When $t = 0$, the flux density is:
-
-$$
-\begin{aligned}
-B(\theta) &= \Re((\bar B_m + \frac14 \bar B_m + \frac14 \bar B_m)e^{j\theta}) \\
-&= \Re(\frac32 \bar B_me^{j\theta})
-\end{aligned}
-$$
