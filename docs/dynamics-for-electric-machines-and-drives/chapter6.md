@@ -1,4 +1,31 @@
-## 1. Clarke-Park Transform
+## 1. Review on Phase Vector
+
+From last part, we already get the expression of flux density in a 3 phase machine, giving the current:
+
+$$
+\begin{aligned}
+i_a &= I_m \cos(\omega t) \\
+i_b &= I_m \cos(\omega t - \frac23 \pi) \\
+i_c &= I_m \cos(\omega t + \frac23 \pi)
+\end{aligned}
+$$
+
+The flux density is:
+
+$$
+\begin{aligned}
+\bar B &= \frac{4}{\pi} \frac{N}{2\delta}(i_ae^{j0} + i_be^{j\frac23\pi} + i_ce^{j(-\frac23\pi)}) \\
+&= \frac{4}{\pi} \frac{N}{2\delta} \underbrace{(\frac32 I_me^{j\omega t})}_{\bar i}
+\end{aligned}
+$$
+
+Thus, we have: $\bar B = k \bar i$, where $\bar i$ is the current space vector. We let $\alpha = e^{j\frac23\pi}$, and we have the expression for $\bar i$:
+
+$$
+\bar i = i_a + \alpha i_b + \alpha^2 i_c
+$$
+
+## 2. Clarke-Park Transform
 
 !!! bug
     For the 3 phase current with 120 degree phase shift, we can get:
