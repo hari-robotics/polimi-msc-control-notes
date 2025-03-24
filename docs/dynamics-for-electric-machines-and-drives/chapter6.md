@@ -25,7 +25,38 @@ $$
 \bar i = i_a + \alpha i_b + \alpha^2 i_c
 $$
 
+And we can also do the same thing to the 3 phase voltage,
+
+$$
+\bar v = (v_a + \alpha v_b + \alpha^2 v_c)
+$$
+
 ## 2. Clarke-Park Transform
+
+### 2.1 Clarke Transform
+By obtainning the current vector, we can simplify the 3 phase machine into 2 phase representation,
+
+<figure markdown="span">
+    ![](pics/chapter6/figure1.png){ width="400" }
+</figure>
+
+And we have:
+
+$$
+\bar i = i_\alpha + j i_\beta
+$$
+
+And we can also convert it back to 3 phase current:
+
+$$
+\begin{aligned}
+i_a &= \frac23 \Re(\bar i e^{j0}) \\
+i_b &= \frac23 \Re(\bar i e^{-j\frac23\pi}) \\
+i_c &= \frac23 \Re(\bar i e^{j\frac23\pi}) \\
+\end{aligned}
+$$
+
+This conversion is called (inverse) clarke transform, with $i_a$, $i_b$ and $i_c$ have a equal amplitude to the real phase current. 
 
 !!! bug
     For the 3 phase current with 120 degree phase shift, we can get:
