@@ -252,7 +252,7 @@ $$
 * $M$ is the mutual inductance
 
 
-For the above equation, we create a d-q axis for both stator and rotor, where the equivalant windings of the stator and rotor have no relative rotation, thus, the inductance between 2 coils is a constant value.
+For the above equation, we create a d-q axis for both stator and rotor, where the equivalent windings of the stator and rotor have no relative rotation, thus, the inductance between 2 coils is a constant value.
 
 We can rewrite the equation:
 
@@ -273,6 +273,109 @@ $$
 \bar v_{r} &= R_r \bar i_{r} + j\omega L_r \bar i_r + j\omega M \bar i_s - j\dot \theta_m \bar \psi_r = 0 \\
 \end{aligned}
 $$
+
+### 3.4 Equivalent Circuit Model
+To simplify the model, we can add extra terms for the induction machine equations:
+
+$$
+\begin{aligned}
+&\left\{\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + L_s p\bar i_s + M p\bar i_r + Mp\bar i_s - Mp\bar i_s\\
+\bar v_{r} &= R_r \bar i_{r} + L_r p\bar i_r + M p\bar i_s - j\omega_m \bar \psi_r + Mp\bar i_r - Mp\bar i_r \\
+\end{aligned}\right. \\
+\Rightarrow &\left\{\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + (L_s - M) p\bar i_s + M p(\bar i_s+\bar i_r)\\
+\bar v_{r} &= R_r \bar i_{r} + (L_r - M) p\bar i_r + M p(\bar i_s+\bar i_r) - j\omega_m \bar \psi_r \\
+\end{aligned}\right.
+\end{aligned}
+$$
+
+With these equations, it is possible to draw the equivalent cirucit:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure5.png){ width="500" }
+</figure>
+
+Since we know that in the induction machine, the rotor circuit is short circuited, thus we have $\bar v_r = 0$:
+
+We can define the slip ratio for the induction machine:
+
+$$
+X = \frac{\omega - \omega_m}{\omega_m}
+$$
+
+* $\omega$ is the field rotating speed
+* $\omega_m$ is the rotor rotating speed
+
+Rewrite the dynamic equation using this definition,
+
+$$
+\begin{aligned}
+\bar \psi_r &= L_r \bar i_r + M \bar i_s \\
+\bar v_{r} &= R_r \bar i_{r} + (L_r - M) p\bar i_r + M p(\bar i_s+\bar i_r) - j\omega_m \bar \psi_r \\
+&= R_r \bar i_{r} + j\omega(L_r - M) \bar i_r + j\omega M (\bar i_s+\bar i_r) - j(\omega - X\omega)(L_r \bar i_r + M \bar i_s) \\
+&= R_r \bar i_{r} + jX\omega\bar \psi_r  = 0\\
+\end{aligned}
+$$
+
+Which gives: $-j\omega\bar \psi_r = \frac{1}{X} R_r \bar i_{r}$, and because $\omega_m = (1-X)\omega$, the replacement for the motional term is: $-j\omega_m\bar \psi_r = \frac{1-X}{X} R_r \bar i_{r}$. We can redraw the equivalent circuit:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure6.png){ width="500" }
+</figure>
+
+It is easy to find that the 2 resistors can be sumed together,
+
+<figure markdown="span">
+    ![](pics/chapter6/figure7.png){ width="500" }
+</figure>
+
+### 3.5 Mechanical Charactistics
+We look at the equivalent circuit below:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure5.png){ width="500" }
+</figure>
+
+From the euqivalent circuit, the mechanical power can be given:
+
+$$
+\begin{aligned}
+P_m &= \Re(-j\omega_m\bar \psi_r \cdot \underline{i_r}) \\
+&= -\Im(\omega_m\bar \psi_r \cdot \underline{i_r}) \\
+&= -\omega_m\Im(\bar \psi_r \cdot \underline{i_r})
+\end{aligned}
+$$
+
+* $\underline{i_r}$ is the conjugate current of $\bar i_r$.
+
+We consider the number of pole pairs $n_p$, and we look back at the machine structure,
+
+When $n_p$ = 1,
+
+<figure markdown="span">
+    ![](pics/chapter5/figure11.png){ width="400" }
+</figure>
+
+The magnetic field have a distribution:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure9.gif){ width="400" }
+</figure>
+
+And when $n_p = 2$, the structure looks like:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure8.png){ width="400" }
+</figure>
+
+And it have the magnetic field:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure10.gif){ width="500" }
+</figure>
+
+We can find that for one 
 
 !!! bug
     ## 1. Review on Induction Machine:
