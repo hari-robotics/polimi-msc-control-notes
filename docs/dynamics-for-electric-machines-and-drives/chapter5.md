@@ -190,8 +190,8 @@ The flux density in the electrical machine is:
 $$
 \begin{aligned}
 \bar B_a &= \frac{4}{\pi}\frac{\mu_0 NI_m \cos(\omega t)}{2\delta} e^{j0} \\
-&= \underbrace{\frac{4}{\pi}\frac{\mu_0 NI_m}{2\delta}}_{\bar B_m} \cos(\omega t) \\
-&= \bar B_m \Re(e^{-j\omega t})
+&= \underbrace{\frac{4}{\pi}\frac{\mu_0 NI_m}{2\delta}}_{K} \cos(\omega t) \\
+&= K \Re(e^{-j\omega t})
 \end{aligned}
 $$
 
@@ -199,9 +199,9 @@ Similarly, we can do this for other 2 phase windings, we have:
 
 $$
 \begin{aligned}
-\bar B_a & = \bar B_m \Re(e^{-j\omega t})e^{j0} \\
-\bar B_b & = \bar B_m \Re(e^{-j\omega t}e^{j(-\frac23\pi)})e^{j\frac23\pi} \\
-\bar B_c & = \bar B_m \Re(e^{-j\omega t}e^{j\frac23\pi})e^{j(-\frac23\pi)}
+\bar B_a & = K \Re(e^{-j\omega t})e^{j0} \\
+\bar B_b & = K \Re(e^{-j\omega t}e^{j(-\frac23\pi)})e^{j\frac23\pi} \\
+\bar B_c & = K \Re(e^{-j\omega t}e^{j\frac23\pi})e^{j(-\frac23\pi)}
 \end{aligned}
 $$
 
@@ -209,9 +209,9 @@ Finally, we can get the summation of flux density, it rotates with respect to ti
 
 $$
 \begin{aligned}
-B(\theta, t) &= \bar B_m\Re(( \Re(e^{-j\omega t})e^{j0} + \Re(e^{-j\omega t}e^{j(-\frac23\pi)})e^{j\frac23\pi} + \Re(e^{-j\omega t}e^{j\frac23\pi})e^{j(-\frac23\pi)})e^{-j\theta}) \\
-&= \bar B_m\Re((\frac{e^{-j\omega t}+e^{j\omega t}}{2} + \frac{e^{-j\omega t}e^{j(-\frac23\pi)}+e^{j\omega t}e^{j(\frac23\pi)}}{2}e^{j\frac23\pi} + \frac{e^{-j\omega t}e^{j(\frac23\pi)}+e^{j\omega t}e^{-j(\frac23\pi)}}{2}e^{-j\frac23\pi})e^{-j\theta}) \\
-&= \frac32\bar B_m\Re(e^{-j\omega t}e^{-j\theta})
+B(\theta, t) &= K\Re(( \Re(e^{-j\omega t})e^{j0} + \Re(e^{-j\omega t}e^{j(-\frac23\pi)})e^{j\frac23\pi} + \Re(e^{-j\omega t}e^{j\frac23\pi})e^{j(-\frac23\pi)})e^{-j\theta}) \\
+&= K\Re((\frac{e^{-j\omega t}+e^{j\omega t}}{2} + \frac{e^{-j\omega t}e^{j(-\frac23\pi)}+e^{j\omega t}e^{j(\frac23\pi)}}{2}e^{j\frac23\pi} + \frac{e^{-j\omega t}e^{j(\frac23\pi)}+e^{j\omega t}e^{-j(\frac23\pi)}}{2}e^{-j\frac23\pi})e^{-j\theta}) \\
+&= \frac32K\Re(e^{-j\omega t}e^{-j\theta})
 \end{aligned}
 $$
 

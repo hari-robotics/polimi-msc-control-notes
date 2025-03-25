@@ -28,12 +28,10 @@ $$
 And we can also do the same thing to the 3 phase voltage,
 
 $$
-\bar v = (v_a + \alpha v_b + \alpha^2 v_c)
+\bar v = v_a + \alpha v_b + \alpha^2 v_c = \frac32V_me^{j(\omega t + \varphi)}
 $$
 
-## 2. Clarke-Park Transform
-
-### 2.1 Clarke Transform
+## 2. Clarke Transform
 By obtainning the current vector, we can simplify the 3 phase machine into 2 phase representation,
 
 <figure markdown="span">
@@ -43,10 +41,10 @@ By obtainning the current vector, we can simplify the 3 phase machine into 2 pha
 And we have:
 
 $$
-\bar i = i_\alpha + j i_\beta
+\bar i = i_a + \alpha i_b + \alpha^2 i_c = i_\alpha + j i_\beta
 $$
 
-And we can also convert it back to 3 phase current:
+This transforms 3 phase current into 2 perpendicular current, which is called __Clarke Transform__, and we can also convert it back to 3 phase current:
 
 $$
 \begin{aligned}
@@ -56,142 +54,281 @@ i_c &= \frac23 \Re(\bar i e^{j\frac23\pi}) \\
 \end{aligned}
 $$
 
-This conversion is called (inverse) clarke transform, with $i_a$, $i_b$ and $i_c$ have a equal amplitude to the real phase current. 
+This conversion is called __Inverse Clarke Transform__, with $i_a$, $i_b$ and $i_c$ have a equal amplitude to the real phase current. In reality, we will prefer to use equal power transform, because it is always easier to control the power than control the voltage and current. The equal power transformation gives:
+
+$$
+\begin{aligned}
+\bar i &= \sqrt{\frac23}(i_a + \alpha i_b + \alpha^2 i_c) \\
+\bar v &= \sqrt{\frac23}(v_a + \alpha v_b + \alpha^2 v_c)
+\end{aligned}
+$$
+
+!!!info
+    Proof:
+
+    For equal power transformation, we have:
+
+    $$
+    \begin{aligned}
+    P &= \Re(\bar v \cdot \underline i) \\
+    &=\Re(\frac23(\frac32 V_me^{j(\omega t+\varphi)})(\frac32 I_me^{-j\omega t})) \\
+    &=\Re(\frac32 I_mV_me^{j\varphi}) \\
+    &=\frac32 I_mV_m \cos(\varphi)
+    \end{aligned}
+    $$
+
+    * $\varphi$ is the electrical angle between $v$ and $i$
+    * $\underline i$ is the conjugate vector of $\bar i$
+
+    For the sinosoidal wave, there have: $V_m = \sqrt{2}V_{RMS}$, $I_m = \sqrt{2}I_{RMS}$,
+
+    And the power is: $P = 3I_{RMS}V_{RMS} \cos(\varphi)$, which is the same as the 3 phase power
+
+And the equal power inverse transform gives:
+
+$$
+\begin{aligned}
+i_a &= \sqrt{\frac23} \Re(\bar i e^{j0}) \\
+i_b &= \sqrt{\frac23} \Re(\bar i e^{-j\frac23\pi}) \\
+i_c &= \sqrt{\frac23} \Re(\bar i e^{j\frac23\pi}) \\
+\end{aligned}
+$$
+
+## 3. Induction Machine
+### 3.1 Phase Vector Representation
+For the induction machine, we have 3 phase windings for both stator and rotor, which gives:
+
+* Stator:
+
+    $$
+    \begin{aligned}
+    \bar i_s &= \sqrt{\frac23}(i_{as} + \alpha i_{bs} + \alpha^2 i_{cs}) \\
+    \bar v_s &= \sqrt{\frac23}(v_{as} + \alpha v_{bs} + \alpha^2 v_{cs})
+    \end{aligned}
+    $$
+
+* Rotor:
+
+    $$
+    \begin{aligned}
+    \bar i_r &= \sqrt{\frac23}(i_{ar} + \alpha i_{br} + \alpha^2 i_{cr}) \\
+    \bar v_r &= \sqrt{\frac23}(v_{ar} + \alpha v_{br} + \alpha^2 v_{cr})
+    \end{aligned}
+    $$
+
+And we can perform the Clarke Transform for both stator part and rotor part:
+
+<figure markdown="span">
+    ![](pics/chapter6/figure2.png){ width="400" }
+</figure>
+
+The phase vector voltage and current have following relationship:
+
+$$
+\bar v = R\bar i + \frac{d}{dt} \bar \psi
+$$
+
+* $R$ here represents phase resistance, which gives: $R = \begin{bmatrix} R_a&0&0 \\ 0&R_b&0 \\ 0&0&R_c\end{bmatrix}$
+
+The equation for rotator and stator are the same:
+
+$$
+\begin{aligned}
+\bar v_s^s &= R_s^s\bar i_s^s + \frac{d}{dt} \bar \psi_s^s \\
+\bar v_r^r &= R_r^r\bar i_r^r + \frac{d}{dt} \bar \psi_r^r
+\end{aligned}
+$$
+
+We short circuit the rotor part, there have:
+
+$$
+\bar v_r^r = R_r^r\bar i_r^r + \frac{d}{dt} \bar \psi_r^r = 0
+$$
+
+It is important to know that these equations exist only the equation for stator is referenced to the stator frame, and for the equation for rotor is referenced to the rotor frame.
+
+!!! example
+    To better explain induction machine, we can look at a rotating winding and magnetic model, 
+
+    <figure markdown="span">
+        ![](pics/chapter6/figure3.png){ width="400" }
+    </figure>
+
+    We need to consider the following condition:
+
+    * $\omega_m = 0$, $\omega \neq 0$:
+
+        $$
+        e = K\sin(\omega t) = \frac{d\psi}{dt}
+        $$
+
+    * $\omega_m < \omega$:
+
+        $$
+        e = \frac{d\psi}{dt} = K\sin((\omega-\omega_m) t)
+        $$
+
+    This shows that the changing flux linage has the relationship with rotating speed $\omega$.
+
+### 3.2 Clarke Transform Frame Representation
+We can do the Clarke Transform for the phase vector, and we can get the $\alpha$-$\beta$ axis representation for stator and rotor respectively:
+
+$$
+\begin{aligned}
+(\Re): v_{s\alpha} &= R_s i_{s\alpha} + \frac{d}{dt} \psi_{s\alpha} \\
+(\Im): v_{s\beta} &= R_s i_{s\beta} + \frac{d}{dt} \psi_{s\beta} \\
+\end{aligned}
+$$
+
+Consider the condition $I_0 + \alpha I_0 + \alpha^2 I_0 = 0$, $I_0 \neq 0$, $I_0$ is __homopolar current__, which contributes a power that not generating mechanical rotations. 
+
+For our design, homopolar current should be 0: $I_0 = \frac{i_a + i_b + i_c}{3} = 0$.
+
+### 3.3 Park Transform for Induction Machine
+Assuming for the stator part, the $\alpha$-$\beta$ axis have rotated a general angle $\theta_s$, the new frame we called d-q axis, and we continue rotate for $\theta_r$ to the rotor frame,
+
+<figure markdown="span">
+    ![](pics/chapter6/figure4.png){ width="400" }
+</figure>
+
+Given the expression for stator voltage:
+
+$$
+\bar v_{s} = R_s \bar i_{s} + p \bar \psi_{s} \\
+$$
+
+* $p = \frac{d}{dt}$, for easy representation
+
+And if we have a non $0$ phase angle for the phase vector $\bar v_{s}$, the phase angle is $\theta$, we have:
+
+$$
+\bar v_{sd} = \bar v_{s} e^{j\theta_s} = v_se^{j(\theta_s+\theta)}
+$$
+
+We substitude it into stator voltage representation:
+
+$$
+\begin{aligned}
+\bar v_{s}e^{j\theta_s} &= R_s \bar i_{s}e^{j\theta_s} + p (\bar \psi_{s}e^{j\theta_s}) \\
+&= R_s \bar i_{s}e^{j\theta_s} + e^{j\theta_s}p \bar \psi_{s} + j\dot \theta_s \bar \psi_{s}e^{j\theta_s}
+\end{aligned}
+$$
+
+And we can eliminate all $e^{j\theta_s}$ term,
+
+$$
+\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + p \bar \psi_{s} + \underbrace{j\dot \theta_s \bar \psi_{s}}_{\text{motional term}}
+\end{aligned}
+$$
+
+Similarly, for the rotor part,
+
+$$
+\begin{aligned}
+\bar v_{r} &= R_r \bar i_{r} + p \bar \psi_{r} + j\dot \theta_r \bar \psi_{r}
+\end{aligned}
+$$
+
+And for convient calculation, we often fixed stator frame to the phase $A$, thus, $\theta_s = 0$, $\theta_r = \theta_s - \theta_m = -\theta_m$, this rotates the rotator frame to the d-q axis, and we can get the representation for stator voltage and rotor voltage both in d-q axis:
+
+$$
+\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + p \bar \psi_{s} \\
+\bar v_{r} &= R_r \bar i_{r} + p \bar \psi_{r} - j\dot \theta_m \bar \psi_{r}
+\end{aligned}
+$$
+
+For the flux linkage, we have:
+
+$$
+\begin{aligned}
+\bar \psi_s &= L_s \bar i_s + M \bar i_r \\
+\bar \psi_r &= L_r \bar i_r + M \bar i_s \\
+\end{aligned}
+$$
+
+* $L_s$, $L_r$ is the self-inductance of stator and rotor
+* $M$ is the mutual inductance
+
+
+For the above equation, we create a d-q axis for both stator and rotor, where the equivalant windings of the stator and rotor have no relative rotation, thus, the inductance between 2 coils is a constant value.
+
+We can rewrite the equation:
+
+$$
+\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + L_s p\bar i_s + M p\bar i_r \\
+\bar v_{r} &= R_r \bar i_{r} + L_r p\bar i_r + M p\bar i_s - j\dot \theta_m \bar \psi_r \\
+\bar i_s &= i_se^{j\omega t} \\
+\bar i_r &= i_re^{j\omega t}
+\end{aligned}
+$$
+
+Replace $p\bar i_s$ and $p\bar i_r$, at steady steate, we have:
+
+$$
+\begin{aligned}
+\bar v_{s} &= R_s \bar i_{s} + j\omega L_s \bar i_s + j\omega M \bar i_r \\
+\bar v_{r} &= R_r \bar i_{r} + j\omega L_r \bar i_r + j\omega M \bar i_s - j\dot \theta_m \bar \psi_r = 0 \\
+\end{aligned}
+$$
 
 !!! bug
-    For the 3 phase current with 120 degree phase shift, we can get:
+    ## 1. Review on Induction Machine:
+    We transformed induction stator and rotor into d-q axis. We have expression:
 
     $$
     \begin{aligned}
-    \bar B_{tot} &= \bar B_a + \bar B_b + \bar B_c \\
-    &= \frac{4}{\pi} (i_a e^{j0} + i_b e^{j\frac23 \pi} + i_c e^{j \frac43 \pi}) \\
-    &= k \bar i
+    \bar v_s &= R_s \bar i_s + p\bar \psi_s + j\dot \theta_s\psi_s \\
+    \bar v_r &= R_r \bar i_r + p\bar \psi_r + j\dot \theta_r\psi_r
     \end{aligned}
     $$
 
-    Where $i_a = I_{m} \cos(\omega t)$, $\bar i = \frac32 I_{m} e^{j\omega t}$
+    Where:
 
-    Thus the current generated flux density that will rotate in the speed of $\omega$. The sum current and phase current have the following relationship: 
+    * $p = \frac{d}{dt}$
+
+    We can find the $L_s$, $M$, $L_r$ from the machine,
+
+    And we have: $\bar \psi_s = L_s \bar i_s + M \bar i_r$,
+    The same for the rotor: $\bar \psi_r = L_s \bar i_r + M \bar i_s$,
 
     $$
-    i_a = \frac23 Re(\bar i e^{j0})
+    \Rightarrow \quad
+    \begin{aligned}
+    v_s = R_s \bar i_s + L_s p \bar i_s + M p \bar i_r + j\dot \theta_s\psi_s \\
+    v_r = R_r \bar i_r + L_r p \bar i_r + M p \bar i_s + j\dot \theta_r\psi_r 
+    \end{aligned}
     $$
 
-    Similarly, we can have the space vectors for the voltage,
+    And for the torque, we have: $T = n_p I_m (\bar \psi_r \underline{i_r})$,
 
     $$
-    \bar v = (v_a\angle0 + v_b\angle \frac23 \pi + v_c \angle \frac43 \pi)
+    \frac{v_r^*}{v_r} = \frac{i_r}{i_r^*} = \frac{\psi_r^*}{\psi_r} = k
     $$
 
-    The more commonly used conversion is the same energy conversion,
+    And we have:
 
     $$
     \begin{aligned}
-    \bar i = \sqrt{\frac23} \frac32 I_{m}e^{j\omega t} \\
-    \bar v = \sqrt{\frac23} \frac32 V_{m}e^{j\omega t}
+    &\frac{v_r^*}{k} =  R_r k i_r^* + k L_r p i_r^* + M p \bar i_s + j\dot \theta_r \frac{\psi_r^*}{k} \\
+    \Rightarrow &v_r^* = R_r k^2 i_r^* + k^2 L_r p i_r^* + k M p \bar i_s + j\dot \theta_r \psi_r^* \\
+    &v_r^* = k^2 R_r i_r^* + (k^2 L_r - k M)p i_r^* + k M p(\bar i_s + i_r^*) + j\dot \theta_r \frac{\psi_r^*}{k}
     \end{aligned}
     $$
 
-    So that, the power is:
-
     $$
-    P = Re(\bar v \bar i) = 3V_{m}I_{m}
+    k^2L_r - kM = 0 \Rightarrow K(KL_r - M) = 0 \Rightarrow K = \frac{M}{L_r}
     $$
 
-    Between stator and the rotor, we have the angle difference $\theta_m$,
-
-    we can use the matrix form to represent the electrical machine dynamics:
+    The short circuit inductance is: $L_{ks} = L_s - \frac{M^2}{L_r}$. We know that $L = \frac{\psi_1}{i_i}$, $M = \frac{\psi_2}{i_i}$, and the flux likage pass though itself is much larger than the other winding, so $M < L$.
 
     $$
     \begin{aligned}
-    \begin{bmatrix}
-    v_a \\ v_b \\ v_c
-    \end{bmatrix} = \mathbf R \begin{bmatrix}
-    i_a \\ i_b \\ i_c
-    \end{bmatrix} + \frac{d}{dt} \begin{bmatrix}
-    \psi_a \\ \psi_b \\ \psi_c
-    \end{bmatrix}
+    \bar \psi_s &= L_{ks} \bar v_s + \bar \psi_r\\
+    \psi_r &= M'(\bar i_s + i_r^*)
     \end{aligned}
     $$
 
-    Where $\mathbf R$ is the resistance matrix.
-
-    And we can rotate the matrix within rotating matrix $\sqrt{\frac{2}{3}} \begin{bmatrix} 1 & \alpha & \alpha^2 \end{bmatrix}$, and we have:
-
-    $$
-    \begin{aligned}
-    \bar v_s^s &= R_s \bar i_s^s + \frac{d}{dt} \bar \psi_s^s \\
-    \bar v_R^R &= R_R \bar i_s^R + \frac{d}{dt} \bar \psi_R^R
-    \end{aligned}
-    $$
-
-    And this results in a DC like expression:
-
-    $$
-    \begin{aligned}
-    v_{sd} = Ri_{sd} + \frac{d}{dt} \psi_{sd} \\
-    v_{sq} = Ri_{sq} + \frac{d}{dt} \psi_{sq}
-    \end{aligned}
-    $$
-
-    If there exists a constant current for the 3 phases, the composed current is $0$, but it will consumed power as the form of heat. This is called __Homopolar Current (Voltage)__.
-
-
-
-## 1. Review on Induction Machine:
-We transformed induction stator and rotor into d-q axis. We have expression:
-
-$$
-\begin{aligned}
-\bar v_s &= R_s \bar i_s + p\bar \psi_s + j\dot \theta_s\psi_s \\
-\bar v_r &= R_r \bar i_r + p\bar \psi_r + j\dot \theta_r\psi_r
-\end{aligned}
-$$
-
-Where:
-
-* $p = \frac{d}{dt}$
-
-We can find the $L_s$, $M$, $L_r$ from the machine,
-
-And we have: $\bar \psi_s = L_s \bar i_s + M \bar i_r$,
-The same for the rotor: $\bar \psi_r = L_s \bar i_r + M \bar i_s$,
-
-$$
-\Rightarrow \quad
-\begin{aligned}
-v_s = R_s \bar i_s + L_s p \bar i_s + M p \bar i_r + j\dot \theta_s\psi_s \\
-v_r = R_r \bar i_r + L_r p \bar i_r + M p \bar i_s + j\dot \theta_r\psi_r 
-\end{aligned}
-$$
-
-And for the torque, we have: $T = n_p I_m (\bar \psi_r \underline{i_r})$,
-
-$$
-\frac{v_r^*}{v_r} = \frac{i_r}{i_r^*} = \frac{\psi_r^*}{\psi_r} = k
-$$
-
-And we have:
-
-$$
-\begin{aligned}
-&\frac{v_r^*}{k} =  R_r k i_r^* + k L_r p i_r^* + M p \bar i_s + j\dot \theta_r \frac{\psi_r^*}{k} \\
-\Rightarrow &v_r^* = R_r k^2 i_r^* + k^2 L_r p i_r^* + k M p \bar i_s + j\dot \theta_r \psi_r^* \\
-&v_r^* = k^2 R_r i_r^* + (k^2 L_r - k M)p i_r^* + k M p(\bar i_s + i_r^*) + j\dot \theta_r \frac{\psi_r^*}{k}
-\end{aligned}
-$$
-
-$$
-k^2L_r - kM = 0 \Rightarrow K(KL_r - M) = 0 \Rightarrow K = \frac{M}{L_r}
-$$
-
-The short circuit inductance is: $L_{ks} = L_s - \frac{M^2}{L_r}$. We know that $L = \frac{\psi_1}{i_i}$, $M = \frac{\psi_2}{i_i}$, and the flux likage pass though itself is much larger than the other winding, so $M < L$.
-
-$$
-\begin{aligned}
-\bar \psi_s &= L_{ks} \bar v_s + \bar \psi_r\\
-\psi_r &= M'(\bar i_s + i_r^*)
-\end{aligned}
-$$
-
-The slip is: $X = \frac{\omega - \omega_m}{\omega}$
+    The slip is: $X = \frac{\omega - \omega_m}{\omega}$
