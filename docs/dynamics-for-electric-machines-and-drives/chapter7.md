@@ -71,7 +71,7 @@ The final equation are:
 
 $$
 \begin{aligned}
-v_{sd} &= \underbrace{R_k}_{R_s+R_r} + L_{ks}pi_{sd} - \frac{R_r}{M}\psi_r - \dot\theta_s L_{ks}i_{sq} \\
+v_{sd} &= \underbrace{R_k}_{R_s+R_r} i_{sd} + L_{ks}pi_{sd} - \frac{R_r}{M}\psi_r - \dot\theta_s L_{ks}i_{sq} \\
 v_{sq} &= R_k i_{sq} + L_{ks}pi_{sq} + \dot\theta_s L_{ks}i_{sd} + \dot\theta_m\psi_r
 \end{aligned}
 $$
@@ -183,4 +183,78 @@ The switch state have the following relationship to the space vector:
 
 ## 5. Estimator Design
 
-Since we cannot measure the flux in the airgap, and the stator angle, we need to design an estimator to get $\psi_r$ and $\theta_s$
+Since we cannot measure the flux in the airgap, and the stator angle, we need to design an estimator to get $\psi_r$ and $\theta_s$,
+
+$$
+\begin{aligned}
+\theta_s &= \theta_r + \theta_m \\
+\dot \theta_s &= \dot \theta_r + \dot \theta_m
+\end{aligned}
+$$
+
+There have 2 main estimators for induction machine $I$-$\Omega$ and $V$-$I$ estimators.
+
+1. For the $I$-$\Omega$ estimator, 
+
+    we measured 3 phase current and transformed them into $i_{sd}$ and $i_{sq}$. 
+
+    From the equation $p\psi_r = R_r i_{sd} - \frac{R_r}{M}\psi_r$, we get $\psi_r$. And from equation:
+
+    $$
+    \begin{aligned}
+    0 &= R_r i_{sq} - (\dot \theta_s - \dot \theta_m)\psi_r \\
+    \dot\theta_s &= \frac{R_ri_{sq}}{\psi_r} + \dot \theta_m
+    \end{aligned}
+    $$
+
+    We can calculate the stator speed $\dot \theta_s$ and integrating it, we can get $\theta_s$, the whole estimator block have the schematic:
+
+    <figure markdown="span">
+        ![](pics/chapter7/figure7.png){ width="600" }
+    </figure>
+
+2. $V$-$I$ estimator:
+
+    $$
+    \begin{aligned}
+    v_{s\alpha} &= R_s i_{s\alpha} + p\psi_\alpha \\
+    v_{s\beta} &= R_s i_{s\beta} + p\psi_\beta
+    \end{aligned}
+    $$
+
+    And we know: 
+
+    $$
+    \theta_s = atan(\frac{\psi_{s\beta}}{\psi_{s\alpha}})
+    $$
+
+    Where:
+
+    $$
+    \begin{aligned}
+    \bar\psi_{s} &= \bar\psi_r+L_{ks}\bar i_s \\
+    \bar\psi_{\alpha\beta} &= \bar\psi_{s\alpha\beta}+L_{k}\bar i_{s\alpha\beta}
+    \end{aligned}
+    $$
+
+    And we can draw the schematics:
+    <figure markdown="span">
+        ![](pics/chapter7/figure8.png){ width="600" }
+    </figure>
+
+## 6. Scalar Control (V/F Control)
+We start from the voltage equation:
+
+$$
+\begin{aligned}
+v_{sq} &= \underbrace{R_si_{sq} + L_{ks}i_{sq} + \theta_s L_{ks}i_{sq}}_{\text{voltage drop on} Z_s} + \underbrace{\dot \theta_m \psi_r}_{EMF} \\
+\end{aligned}
+$$
+
+<figure markdown="span">
+    ![](pics/chapter7/figure9.png){ width="600" }
+</figure>
+
+<figure markdown="span">
+    ![](pics/chapter7/figure10.png){ width="300" }
+</figure>
