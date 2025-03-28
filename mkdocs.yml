@@ -17,6 +17,7 @@ nav:
     - '11. H2 and H-Infinity Control': 'advanced-multivariable-control/chapter11.md'
     - '12. MIMO Linear Systems': 'advanced-multivariable-control/chapter12.md'
     - '13. MIMO System Control': 'advanced-multivariable-control/chapter13.md'
+    - '14. Observer': 'advanced-multivariable-control/chapter14.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
     - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
 - Dynamics for Electric Machines and Drives:
