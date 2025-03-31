@@ -158,6 +158,10 @@ An N&S condition for such a $K$ to exist is $(A,B)$ is reachable.
         p_{A-BK}(\lambda) &= \det(\lambda I_2 - (A-BK)) \\
         &= \lambda^2 + (-1+K_1 + 2K_2)\lambda + 4K_1 + 2K_2 - 2 \\
         p^*(\lambda) &= \lambda^2 + 7\lambda + 12 \\
+        \end{aligned}
+        $$
+        
+        $$
         \left\{\begin{aligned}
         -1 + K_1 + 2K_2 = 7 \\
         4K_1 + 2K_2 - 2 = 12
@@ -166,7 +170,6 @@ An N&S condition for such a $K$ to exist is $(A,B)$ is reachable.
         K_1=2 \\
         K_2=3
         \end{aligned}\right.
-        \end{aligned}
         $$
 
 !!! bug 
