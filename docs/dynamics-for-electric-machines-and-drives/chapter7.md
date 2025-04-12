@@ -258,3 +258,11 @@ $$
 <figure markdown="span">
     ![](pics/chapter7/figure10.png){ width="300" }
 </figure>
+
+## 7. DSC/DTC
+!!! bug
+    missing figure
+
+### 7.1 Direct Self Control
+
+* Fix reference frame

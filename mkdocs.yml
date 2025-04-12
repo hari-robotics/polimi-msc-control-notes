@@ -19,7 +19,9 @@ nav:
     - '13. MIMO System Control': 'advanced-multivariable-control/chapter13.md'
     - '14. Observer': 'advanced-multivariable-control/chapter14.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
-    - 'E.1 Exercise 2': 'advanced-multivariable-control/exercise2.md'
+    - 'E.2 Exercise 2': 'advanced-multivariable-control/exercise2.md'
+    - 'E.3 Exercise 3': 'advanced-multivariable-control/exercise3.md'
+    - 'E.5 Exercise 5': 'advanced-multivariable-control/exercise5.md'
 - Dynamics for Electric Machines and Drives:
     - '1. Basic Electromegnetics': 'dynamics-for-electric-machines-and-drives/chapter1.md'
     - '2. Dynamics of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter2.md'
@@ -32,6 +34,7 @@ nav:
 - Robotics:
     - '1. Sensors and Actuators': 'robotics/chapter1.md'
     - '2. Odometry': 'robotics/chapter2.md'
+    - '3. Localisation': 'robotics/chapter3.md'
 
 theme:
   name: material
