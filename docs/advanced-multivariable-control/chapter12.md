@@ -1,32 +1,34 @@
-## 1. Poles and Zeros for MIMO Linear Systems
-
-Recall on the state space function:
+## 1. Poles and Zeros of MIMO Linear Systems
+### 1.1 From State Space to Transfer Matrix
+For a linear system, there have state space representations and TF, which can converts bi-directionally:
 
 $$
 \begin{aligned}
 \dot x(t) &= Ax(t) + Bu(t) \\
 y(t) &= Cx(t) + Du(t)
-\end{aligned}
-$$
-
-within laplace transform, we can get:
-
-$$
+\end{aligned} \Leftrightarrow 
 \begin{aligned}
 y(s) = G(s)u(s)
 \end{aligned}
 $$
 
-Where $G(s) = C(s\mathbf I -A)^{-1}B+D$, for the element $G_{ij} \in G(s)$, it means that input $u_j$ contributes to output $y_i$.
+The conversion between TF and state space have: 
 
-The defination of poles of $G(s)$ is: the poles of $G(s)$ are the eigenvalues of the reachable and conservable part of the system.
+$$
+G(s) = C(s\mathbf I -A)^{-1}B+D
+$$
+
+* $G(s) = \begin{bmatrix} G_{11}(s) & \dots & G_{1j} \\ \vdots && \vdots \\ G_{i1} & \cdots & G_{ij} \end{bmatrix}$ is the transfer matrix of the system, the element $G_{ij} \in G(s)$ means that input $u_j$ contributes to output $y_i$.
+
+__Defination__: The poles of $G(s)$ are the eigenvalues of the reachable and conservable part of the system.
 
 !!!note 
     If the system is reachable and obserable, then: $\lambda_A$ is the poles of $G(s)$.
 
-How can we calculate the poles from $G(s)$:
+### 1.2 Poles of a MIMO system
+__Question__: Now we have the transfer matrix of the MIMO system, how can we calculate the poles for $G(s)$?
 
-Within the following theorem:
+__Answer__: Within the following theorem:
 
 * The characteristic polynomial $\phi(s)$ of a minimal realization of $G(s)$ is the least common denominator of all (non null) minors of $G(s)$.
 * Poles is the solution for $\phi(s) = 0$.
@@ -94,107 +96,110 @@ Within the following theorem:
     * The minimal realization has order $n=4$: $\phi(s) = (s-1)(s+1)(s+2)^2$,
     * Poles: $1$, $-1$, $-2$, $-2$
 
-### 1.1 Zeros for SISO Linear Systems
+### 1.3 Zeros of a SISO System
 
-Given TF:
+Given TF of a SISO system:
 
 $$
 G(s) = \frac{N(s)}{D(s)}
 $$
 
-Zeros for the SISO system is the root for $N(s)=0$.
+__Defination__: Zeros for the SISO system is the root for equation: $N(s)=0$.
 
-The theorem is (response to an exponential input signal):
+__Theorem__ :
 
-* If $\alpha$ is not an eigenvalue of matrix $A$ of the SISO system, 
+1. response to an exponential input signal
 
-$$
-\begin{aligned}
-\dot x(t) &= Ax(t) + Bu(t) \\
-y(t) &= Cx(t) + Du(t)
-\end{aligned}
-$$
+    If $\alpha$ is not an eigenvalue of matrix $A$ of the SISO system, 
 
-within laplace transform, we can get:
+    $$
+    \begin{aligned}
+    \dot x(t) &= Ax(t) + Bu(t) \\
+    y(t) &= Cx(t) + Du(t)
+    \end{aligned} \Leftrightarrow 
+    \begin{aligned}
+    y(s) = G(s)u(s)
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-y(s) = G(s)u(s)
-\end{aligned}
-$$
+    There exists an initial state of $x_0$, such that:
 
-Then there exists an initial state of $x_0$, such that:
+    Given $u(t) = u_0e^{\alpha t}, t \geq 0$, the output is: $y(t) = y_0e^{\alpha t}, t\geq 0$, with $y_0 = u_0G(s)|_{s=\alpha}$
 
-Given $u(t) = u_0e^{\alpha t}, t \geq 0$, the output is: $y(t) = y_0e^{\alpha t}, t\geq 0$, with $y_0 = u_0G(s)|_{s=\alpha}$
+2. Corollary (Bloking properity of zeros in SISO case):
 
-Corollary (Bloking properity of zeros in SISO case):
+    If $\alpha$ is a zero of $G(s)$, then there exists an initial condition $x_0$ such that: 
+    
+    Given the input $u(t) = u_0e^{\alpha t}$, the output is null at any t ($y(t) = 0, t \geq 0$).
 
-If $\alpha$ is a zero of $G(s)$, then there exists an initial condition $x_0$ such that: given the input $u(t) = u_0e^{\alpha t}$, the output is null at any t ($y(t) = 0, t \geq 0$).
-
-* Remark:
+!!! remark
     1. If the system is A.S., then $\forall x_0$, the output associated to $u(t) = u_0e^{\alpha t}, t \geq 0$, will tend to $y_\infty(t) = u_0G(\alpha)e^{\alpha t}, t \geq 0$, if $\alpha = 0$, then $\lim_{t\to \infty}y(t)=0$
 
     2. If $G(s)$ has a zero in $\alpha = 0$, and the system is A.S., then $u(t) = u_0, t \geq 0$, will correspond to $y(t)$ that $\lim_{t\to \infty}y(t)=0$
 
 
-$$
-G(s) = s\tilde G(s)
-$$
+    $$
+    G(s) = s\tilde G(s)
+    $$
 
-!!!bug
-    Missing Figure
+    <figure markdown="span">
+        ![](pics/chapter12/figure1.png){ width="500" }
+    </figure>
 
+For the regulator that regulates the system,
 
 <figure markdown="span">
-    ![](pics/chapter11/figure1.png){ width="500" }
+    ![](pics/chapter12/figure2.png){ width="500" }
 </figure>
 
-And we have $G(s)$ has a zero in $s = 0$.
+If $G(s)$ has a zero in $s = 0$, the TF for $y^\circ \to y$ is:
 
 $$
 T(s) = \frac{R(s)G(s)}{1+R(s)G(s)} = \frac{N_R(s)N_G(s)}{D_R(s)D_G(s) + N_R(s)N_G(s)}
 $$
 
-is the TF for $y^\circ \to y$. $T(s)$ also has a zero in $s = 0$.
+$T(s)$ also has a zero in $s = 0$.
 
-### 1.2 Zeros for MIMO Linear Systems
-Define (system matrix):
+### 1.4 Zeros of a MIMO system
+__Defination__:
 
-$$
-\begin{aligned}
-\dot x(t) &= Ax(t) + Bu(t) \\
-y(t) &= Cx(t) + Du(t)
-\end{aligned}
-$$
+1. system matrix
 
-within laplace transform and initial condition $x(0) = 0$, we can get:
+    $$
+    \begin{aligned}
+    \dot x(t) &= Ax(t) + Bu(t) \\
+    y(t) &= Cx(t) + Du(t)
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-&\begin{aligned}
-sx(s) &= AX(s) + BU(s) \\
-y(t) &= CX(s) + DU(s)
-\end{aligned} \\
-\Rightarrow&\underbrace{\begin{bmatrix} sI-A & -B \\ C & D \end{bmatrix}}_{\text{system matrix } P(s)} \begin{bmatrix} X(s) \\ U(s) \end{bmatrix} = \begin{bmatrix} 0 \\ y(s) \end{bmatrix}
-\end{aligned}
-$$
+    within the laplacian transform and the initial condition $x(0) = 0$, we can get:
 
-Define: the nominal rank of $P(s)$ is the rank of the matrix for all values of $s$ except for a finite number. 
+    $$
+    \begin{aligned}
+    &\begin{aligned}
+    sx(s) &= AX(s) + BU(s) \\
+    y(t) &= CX(s) + DU(s)
+    \end{aligned} \\
+    \Rightarrow&\underbrace{\begin{bmatrix} sI-A & -B \\ C & D \end{bmatrix}}_{\text{system matrix } P(s)} \begin{bmatrix} X(s) \\ U(s) \end{bmatrix} = \begin{bmatrix} 0 \\ y(s) \end{bmatrix}
+    \end{aligned}
+    $$
 
-Define (Invariant zeros of a MIMO system):
+    The nominal rank of $P(s)$ is the rank of the matrix for all values of $s$ except for a finite number. 
 
-The invariant zero values of a system are the values of $s$ such that: the rank of $P(s)$ is slower than its normal rank. 
+2. Invariant zeros of a MIMO system:
 
-* Remark: the invariant zeros of a MIMO system satisfy the following blocking properity,
+    The invariant zero values of a system $=$ the values of $s$, such that: the rank of $P(s)$ is slower than its normal rank. 
+
+!!! remark
+    the invariant zeros of a MIMO system satisfy the blocking properity
+
     1. If $\alpha$ is an invariant zero, then, there exists an initial state $x_0$, and a vector $u_0$, such that: given the input, $u(t) = u_0e^{\alpha t}, t \geq 0$, the output is null for any $t$.
 
-How to compute the invariant zeros form $G(s)$:
+__Question__: How to compute the invariant zeros form $G(s)$?
 
-We need to define the normal rank of $G(s)$: the rank of $G(s)$ for all values of $s$ except for a finite number.
+__Answer__: $r =$ The normal rank of $G(s)$ $=$ the rank of $G(s)$ for all values of $s$ except for a finite number.
 
-Theorem:
-
-Let $Z(s)$ be the polynomial whose roots are all and only the invariant zeros of the system. $Z(s)$ is called __polinomial of the invariant zeros__. Then $Z(s)$ is the greatest common divisor of all minors of order of the rank of $G(s)$ written, so that the polynomial of the poles of $\phi(s)$ at the denominator.
+__Theorem__: Let $Z(s)$ be the polynomial whose roots are all and only the invariant zeros of the system. $Z(s)$ is called __polynomial of the invariant zeros__. Then $Z(s)$ is the greatest common divisor of all minors of order $r$ of the rank of $G(s)$ written, so that the polynomial of the poles of $\phi(s)$ at the denominator.
 
 !!! example 
 
@@ -202,7 +207,7 @@ Let $Z(s)$ be the polynomial whose roots are all and only the invariant zeros of
     G(s) = \frac{1}{(0.2s+1)(1+s)}\begin{bmatrix} 1 & 1 \\ 1+2s & 2 \end{bmatrix}
     $$
 
-    * rank of $G(s)$: $r = rank(G(s)) = 2$
+    * rank of $G(s)$: $r = \text{rank}(G(s)) = 2$
     * $\phi(s)$: 
         * minors of order 1: all $G_{ij} \in G(s)$
         * minors of order 2: $\det(G(s)) = \frac{1-2s}{(0.2s+1)^2(1+s)^2}$
@@ -227,13 +232,12 @@ Let $Z(s)$ be the polynomial whose roots are all and only the invariant zeros of
     
     The system is A.S.
 
-$$
-\begin{bmatrix} \bar y_1 \\ \bar y_2 \end{bmatrix} = G(0) \begin{bmatrix} \bar u_1 \\ \bar u_2 \end{bmatrix} 
-$$
+    $$
+    \begin{bmatrix} \bar y_1 \\ \bar y_2 \end{bmatrix} = G(0) \begin{bmatrix} \bar u_1 \\ \bar u_2 \end{bmatrix} 
+    $$
 
-$G(0)$ is static gain matrix
+    $G(0)$ is static gain matrix
 
-!!! example 
     $$
     \begin{aligned}
     G(0) &= \begin{bmatrix} \frac16 & \frac23 \\ \frac{0.5}{6} & \frac13 \end{bmatrix} \\
@@ -261,6 +265,7 @@ $G(0)$ is static gain matrix
     * $Z(s) = (s-1)$
     * Zeros: 1
 
+### 1.5 Poles and Invariant Zeros of Discreate MIMO Systems
 For Discreate Time MIMO Linear Systems
 
 Same definitions for poles and invariant zeros, just $z$ in place of $s$,
@@ -274,9 +279,10 @@ $$
 
 ## 2. MIMO Linear System Analysis
 
-### 2.1 Cascade
-!!!bug
-    Missing Figure
+### 2.1 Cascade System Analysis
+<figure markdown="span">
+    ![](pics/chapter12/figure3.png){ width="500" }
+</figure>
 
 * $G_1$ is a $m_1 \times n_1$ Matrix,
 * $G_2$ is a $m_2 \times n_2$ Matrix, $n_1 = m_2$
@@ -290,46 +296,56 @@ G(s) &= \underbrace{G_2(s)G_1(s)}_{n_2 \times m_1}
 \end{aligned}
 $$
 
+### 2.2 Feedback System Analysis
 Now we looks at the feedback system:
 
-!!!bug
-    Missing Figure
+<figure markdown="span">
+    ![](pics/chapter12/figure4.png){ width="500" }
+</figure>
 
-$u_1 = u - y_2$, $G_1$ is $n \times m$, and $G_2$ is $m\times n$, we want to calcuate the transfer matrix of the system.
+* $u_1 = u - y_2$
+* $G_1$ is $n \times m$, 
+* $G_2$ is $m\times n$, 
+
+we can calcuate the transfer matrix of the system:
 
 $$
 \begin{aligned}
 y(s) &= (I_n + G_1(s)G_2(s))^{-1}G_1(s)U(s) \\
-y(s) &= G_1(s)(I_m + G_1(s)G_2(s))^{-1}U(s)
+&= G_1(s)(I_m + G_1(s)G_2(s))^{-1}U(s)
 \end{aligned}
 $$
 
-Proof:
+!!! info
 
-$$
-\begin{aligned}
-y(s) &= G_1(s)U_1(s) = G_1(s) [U(s) - G_2(s)y(s)] \\
-(I_n + G_1(s)G_2(s))y(s) &= G_1(s)U(s) \\
-y(s) &= (I_n + G_1(s)G_2(s))^{-1}G_1(s)U(s)
-\end{aligned}
-$$
+    Proof:
 
-$$
-\begin{aligned}
-y(s) &= G_1(s)U_1(s) \\
-U_1(s) &= U(s) - G_2(s)y(s) \\
-&= U(s) - G_2(s)G_1(s)U_1(s) \\
-(I_m + G_2(s)G_1(s))U_1(s) &= U(s)
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+    y(s) &= G_1(s)U_1(s) = G_1(s) (U(s) - G_2(s)y(s)) \\
+    (I_n + G_1(s)G_2(s))y(s) &= G_1(s)U(s) \\
+    y(s) &= (I_n + G_1(s)G_2(s))^{-1}G_1(s)U(s)
+    \end{aligned}
+    $$
 
-### 2.2 Frequency Response 
+    $$
+    \begin{aligned}
+    y(s) &= G_1(s)U_1(s) \\
+    U_1(s) &= U(s) - G_2(s)y(s) = U(s) - G_2(s)G_1(s)U_1(s) \\
+    (I_m + G_2(s)G_1(s))U_1(s) &= U(s) \\
+    U_1(s) &= (I_m + G_2(s)G_1(s))^{-1}U(s) \\
+    y(s) &= G_1(s)U_1(s) = G_1(s)(I_m + G_2(s)G_1(s))^{-1}U(s)
+    \end{aligned}
+    $$
+
+### 2.3 Frequency Response 
 We consider a SISO A.S. system, with its TF of $G(s)$
 
-!!!bug
-    Missing Figure
+<figure markdown="span">
+    ![](pics/chapter12/figure5.png){ width="500" }
+</figure>
 
-$y = U|G(j\omega)|$, $\alpha = \angle G(j\omega)$. The gain at $\omega$ of the TF $G(s)$ is:
+The gain at $\omega$ of the TF $G(s)$ is:
 
 $$
 |G(j\omega)| = \frac{|y(j\omega)|}{|U(j\omega)|}
@@ -349,18 +365,21 @@ $$
 $$
 
 $$
-\lambda_{\min} (G^*(j\omega)G(j\omega))||U(j\omega)||_2^2 \leq U^*(j\omega)\underbrace{G^*(j\omega)G(j\omega)}_{symmetric, \succeq 0}U(j\omega) \leq \lambda_{\max} (G^*(j\omega)G(j\omega))||U(j\omega)||_2^2
+\underbrace{\lambda_{\min} (G^*(j\omega)G(j\omega))}_{\geq 0}||U(j\omega)||_2^2 \leq 
+U^*(j\omega)\underbrace{G^*(j\omega)G(j\omega)}_{\text{symmetric, } \succeq 0}U(j\omega) \leq 
+\underbrace{\lambda_{\max} (G^*(j\omega)G(j\omega))}_{> 0}||U(j\omega)||_2^2
 $$
 
 $$
-\simeq G(j\omega) \left\{\begin{aligned} 
+\underline{\sigma}(G(j\omega)) = \left\{\begin{aligned} 
 &\sigma_\min, &m\leq p\\
 &0, &m>n
 \end{aligned}\right.
 $$
 
-!!!bug
-    Missing Figure
+<figure markdown="span">
+    ![](pics/chapter12/figure6.png){ width="300" }
+</figure>
 
 And we have $\gamma(G(j\omega)) = \frac{\bar \sigma (G(j\omega))}{\underline \sigma (G(j\omega))}$, is the condition number at $\omega$.
 
@@ -382,8 +401,9 @@ And we have $\gamma(G(j\omega)) = \frac{\bar \sigma (G(j\omega))}{\underline \si
 
     $\underline \sigma(G) = 0.37$, $\bar \sigma(G) = 5.17$
 
-!!!bug 
-    missing figure
+<figure markdown="span">
+    ![](pics/chapter11/figure1.png){ width="500" }
+</figure>
 
 * $G(s)$ is $n\times m$ matrix, 
 * $R(s)$ is $m \times n$ matrix, 
@@ -405,7 +425,7 @@ The feedback system is A.S. if:
 1. There is no cancellation if unstable poles inside the blocks 
 2. Bounded input applied at any point of the feedback system produce bounded outputs at any point of the system 
 
-The feedback system with $R(s)$ and $G(s)$ are stabilizable and detectable, is A.S. if and only if the transfer matrices:
+The feedback system with $R(s)$ and $G(s)$ are stabilizable and detectable is A.S. if and only if the transfer matrices:
 
 $$
 \begin{aligned} 
@@ -417,45 +437,45 @@ k_5(s) &= (I+L_u(s))^{-1}
 \end{aligned}
 $$
 
-Have all poles with $Re < 0$.
+Have all poles with $\Re < 0$.
 
-Remark 
+!!! remark
 
-!!! bug
-    missing figure
+    <figure markdown="span">
+        ![](pics/chapter12/figure3.png){ width="500" }
+    </figure>
 
-$$
-\begin{aligned} 
-G_1(s) &= \begin{bmatrix}\frac{4}{s+3}&0 \\ 0&\frac{4(s-1)}{s} \end{bmatrix} \\
-G_2(s) &= \begin{bmatrix}\frac{4}{s-3}&0 \\ 0&\frac{1}{s+8} \end{bmatrix} 
-\end{aligned}
-$$
+    $$
+    \begin{aligned} 
+    G_1(s) &= \begin{bmatrix}\frac{4}{s+3}&0 \\ 0&\frac{4(s-1)}{s} \end{bmatrix} \\
+    G_2(s) &= \begin{bmatrix}\frac{4}{s-3}&0 \\ 0&\frac{1}{s+8} \end{bmatrix} 
+    \end{aligned}
+    $$
 
-* Poles for $G_1$: $-3$, $0$,
-* Zeros for $G_1$: $1$
-* Poles for $G_2$: $1$, $-8$,
+    * Poles for $G_1$: $-3$, $0$,
+    * Zeros for $G_1$: $1$
+    * Poles for $G_2$: $1$, $-8$,
 
-$$
-G(s) = G_2(s)G_1(s) = \begin{bmatrix}\frac{16}{(s-1)(s-3)}&0 \\ 0&\frac{-4(s-1)}{s(s+8)} \end{bmatrix} 
-$$
+    $$
+    G(s) = G_2(s)G_1(s) = \begin{bmatrix}\frac{16}{(s-1)(s-3)}&0 \\ 0&\frac{-4(s-1)}{s(s+8)} \end{bmatrix} 
+    $$
 
-* Poles for $G$: $1$, $-8$, $-3$, $0$,
-* Zeros for $G$: $1$
+    * Poles for $G$: $1$, $-8$, $-3$, $0$,
+    * Zeros for $G$: $1$
 
 ### 2.3 Nyquist Criterion
 
-!!! bug
-    missing figure
+<figure markdown="span">
+    ![](pics/chapter12/figure7.png){ width="300" }
+</figure>
 
 $L(s) = G(s)R(s)$, assuming $L(s)$ is the transfer matrix of a stabilizable and detectable system,
 
-$p_d$ is the number of the poles of $L(s)$ with $Re > 0$
+$p_{ol}$ is the number of the poles of $L(s)$ with $Re > 0$
 
-Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+L(s))$ does not pass through the origin, and the number of its enciclements around the origin is $p_d$.
+Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+L(s))$ does not pass through the origin, and the number of its enciclements around the origin is $p_{ol}$.
 
-Sufficient Condition:
-
-* A closed loop system with loop transfer matrix $L(s)$ made by A.S. systems is A.S. if $||L(s)||_\infty = \sup_\omega \bar \sigma(L(j\omega))< 1$.
+__Sufficient Condition__: A closed loop system with loop transfer matrix $L(s)$ made by A.S. systems is A.S. if $||L(s)||_\infty = \sup_\omega \bar \sigma(L(j\omega))< 1$.
 
 ## 3. Analysis of a Feedback Control Scheme
 
