@@ -20,10 +20,10 @@ $$
 
 * $G(s) = \begin{bmatrix} G_{11}(s) & \dots & G_{1j} \\ \vdots && \vdots \\ G_{i1} & \cdots & G_{ij} \end{bmatrix}$ is the transfer matrix of the system, the element $G_{ij} \in G(s)$ means that input $u_j$ contributes to output $y_i$.
 
-__Defination__: The poles of $G(s)$ are the eigenvalues of the reachable and conservable part of the system.
+__Definition__: The poles of $G(s)$ are the eigenvalues of the reachable and conservable part of the system.
 
 !!!note 
-    If the system is reachable and obserable, then: $\lambda_A$ is the poles of $G(s)$.
+    If the system is reachable and observable, then: $\lambda_A$ is the poles of $G(s)$.
 
 ### 1.2 Poles of a MIMO system
 __Question__: Now we have the transfer matrix of the MIMO system, how can we calculate the poles for $G(s)$?
@@ -104,7 +104,7 @@ $$
 G(s) = \frac{N(s)}{D(s)}
 $$
 
-__Defination__: Zeros for the SISO system is the root for equation: $N(s)=0$.
+__Definition__: Zeros for the SISO system is the root for equation: $N(s)=0$.
 
 __Theorem__ :
 
@@ -126,7 +126,7 @@ __Theorem__ :
 
     Given $u(t) = u_0e^{\alpha t}, t \geq 0$, the output is: $y(t) = y_0e^{\alpha t}, t\geq 0$, with $y_0 = u_0G(s)|_{s=\alpha}$
 
-2. Corollary (Bloking properity of zeros in SISO case):
+2. Corollary (Blocking property of zeros in SISO case):
 
     If $\alpha$ is a zero of $G(s)$, then there exists an initial condition $x_0$ such that: 
     
@@ -161,7 +161,7 @@ $$
 $T(s)$ also has a zero in $s = 0$.
 
 ### 1.4 Zeros of a MIMO system
-__Defination__:
+__Definition__:
 
 1. system matrix
 
@@ -191,7 +191,7 @@ __Defination__:
     The invariant zero values of a system $=$ the values of $s$, such that: the rank of $P(s)$ is slower than its normal rank. 
 
 !!! remark
-    the invariant zeros of a MIMO system satisfy the blocking properity
+    the invariant zeros of a MIMO system satisfy the blocking property
 
     1. If $\alpha$ is an invariant zero, then, there exists an initial state $x_0$, and a vector $u_0$, such that: given the input, $u(t) = u_0e^{\alpha t}, t \geq 0$, the output is null for any $t$.
 
@@ -265,8 +265,8 @@ __Theorem__: Let $Z(s)$ be the polynomial whose roots are all and only the invar
     * $Z(s) = (s-1)$
     * Zeros: 1
 
-### 1.5 Poles and Invariant Zeros of Discreate MIMO Systems
-For Discreate Time MIMO Linear Systems
+### 1.5 Poles and Invariant Zeros of Discrete MIMO Systems
+For Discrete Time MIMO Linear Systems
 
 Same definitions for poles and invariant zeros, just $z$ in place of $s$,
 
@@ -307,7 +307,7 @@ Now we looks at the feedback system:
 * $G_1$ is $n \times m$, 
 * $G_2$ is $m\times n$, 
 
-we can calcuate the transfer matrix of the system:
+we can calculate the transfer matrix of the system:
 
 $$
 \begin{aligned}
@@ -469,11 +469,11 @@ Have all poles with $\Re < 0$.
     ![](pics/chapter12/figure7.png){ width="300" }
 </figure>
 
-$L(s) = G(s)R(s)$, assuming $L(s)$ is the transfer matrix of a stabilizable and detectable system,
+$L(s) = G(s)R(s)$, assume $L(s)$ is the transfer matrix of a stabilizable and detectable system,
 
 $p_{ol}$ is the number of the poles of $L(s)$ with $Re > 0$
 
-Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+L(s))$ does not pass through the origin, and the number of its enciclements around the origin is $p_{ol}$.
+Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+L(s))$ does not pass through the origin, and the number of its encirclements around the origin is $p_{ol}$.
 
 __Sufficient Condition__: A closed loop system with loop transfer matrix $L(s)$ made by A.S. systems is A.S. if $||L(s)||_\infty = \sup_\omega \bar \sigma(L(j\omega))< 1$.
 
@@ -485,20 +485,21 @@ __Sufficient Condition__: A closed loop system with loop transfer matrix $L(s)$ 
 
 Assume that $G(s)$ and $R(s)$ are the transfer matrix of the systems, that are stabilizable and detectable.
 
-If there are no cancellations betweem poles and invarient zeros of $R(s)$ and $G(s)$, with $\Re \geq 0$
+If there are no cancellations between poles and invariant zeros of $R(s)$ and $G(s)$, with $\Re \geq 0$
 
 Then the feedback system is A.S. if and only if one of the transfer matrices between one input and one output signal (port) has all poles with $\Re < 0$.
 
 ## 4. Static Performance
 ### 4.1 SISO System Case
 
-!!! bug
-    missing figure
+<figure markdown="span">
+    ![](pics/chapter12/figure8.png){ width="500" }
+</figure>
 
 $$
 \begin{aligned}
-y^{\circ}(t) &= A, t\geq 0 \\
-d(t) &= B, t \geq 0
+y^{\circ}(t) &= A,& t\geq 0 \\
+d(t) &= B,& t \geq 0
 \end{aligned}
 $$
 
@@ -511,7 +512,8 @@ y_{y^{\circ}, \infty} = \lim_{t\to\infty}y_{y^{\circ}}(t) = \lim_{s\to 0}s\frac{
 \end{aligned}\right.
 $$
 
-* $L(s) = \frac{\mu_L}{sg}\frac{\Pi_i(1+sT_i)}{\Pi_i(1+s\tau_i)}$
+* $\mu_L$ is the static gain
+* $L(s) = \frac{\mu_L}{s^g}\frac{\prod_i(1+sT_i)}{\prod_i(1+s\tau_i)}$, $g$ is the number of poles $\leq 0$.
 
 And for the sensitivity function, we have TF $d \to y$: $S(s) = \frac{1}{1+L(s)}$, and we have:
 
@@ -524,25 +526,38 @@ $$
 
 And we have: $e = y^{\circ} - y$, for above 2 equations, when $g > 0$, $e_{y^{\circ}, \infty} = 0$, $e_{d, \infty} = 0$
 
+When $g > 0$, we can let $R(s) = \frac{1}{s}R'(s)$, and the block diagram becomes:
+
+<figure markdown="span">
+    ![](pics/chapter12/figure9.png){ width="500" }
+</figure>
+
+Because $y^\circ$ and $d$ are constants, we can get the plot of the system in steady state:
+
+<figure markdown="span">
+    ![](pics/chapter12/figure10.png){ width="500" }
+</figure>
 
 ### 4.2 MIMO System Case
+For a MIMO system, we have following block diagram:
 
-!!! bug
-    missing figure 
+<figure markdown="span">
+    ![](pics/chapter12/figure11.png){ width="500" }
+</figure>
 
 The system function is:
 
 $$
 \left\{\begin{aligned}
-&\dot x = Ax + Bu + Md, &x\in\Re^n, u\in\Re^m\\
-&y = Cx + Nd, &y\in\Re^p, d\in\Re^r
+&\dot x = Ax + Bu + Md, &x\in\Re^n, &u\in\Re^m\\
+&y = Cx + Nd, &y\in\Re^p, &d\in\Re^r
 \end{aligned}\right.
 $$
 
-* $d$ is a constant $d = \bar d$
-* $y^\circ$ is a constant $y^\circ = \bar y^\circ$
+* $d$ is a constant $\to$ $d = \bar d$
+* $y^\circ$ is a constant $\to$ $y^\circ = \bar y^\circ$
 
-And we have:
+At steady state, there have:
 
 $$
 \begin{aligned}
@@ -566,7 +581,7 @@ And for the system matrix, we have: $P(s) = \begin{bmatrix} Is-A&-B \\ C&0 \end{
 1. $n+p \leq n+m \Leftrightarrow m\geq p$
 2. $P(0)$ is full rank $(=n+p)$, is $0$ in $s=0$
 
-We want to design a $R'(s)$ that make the system A.S.. Assuming the system is reachable and observable $\Leftrightarrow$ $rech(A,B)$, $obsv(A,C)$
+We want to design a $R'(s)$ that make the system A.S.. Assume the system is reachable and observable $\Leftrightarrow$ $rech(A,B)$, $obsv(A,C)$
 
 !!!info
     Proof:
@@ -618,7 +633,7 @@ We want to design a $R'(s)$ that make the system A.S.. Assuming the system is re
 !!! bug
     missing figure
 
-### 5.2 Discreate Time Design
+### 5.2 Discrete Time Design
 !!! bug 
     missing figure 
 
@@ -629,7 +644,7 @@ y(k) &= Cx(k) + Du(k)
 \end{aligned}
 $$
 
-For the integrator in distrete time:
+For the integrator in discrete time:
 
 1. $\frac{1}{z-1}$
 
