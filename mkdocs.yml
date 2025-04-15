@@ -30,6 +30,7 @@ nav:
     - '5. Phase Vector': 'dynamics-for-electric-machines-and-drives/chapter5.md'
     - '6. Clarke-Park Transform and Induction Machine': 'dynamics-for-electric-machines-and-drives/chapter6.md'
     - '7. Control of Induction Machine': 'dynamics-for-electric-machines-and-drives/chapter7.md'
+    - '8. Control of Synchronous Machine': 'dynamics-for-electric-machines-and-drives/chapter8.md'
     - 'E.2 Exercise 2': 'dynamics-for-electric-machines-and-drives/exercise2.md'
 - Robotics:
     - '1. Sensors and Actuators': 'robotics/chapter1.md'

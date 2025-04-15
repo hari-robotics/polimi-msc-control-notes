@@ -266,3 +266,13 @@ $$
 ### 7.1 Direct Self Control
 
 * Fix reference frame
+
+$$
+\bar v_s \simeq \frac{d\psi_s}{dt} \Rightarrow \Delta \bar \psi_s \simeq \bar v_s \Delta t
+$$
+
+It is impossible to follow the circle strictly, we can define the upper boundary and lower boundary to make flux move between 2 circles.
+
+<figure markdown="span">
+    ![](pics/chapter7/figure11.png){ width="400" }
+</figure>
