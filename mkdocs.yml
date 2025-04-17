@@ -18,6 +18,7 @@ nav:
     - '12. MIMO Linear Systems': 'advanced-multivariable-control/chapter12.md'
     - '13. MIMO System Control': 'advanced-multivariable-control/chapter13.md'
     - '14. Observer': 'advanced-multivariable-control/chapter14.md'
+    - '15. Optimal Control': 'advanced-multivariable-control/chapter15.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
     - 'E.2 Exercise 2': 'advanced-multivariable-control/exercise2.md'
     - 'E.3 Exercise 3': 'advanced-multivariable-control/exercise3.md'
