@@ -12,4 +12,5 @@
       "tag:yaml.org,2002:python/object/apply:pymdownx.slugs.slugify mapping"
     ],
     "markdown-preview-enhanced.enableExtendedTableSyntax": true,
+    "python.venvPath": "${workspaceFolder}/.venv",
   }
