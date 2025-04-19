@@ -15,8 +15,8 @@ nav:
     - '9. Small Gain Theorem': 'advanced-multivariable-control/chapter9.md'
     - '10. Sensitivity Functions': 'advanced-multivariable-control/chapter10.md'
     - '11. H2 and H-Infinity Control': 'advanced-multivariable-control/chapter11.md'
-    - '12. MIMO Linear Systems': 'advanced-multivariable-control/chapter12.md'
-    - '13. MIMO System Control': 'advanced-multivariable-control/chapter13.md'
+    - '12. Analyze Approach for MIMO Linear Systems ': 'advanced-multivariable-control/chapter12.md'
+    - '13. Controller Design for MIMO Linear Systems': 'advanced-multivariable-control/chapter13.md'
     - '14. Observer': 'advanced-multivariable-control/chapter14.md'
     - '15. Optimal Control': 'advanced-multivariable-control/chapter15.md'
     - 'E.1 Exercise 1': 'advanced-multivariable-control/exercise1.md'
@@ -33,14 +33,22 @@ nav:
     - '7. Control of Induction Machine': 'dynamics-for-electric-machines-and-drives/chapter7.md'
     - '8. Control of Synchronous Machine': 'dynamics-for-electric-machines-and-drives/chapter8.md'
     - 'E.2 Exercise 2': 'dynamics-for-electric-machines-and-drives/exercise2.md'
-- Robotics:
-    - '1. Sensors and Actuators': 'robotics/chapter1.md'
-    - '2. Odometry': 'robotics/chapter2.md'
-    - '3. Localisation': 'robotics/chapter3.md'
+# - Robotics:
+#     - '1. Sensors and Actuators': 'robotics/chapter1.md'
+#     - '2. Odometry': 'robotics/chapter2.md'
+#     - '3. Localisation': 'robotics/chapter3.md'
+# - Formal Methods for Concurrent and Realtime Systems:
+#     - '1. Introduction to Formal Methods': 'formal-methods-for-concurrent-and-realtime-systems/chapter1.md'
+#     - '2. Finite State Machines': 'formal-methods-for-concurrent-and-realtime-systems/chapter2.md'
+#     - '3. Temporal Logic': 'formal-methods-for-concurrent-and-realtime-systems/chapter3.md'
+#     - '4. Model Checking': 'formal-methods-for-concurrent-and-realtime-systems/chapter4.md'
+#     - '5. Timed Automata': 'formal-methods-for-concurrent-and-realtime-systems/chapter5.md'
+#     - '6. Model Checking Timed Automata': 'formal-methods-for-concurrent-and-realtime-systems/chapter6.md'
 
 theme:
   name: material
   custom_dir: overrides
+  font: false
   features:
     - content.tabs.link
     - content.code.copy
@@ -118,7 +126,8 @@ extra_javascript:
 #   - https://unpkg.com/katex@0/dist/katex.min.js
 #   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 
-# extra_css:
+extra_css:
+  - overrides/extra.css
 #   - https://unpkg.com/katex@0/dist/katex.min.css
 # ## >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

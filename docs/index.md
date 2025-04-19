@@ -1,15 +1,18 @@
 # Welcome to PoliMi MSc Control Notes
-This project is an unofficial site that contains the lecture notes of: 
+This project is an __unofficial__ and __unauthorized__ site that contains the lecture notes of 
 
-* A.Y.24/25 2nd Semester in MSc. of Automation and Control Engineering
-    * 096129 - ADVANCED AND MULTIVARIABLE CONTROL
-    * 088860 - DYNAMICS OF ELECTRICAL MACHINES AND DRIVES
-    * 089013 - ROBOTICS
-    * 088882 - FORMAL METHODS FOR CONCURRENT AND REAL-TIME SYSTEMS
+__MSc. in Automation and Control Engineering__: 
 
-Due to the authors limitation, not all elective courses could be uploaded, if you want to contribute to this page, please go to the [github page](https://github.com/hari-robotics/polimi-msc-control-notes) of this project.
+* A.Y.24/25 2nd Semester
+    * [096129 - ADVANCED AND MULTIVARIABLE CONTROL](advanced-multivariable-control/chapter1.md)
+    * [088860 - DYNAMICS OF ELECTRICAL MACHINES AND DRIVES](dynamics-for-electric-machines-and-drives/chapter1.md)
 
-All the page is still updating, some draft notes may also uploaded, if you don't see the complete lecture notes, please keep waiting and check them regularly.
+Following notes are not contained in this site because the slides are already provided by the lecture instructor:
+
+* 089013 - ROBOTICS
+* 088882 - FORMAL METHODS FOR CONCURRENT AND REAL-TIME SYSTEMS
+
+All the notes are based on the lectures in the class and personal understanding, if you have better opinion, you are welcomed to make your contribution to this site through [github repository](https://github.com/hari-robotics/polimi-msc-control-notes).
 
 ---
 Contributor: [Zihao Zheng](https://github.com/hari-robotics)

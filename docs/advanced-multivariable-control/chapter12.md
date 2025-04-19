@@ -477,7 +477,7 @@ Then, the closed loop system is A.S. if and only if the Nyquist plot of $\det(I+
 
 __Sufficient Condition__: A closed loop system with loop transfer matrix $L(s)$ made by A.S. systems is A.S. if $||L(s)||_\infty = \sup_\omega \bar \sigma(L(j\omega))< 1$.
 
-## 3. Analysis of a Feedback Control Scheme
+### 2.4 Analysis of a Feedback Control Scheme
 
 <figure markdown="span">
     ![](pics/chapter10/figure4.png){ width="500" }
@@ -489,8 +489,8 @@ If there are no cancellations between poles and invariant zeros of $R(s)$ and $G
 
 Then the feedback system is A.S. if and only if one of the transfer matrices between one input and one output signal (port) has all poles with $\Re < 0$.
 
-## 4. Static Performance
-### 4.1 SISO System Case
+## 3. Static Performance
+### 3.1 SISO System Case
 
 <figure markdown="span">
     ![](pics/chapter12/figure8.png){ width="500" }
@@ -538,7 +538,7 @@ Because $y^\circ$ and $d$ are constants, we can get the plot of the system in st
     ![](pics/chapter12/figure10.png){ width="500" }
 </figure>
 
-### 4.2 MIMO System Case
+### 3.2 MIMO System Case
 For a MIMO system, we have following block diagram:
 
 <figure markdown="span">
@@ -579,16 +579,18 @@ $$
 And for the system matrix, we have: $P(s) = \begin{bmatrix} Is-A&-B \\ C&0 \end{bmatrix}$
 
 1. $n+p \leq n+m \Leftrightarrow m\geq p$
-2. $P(0)$ is full rank $(=n+p)$, is $0$ in $s=0$
+2. $P(0)$ is full rank $(r=n+p)$ $\Rightarrow$ no zeros in $s=0$
 
-We want to design a $R'(s)$ that make the system A.S.. Assume the system is reachable and observable $\Leftrightarrow$ $rech(A,B)$, $obsv(A,C)$
+Assume the system is reachable and observable $\Leftrightarrow$ $\left\{\begin{aligned} &\text{rank}(\text{ctrl}(A,B)) = r \\ &\text{rank}(\text{obsv}(A,C)) = r \end{aligned}\right.$
 
 !!!info
     Proof:
 
     $$
-    \dot v = e = y^{\circ} - y = y^{\circ}(t) - Cx(t) - Nd(t)
+    \dot v = e = y^{\circ}(t) - y(t) = y^{\circ}(t) - Cx(t) - Nd(t)
     $$
+
+    Now we have the enlarged system with the integrator:
 
     $$
     \begin{aligned}
@@ -613,29 +615,55 @@ We want to design a $R'(s)$ that make the system A.S.. Assume the system is reac
     \end{aligned}
     $$
 
-    And we have $rank(\bar M_R) \leq \min(rank(P(0)), rank(\bar M))$,
+    And we have $\text{rank}(\bar M_R) \leq \min(\text{rank}(P(0)), \text{rank}(\bar M))$,
 
-    This equivalents to no zero in $s = 0$, $(A,B)$ is reachable
+    $(A,B)$ is reachable if and only if no zeros in $s = 0$.
 
-    Similarly, if $(\bar A, \bar B)$ are observable, $(A,B)$ is observable
+Similarly, if $(\bar A, \bar C)$ are observable, $(A,C)$ is observable if and only if no zeros in $s = 0$.
 
-## 5. Dynamic Performance
-### 5.1 SISO Systems 
+!!!info
+    Proof:
+    
+    $$
+    M_o = \begin{bmatrix} 
+    \bar C \\ \bar CA \\ \vdots \\ \bar CA^{n+p-1}
+    \end{bmatrix} =
+    \begin{bmatrix} 
+    0&I \\ -C&0 \\ -CA&\vdots \\ \vdots&\vdots
+    \end{bmatrix}
+    $$
+
+
+## 4. Dynamic Performance
+### 4.1 SISO Systems 
+
+Given a system with characteristic function $L(s) = R(s)G(s)$, the system stability performance can be described by the figure:
 
 <figure markdown="span">
-    ![](pics/chapter11/figure2.png){ width="500" }
+    ![](pics/chapter12/figure12.png){ width="300" }
 </figure>
 
-* $T(s) \simeq 1$ at low frequency
-* $S(s) \simeq 0$ at low frequency
-* $T(s) \simeq 0$ at high frequency
+* $T(s) = \frac{L(s)}{1+L(s)} \simeq 1$ at low frequency
+* $S(s) = \frac{1}{1+L(s)} \simeq 0$ at low frequency
+* $T(s) = R(s)S(s) \simeq 0$ at high frequency
 
-!!! bug
-    missing figure
+We can find the minimum $(\underline \sigma)$ and maximum $(\overline \sigma)$ singular value of this system, to maintain the stability performance of the system, we need to make sure:
 
-### 5.2 Discrete Time Design
-!!! bug 
-    missing figure 
+* $\underline \sigma$ is big enough at low frequency and,
+* $\overline \sigma$ is small enough at high frequency
+
+<figure markdown="span">
+    ![](pics/chapter12/figure13.png){ width="300" }
+</figure>
+
+### 4.2 Discrete Time System Design in SISO case
+We consider a realistic discrete time system:
+
+<figure markdown="span">
+    ![](pics/chapter12/figure14.png){ width="600" }
+</figure>
+
+The system have the following state space equation:
 
 $$
 \begin{aligned}
@@ -644,12 +672,17 @@ y(k) &= Cx(k) + Du(k)
 \end{aligned}
 $$
 
-For the integrator in discrete time:
+We have done the extended system with integrator in continues time, now we want to solve for the integrator in discrete time:
 
-1. $\frac{1}{z-1}$
+<figure markdown="span">
+    ![](pics/chapter12/figure15.png){ width="400" }
+</figure>
 
-    !!!bug
-        missing figure
+For the integrator, we can give the following expression:
+
+1. $\text{INT} = \frac{1}{z-1}$
+
+    Within the chosen integrator, we can turn it into the sample based expression:
 
     $$
     \begin{aligned}
@@ -659,23 +692,38 @@ For the integrator in discrete time:
     \end{aligned}
     $$
 
-    We often choose this integrator because it all use the previous state thus we have the time to calculate the state for this state.
+2. $\text{INT} = \frac{z}{z-1}$
 
-2. $\frac{z}{z-1}$
-
-    !!!bug
-        missing figure
-
+    The similar process could be done for this expression of integration, the sample based expression is:
 
     $$
     v(k) = v(k-1) + e(k)
     $$
 
-    This process in not good implementable because it contains input for current state, which is not possible to get unless the data reading process cost no time.
+For the 2 methods of integration above, 
 
-!!! bug 
-    missing figure
+* $\text{INT} = \frac{1}{z-1}$ have one step delay, but gives the time for calculation process, could be applied in a real system
+* $\text{INT} = \frac{z}{z-1}$ have no delay, but needs zero time for computation, which is not implementable
+
+Considering the time axis:
+
+<figure markdown="span">
+    ![](pics/chapter12/figure15.png){ width="400" }
+</figure>
+
+The disturbance that inserts between 2 sample points, for the integrator with $\frac{1}{z-1}$, this disturbance could not be considered since it have delay, while $\frac{z}{z-1}$ can correctly accept the disturbance and control it.
+
+Considering the pros and cons of these integrators, we choose $\frac{1}{z-1}$ for the discrete system integration.
+
+### 4.3 Discrete Time System Design in MIMO case
+Now we look at the MIMO system in discrete case:
+
+<figure markdown="span">
+    ![](pics/chapter12/figure17.png){ width="600" }
+</figure>
+
+We have the same structure as the continues time MIMO system design, it should satisfy the following condition (the derivation in discrete time is $(z-1)$):
 
 1. $m\geq p$
 2. No invariant zero in $z = 1$
-3. (A,B) reachable and $(A,C)$ observable
+3. $(A,B)$ is reachable and $(A,C)$ is observable
