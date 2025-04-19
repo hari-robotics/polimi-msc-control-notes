@@ -15,7 +15,7 @@ nav:
     - '9. Small Gain Theorem': 'advanced-multivariable-control/chapter9.md'
     - '10. Sensitivity Functions': 'advanced-multivariable-control/chapter10.md'
     - '11. H2 and H-Infinity Control': 'advanced-multivariable-control/chapter11.md'
-    - '12. Analyze Approach for MIMO Linear Systems ': 'advanced-multivariable-control/chapter12.md'
+    - '12. Analyze the Control Approach for MIMO Linear Systems ': 'advanced-multivariable-control/chapter12.md'
     - '13. Controller Design for MIMO Linear Systems': 'advanced-multivariable-control/chapter13.md'
     - '14. Observer': 'advanced-multivariable-control/chapter14.md'
     - '15. Optimal Control': 'advanced-multivariable-control/chapter15.md'
