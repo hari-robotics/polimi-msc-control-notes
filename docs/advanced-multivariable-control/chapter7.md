@@ -23,7 +23,7 @@
     \end{aligned}
     $$
 
-    To make $\dot V$ ND, one possiable choice is $u = -2x_1x_2^2$, hence,
+    To make $\dot V$ ND, one possible choice is $u = -2x_1x_2^2$, hence,
 
     $$
     \dot V(x) = -3x_1^2 -x_2^2 - x_2^4
@@ -95,7 +95,7 @@ u(t) &= -\frac{1}{b(x_1,x_2)}(a(x_1,x_2)-v) \\
 \end{aligned}
 $$
 
-$v = k(x_1,x_2)$, by backsteppings
+$v = k(x_1,x_2)$, by back-stepping
 
 ## 7.3 Feedback Linearization
 $$

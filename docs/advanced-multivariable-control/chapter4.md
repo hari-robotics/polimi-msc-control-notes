@@ -79,7 +79,7 @@ Now, we can give the definition of Lyapunov function: $V: \mathbb R^n \to \mathb
 - $V$ is __positive definite__ (PD) in $\bar x$ if $V(\bar x) = 0$ and $V(x) > 0$, $\forall x \in D\{\bar x\}$ where $D$ is an open neighbor of $\bar x$, if $D = \mathbb R^n \Rightarrow V$ is globally positive definite
 - $V$ is __negative definite__ (ND) in $\bar x$ if $-V$ is positive definite in $\bar x$
 - $V$ is __positive semi-definite__ (PSD) in $\bar x$ if $V(\bar x) = 0$ and $V(x) \geq 0, \forall x \in D$ where in an open neighbor of $\bar x$
-- $V$ is __negative semi-definite__ (NSD) if $-V$ is positive semidefinite
+- $V$ is __negative semi-definite__ (NSD) if $-V$ is positive semi definite
 
 Radially unbounded globally positive definite function
 
@@ -182,7 +182,7 @@ $$
 $\bar x$ is equilibrium $\Rightarrow$ $\varphi (\bar x) = 0$,
 
 * $\varphi: \mathbb R^n \to \mathbb R^n$ 
-* Lipschitz on $D$ in the neighbor of $\bar x$
+* Lipchitz on $D$ in the neighbor of $\bar x$
 
 If $\exists V(x) \in C^1$, $\bar x$ is PD,
 
@@ -282,7 +282,7 @@ $$
 ## 4.6 Krasowski - La Salle Theorem
 To solve the example above, we introduce the Krasowski - La Salle theorem, it gives:
 
-$\dot x = \varphi(x)$, $\varphi(x)$ is lipscchitz on $D$, $\bar x$ is a equilibrium, $\varphi(\bar x) = 0$, let:
+$\dot x = \varphi(x)$, $\varphi(x)$ is Lipchitz on $D$, $\bar x$ is a equilibrium, $\varphi(\bar x) = 0$, let:
 
 $V: D \to \mathbb R \in C^1$ is PD in $\bar x$ on $D$ and $\dot V(x)$ is NSD in $\bar x$ on $D$
 

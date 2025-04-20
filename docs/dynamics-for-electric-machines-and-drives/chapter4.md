@@ -5,7 +5,7 @@ The transfer function model of DC electrical machine is:
     ![](pics/chapter4/figure1.png){ width="600" }
 </figure>
 
-For the motor that uses Perment Magnet as its exciting source, the model becomes the figure below:
+For the motor that uses Permanent Magnet as its exciting source, the model becomes the figure below:
 
 <figure markdown="span">
     ![](pics/chapter4/figure2.png){ width="600" }

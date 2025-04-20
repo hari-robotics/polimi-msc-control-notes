@@ -1,5 +1,5 @@
 ## 1. State Observer
-Given a linear MIMO system,
+Given a linear system,
 
 $$
 \begin{aligned}
@@ -14,6 +14,8 @@ $$
 \dot {\hat x} = A\hat x + Bu + L\underbrace{(y-C\hat x -Du)}_{\text{output estimation error}}
 $$
 
+* $\hat x$ is the state estimation
+
 Given the state estimation error $e = x - \hat x$, there have:
 
 $$
@@ -24,15 +26,27 @@ $$
 \end{aligned}
 $$
 
-The eigenvalue of $(A-LC)$ are the same as those of $(A^T-C^TL^T)$, we can let $\tilde A = A^T$, $\tilde B = B^T$, $\tilde C = C^T$, thus we have: $A^T-C^TL^T = \tilde A - \tilde B \tilde K$, Given the observable matrix:
+The eigenvalue for $(A-LC)$ have: 
+
+$$
+\text{eig}(A-LC) = \text{eig}(A-LC)^T = \text{eig}(A^T-C^TL^T)
+$$
+
+we can let:
+
+* $\tilde A = A^T$
+* $\tilde B = C^T$
+* $\tilde K = L^T$
+
+thus we have: $A^T-C^TL^T = \tilde A - \tilde B \tilde K$, Given the observable matrix:
 
 $$
 \begin{aligned}
-&M_O = \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1}\end{bmatrix} & M_O^T = \begin{bmatrix} \tilde B & \tilde A \tilde B & \cdots & \tilde A^{n-1} \tilde B\end{bmatrix}
+&M_O = \begin{bmatrix} C \\ CA \\ \vdots \\ CA^{n-1}\end{bmatrix} \Rightarrow M_O^T = \begin{bmatrix} \tilde B & \tilde A \tilde B & \cdots & \tilde A^{n-1} \tilde B\end{bmatrix}
 \end{aligned}
 $$
 
-A N&S condition for the design of an asyntotic observer with arvitrarily specified eigenvalue of the estimation error dynamics is that $(A,C)$ is observable.
+A N&S condition for the design of an asymptotic observer with arbitrarily specified eigenvalue of the estimation error dynamics is that $(A,C)$ is observable.
 
 Given a system $p = 1$, we can apply Ackermann's formula,
 
@@ -90,7 +104,7 @@ $$
 Motivations:
 
 1. You can estimate the state correctly
-2. You can use the disturbances estimattion for the disturbance compensation
+2. You can use the disturbances estimation for the disturbance compensation
 
     !!! bug
         missing figure
@@ -123,12 +137,12 @@ $$
 
     $r \leq p$, more output than disturbances
 
-    No invraiant zero in $0$ in the transfer matrix for $d$ to $y$
+    No invariant zero in $0$ in the transfer matrix for $d$ to $y$
 
 !!! bug 
     missing figure
 
-What are the close loop eigen values:
+What are the close loop eigenvalues:
 
 We assume the order of the system is $n$, 
 
@@ -168,9 +182,9 @@ $$
 \tilde A = \begin{bmatrix} A-BK&BK \\ 0&A-LC \end{bmatrix}
 $$
 
-The eigen value of $\tilde A$ are the union of the eigenvalue of $A-BK$ and $A-LC$, it means that we can design controller and observer independently.
+The eigenvalue of $\tilde A$ are the union of the eigenvalue of $A-BK$ and $A-LC$, it means that we can design controller and observer independently.
 
-## 4. Stablizing Regulator Transfer Matrix
+## 4. Stabilizing Regulator Transfer Matrix
 
 !!! bug
     missing figure
@@ -410,10 +424,10 @@ $$
 !!! bug
     missing figure
 
-To calculate the zeros, we need to calculate the comlementry sensitive functions
+To calculate the zeros, we need to calculate the complementary sensitive functions
 
 !!! warning
-    Because in the previous part, we already use the $F(s)$, which is not the complementry sensitivity function, so here we rename it to $H(s)$ to resolve the naming conflict
+    Because in the previous part, we already use the $F(s)$, which is not the complementary sensitivity function, so here we rename it to $H(s)$ to resolve the naming conflict
 
 $$
 H(s) = \frac{\frac{H(s)B(s)}{\Gamma(s)A(s)}}{1 + \frac{H(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(s)B(s)}{\Gamma(s)A(s) + F(s)B(s)} = \frac{F(s)B(s)}{P^*(s)}
@@ -422,7 +436,7 @@ $$
 !!! bug
     missing figure
 
-The choosen $\Delta$ should be:
+The chosen $\Delta$ should be:
 
 $$
 \Delta(s) = s^{n-1} \delta_{n-2}s^{n-2}+\dots +\delta_1s + \delta_0
@@ -441,7 +455,7 @@ $$
 G(s) = \frac{B(s)}{\underbrace{(s+a)A'(s)}_{A(s)}}
 $$
 
-The desired polynomial fuction is:
+The desired polynomial function is:
 
 $$
 P^*(s) = \underbrace{(s+a)\tilde P^*(s)}_{2n-1}

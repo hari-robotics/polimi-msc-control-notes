@@ -1,12 +1,12 @@
 ## 1. EMF
 
-We know that from Farady's Law, we have:
+We know that from Faraday's Law, we have:
 
 $$
 e = -BS\omega \sin(\omega t)
 $$
 
-This is an sinosodial wave within the part $e < 0$, to have a DC voltage, we need to make EMF positive. We can use a brush to realize this, it will change the direction for the rotors in every $180^\circ$. And we have:
+This is an sinusoidal wave within the part $e < 0$, to have a DC voltage, we need to make EMF positive. We can use a brush to realize this, it will change the direction for the rotors in every $180^\circ$. And we have:
 
 $$
 e = \left\{\begin{aligned}
@@ -53,7 +53,7 @@ $$
 d\psi = \vec B N_{coil} l dx 
 $$
 
-* $l$ is the length of the armarture
+* $l$ is the length of the armature
 * $N_{coil}$ is the number of the coils
 * $dx = Rd\theta$, $R$ is the radius of the armature
 
@@ -137,7 +137,7 @@ Now considering other components in the electric circuits,
 
 And the time constant is: $\tau = \frac{L}{R}$.
 
-The voltage of the armarture winding is:
+The voltage of the armature winding is:
 
 $$
 v_a = R_a i_a + L_a \frac{di_a}{dt} + e
@@ -169,7 +169,7 @@ $$
 \end{aligned}\right.
 $$
 
-And $L_e >> L_a$ because the flux pass through more path on the iron, and the permiability of iron is much larger than the air.
+And $L_e >> L_a$ because the flux pass through more path on the iron, and the permeability of iron is much larger than the air.
 
 For the mechanical part:
 
@@ -184,7 +184,7 @@ $$
 
 ## 6. Transfer Function Model
 
-Within the dynamic equations, we can write them into tranfer function,
+Within the dynamic equations, we can write them into transfer function,
 
 $$
 \left\{\begin{aligned}

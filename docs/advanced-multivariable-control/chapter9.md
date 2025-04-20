@@ -1,6 +1,6 @@
 ## 1. Small Gain Theorem
 ### 1.1 for MIMO Linear Systems
-Given the system schmetic below,
+Given the system schematic below,
 
 <figure markdown="span">
     ![](pics/chapter9/figure1.png){ width="400" }
@@ -52,7 +52,7 @@ where $S_1$ and $S_2$ are IO $L_2$ stable, if $\gamma_2^{(1)}\gamma_2^{(2)} < 1$
     \end{aligned}
     $$
 
-    The system is A.S., $||S_1S_2||_\infty < 1$ is a less restirctive condition.
+    The system is A.S., $||S_1S_2||_\infty < 1$ is a less restrictive condition.
 
 ### 1.2 for SISO Linear Systems
 We try to extend this result into SISO systems, given $G_1(s)$ and $G_2(s)$ are SISO A.S. systems
@@ -61,7 +61,7 @@ We try to extend this result into SISO systems, given $G_1(s)$ and $G_2(s)$ are 
     ![](pics/chapter9/figure2.png){ width="400" }
 </figure>
 
-The sign here does not metter because we use the triangular inequality, and we have:
+The sign here does not matter because we use the triangular inequality, and we have:
 
 $$
 \begin{aligned}
@@ -117,7 +117,7 @@ Where $G$ is the __transfer function (TF)__ that are A.S., and $f$ is a sector o
             ![](pics/chapter9/figure6.png){ width="300" }
         </figure>
 
-        If we want to get the actual width of the sector, we can find the intermidate line of the sector, which gives: $\bar k = \frac{k_1 + k_2}{2}$, we can rotate this line to find the actual width of the sector.
+        If we want to get the actual width of the sector, we can find the intermediate line of the sector, which gives: $\bar k = \frac{k_1 + k_2}{2}$, we can rotate this line to find the actual width of the sector.
 
 
 We consider a SISO system case with the same schematics:
@@ -135,7 +135,7 @@ The saturation function can be embedded into a sector, we can have a wider secto
     ![](pics/chapter9/figure8.png){ width="300" }
 </figure>
 
-Now we introduce the circle ciriterion.
+Now we introduce the circle criterion.
 
 !!! quote
 
@@ -162,7 +162,7 @@ Now we introduce the circle ciriterion.
 
         The system is A.S. when $G(s)$ does not pass though the point $-\frac{1}{K}$, if $K$ is a changing value, we should check all the possible value of $K$ to make sure it meets the Nyquist stability.
 
-        Because $f$ can be nonlinear, so we should extened the range in the real axis to a circle, which gives a more strict restriction to the stability.
+        Because $f$ can be nonlinear, so we should extend the range in the real axis to a circle, which gives a more strict restriction to the stability.
 
     If $k_1 \to 0$, then the circle will be infinity large, and the area of the circle becomes the plane of $x < -\frac{1}{k_2}$.
 
@@ -172,7 +172,7 @@ $$
 f(e) = \tilde f(e) + \bar k e
 $$
 
-with $\bar k = \frac{k_1 + k_2}{2}$, $\tilde f$ is a sector of nonlinearty we can reduce range of the sector of nonlinearity:
+with $\bar k = \frac{k_1 + k_2}{2}$, $\tilde f$ is a sector of nonlinearity we can reduce range of the sector of nonlinearity:
 
 $$
 (k_1 - \bar k)e \leq \tilde f(e) \leq (k_2 - \bar k)e
@@ -203,7 +203,7 @@ Redraw the system schematics again,
     ![](pics/chapter9/figure14.png){ width="600" }
 </figure>
 
-Based on circle criterion, we can find $\hat G(s) = \frac{1}{1+\bar k G(s)}$ is A.S., and $\tilde G(s) = \frac{G(s)}{1+\bar k G(s)}$ is also A.S., the casecaded system is stable if each part of the system is stable, thus, we want to prove that the closed loop system for $\tilde f$ and $\tilde G(s)$ is stable. We can apply the small gain theorem to this subsystem,
+Based on circle criterion, we can find $\hat G(s) = \frac{1}{1+\bar k G(s)}$ is A.S., and $\tilde G(s) = \frac{G(s)}{1+\bar k G(s)}$ is also A.S., the cascaded system is stable if each part of the system is stable, thus, we want to prove that the closed loop system for $\tilde f$ and $\tilde G(s)$ is stable. We can apply the small gain theorem to this subsystem,
 
 $$
 \begin{aligned}
@@ -221,7 +221,7 @@ From above equation, we can draw the figure in complex plane,
     ![](pics/chapter9/figure15.png){ width="400" }
 </figure>
 
-To evalute the result in circle criterion, we transform the figure to Nyquist plot,
+To evaluate the result in circle criterion, we transform the figure to Nyquist plot,
 
 <figure markdown="span">
     ![](pics/chapter9/figure16.png){ width="800" }

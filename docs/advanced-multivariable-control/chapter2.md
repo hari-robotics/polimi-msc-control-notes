@@ -5,7 +5,7 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
     <figure markdown="span">
         ![](pics/chapter2/figure1.png){ width="200" }
     </figure>
-    And the equilibrium is __asympototically stable__ (A.S.) if:
+    And the equilibrium is __asymptotically stable__ (A.S.) if:
     * $\bar x$ is stable
     * $\exists \delta > 0$ that when $\lim\limits_{t\to \infty}||x_{x_0}(t)-\bar{x}|| = 0$, $\forall x_0 \in B_\delta(\bar x)$
     Thus, $\bar x$ is convergent and A.S. 
@@ -52,7 +52,7 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
 
     To make the system A.S. globally, $\bar x$ should meet the condition: $\lim_{t\to \infty}||x_{x_0}(t)-\bar{x}|| = 0$, $\forall x_0 \in \mathbb{R}^n$.
 
-2. Considering the stability properities depend on $\bar u$, we can give a similar example below:
+2. Considering the stability properties depend on $\bar u$, we can give a similar example below:
 
     !!! example
         $$
@@ -67,9 +67,9 @@ Since we have find the trajectory of the equilibrium in the last part, it gives 
         | $u \leq 0$ | $u > 0$ |
         |------------|---------|
         | ![](pics/chapter2/figure3.png){ height="160" } | ![](pics/chapter2/figure4.png){ height="160" } |
-        | $x = 0$ is __globally A.S.__ (G.A.S.) | $x = 0$ is unsatble |
+        | $x = 0$ is __globally A.S.__ (G.A.S.) | $x = 0$ is unstable |
 
-3. For the A.S. system, there have the properity of convergence rate, give the defination of exponential convergence rate (aka. exponential stability) for the system $\dot x(t) = \varphi (x(t))$,
+3. For the A.S. system, there have the property of convergence rate, give the definition of exponential convergence rate (aka. exponential stability) for the system $\dot x(t) = \varphi (x(t))$,
     * Giving $\bar x$ that is an equilibrium of $\varphi(\bar x ) = 0$, if $\exists \delta >0$, $\forall x_0 \in B_\delta (\bar x)$, $\exists a >0$ and $\lambda > 0$, that makes $||x_{x_0} - \bar x || \leq a||x_0 - \bar x||e^{-\lambda t}, t\geq 0$, then $\bar x$ is an exponentially stable equilibrium
     * exponential stability (E.S.) $\in$ A.S.
         <figure markdown="span">
@@ -83,7 +83,7 @@ For a linear system, there have following features:
 2. All equilibrium shares the same stability properties, stability is a property of the system
 3. The system is E.S. when it is A.S.
 
-Here we proove the above points, giving a linear system:
+Here we prove the above points, giving a linear system:
 
 $$
 \dot x(t) = Ax(t) + Bu(t)

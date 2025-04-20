@@ -32,7 +32,7 @@ $$
 $$
 
 ## 2. Clarke Transform
-By obtainning the current vector, we can simplify the 3 phase machine into 2 phase representation,
+By obtaining the current vector, we can simplify the 3 phase machine into 2 phase representation,
 
 <figure markdown="span">
     ![](pics/chapter6/figure1.png){ width="400" }
@@ -80,7 +80,7 @@ $$
     * $\varphi$ is the electrical angle between $v$ and $i$
     * $\underline i$ is the conjugate vector of $\bar i$
 
-    For the sinosoidal wave, there have: $V_m = \sqrt{2}V_{RMS}$, $I_m = \sqrt{2}I_{RMS}$,
+    For the sinusoidal wave, there have: $V_m = \sqrt{2}V_{RMS}$, $I_m = \sqrt{2}I_{RMS}$,
 
     And the power is: $P = 3I_{RMS}V_{RMS} \cos(\varphi)$, which is the same as the 3 phase power
 
@@ -205,7 +205,7 @@ $$
 \bar v_{sd} = \bar v_{s} e^{j\theta_s} = v_se^{j(\theta_s+\theta)}
 $$
 
-We substitude it into stator voltage representation:
+We substitute it into stator voltage representation:
 
 $$
 \begin{aligned}
@@ -230,7 +230,7 @@ $$
 \end{aligned}
 $$
 
-And for convient calculation, we often fixed stator frame to the phase $A$, thus, $\theta_s = 0$, $\theta_r = \theta_s - \theta_m = -\theta_m$, this rotates the rotator frame to the d-q axis, and we can get the representation for stator voltage and rotor voltage both in d-q axis:
+And for convenient calculation, we often fixed stator frame to the phase $A$, thus, $\theta_s = 0$, $\theta_r = \theta_s - \theta_m = -\theta_m$, this rotates the rotator frame to the d-q axis, and we can get the representation for stator voltage and rotor voltage both in d-q axis:
 
 $$
 \begin{aligned}
@@ -265,7 +265,7 @@ $$
 \end{aligned}
 $$
 
-Replace $p\bar i_s$ and $p\bar i_r$, at steady steate, we have:
+Replace $p\bar i_s$ and $p\bar i_r$, at steady state, we have:
 
 $$
 \begin{aligned}
@@ -290,7 +290,7 @@ $$
 \end{aligned}
 $$
 
-With these equations, it is possible to draw the equivalent cirucit:
+With these equations, it is possible to draw the equivalent circuit:
 
 <figure markdown="span">
     ![](pics/chapter6/figure5.png){ width="500" }
@@ -324,20 +324,20 @@ Which gives: $-j\omega\bar \psi_r = \frac{1}{X} R_r \bar i_{r}$, and because $\o
     ![](pics/chapter6/figure6.png){ width="500" }
 </figure>
 
-It is easy to find that the 2 resistors can be sumed together,
+It is easy to find that the 2 resistors can be sum together,
 
 <figure markdown="span">
     ![](pics/chapter6/figure7.png){ width="500" }
 </figure>
 
-### 3.5 Mechanical Charactistics
+### 3.5 Mechanical Characteristics
 We look at the equivalent circuit below:
 
 <figure markdown="span">
     ![](pics/chapter6/figure5.png){ width="500" }
 </figure>
 
-From the euqivalent circuit, the mechanical power can be given:
+From the equivalent circuit, the mechanical power can be given:
 
 $$
 \begin{aligned}
@@ -375,7 +375,7 @@ When the current moves for $180^\circ$ degree, the current will move to a horizo
     ![](pics/chapter6/figure10.gif){ width="400" }
 </figure>
 
-And we know that $\omega_m = (1 - X)\omega$, it has no relationship to the polepairs, it only relevant to the electrical speed and slip ratio. Thus, we can give the mechanical speed of the induction machine:
+And we know that $\omega_m = (1 - X)\omega$, it has no relationship to the pole pairs, it only relevant to the electrical speed and slip ratio. Thus, we can give the mechanical speed of the induction machine:
 
 $$
 \Omega_m = \frac{\omega_m}{n_p}
@@ -411,7 +411,7 @@ $$
 \begin{aligned}
 \frac{v_r^*}{k} &= R_r ki_r^* + (L_r - M) pki_r^* + M p(\bar i_s+ki_r^*) - j\omega_m \bar \psi_r \\
 v_r^* &= R_r k^2i_r^* + (L_r - M) pk^2i_r^* + M p(k\bar i_s+k^2i_r^*) - jk\omega_m \bar \psi_r \\
-&= R_r k^2i_r^* + L_rpk^2i_r^* + Mpk\bar i_s - jk\omega_m \bar \psi_r + Mpki_r^* - Mpki_r^* \\
+&= R_r k^2i_r^* + L_rpk^2i_r^* + Mpk\bar i_s - jk\omega_m \bar \psi_r + M p k i_r^* - M p k i_r^* \\
 &= R_r k^2i_r^* + (k^2L_r - kM)pi_r^* + kM(\bar i_s + i_r^*) - jk\omega_m \bar \psi_r
 \end{aligned}
 $$
@@ -431,7 +431,7 @@ $$
 \end{aligned}
 $$
 
-We can draw the equavalent circuit:
+We can draw the equivalent circuit:
 
 <figure markdown="span">
     ![](pics/chapter6/figure11.png){ width="400" }

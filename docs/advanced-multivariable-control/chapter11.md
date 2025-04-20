@@ -19,7 +19,7 @@ And give the sensitivity functions:
 
 |Description|Formulation|
 |---|---|
-|Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
+|Complementary sensitivity function|$T(s) = \frac{L(s)}{1+L(s)}$ |
 |Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
 |Control sensitivity function |$K(s) = R(s)S(s)$|
 
@@ -88,7 +88,7 @@ For the infinity norm, there have: $||\Delta G_a(s)\bar K(s)||_\infty = \sup_\om
 
 To get the condition above, we can get $|\bar K(j\omega)| < \frac{1}{|\Delta G_a(j\omega)|}, \forall \omega$ $\Rightarrow$ $|\bar K(j\omega)|$ is small when $|\Delta G_a(j\omega)|$ is big (typically in low frequency). And because $|\bar K(j\omega)| = |R(s)\bar||S(s)|$, then $M_S$ is small.
 
-## 3. Multiplcative Uncerntainty
+## 3. Multiplicative Uncertainty
 
 Given the TF,
 
@@ -293,7 +293,7 @@ $$
 ||G_{ZW}||_2^2 = \frac{1}{2\pi} \int_{-\infty}^{\infty} |G_{ZW}(j\omega)|^2 d\omega
 $$
 
-Give the extrogendous signals:
+Give the exogenous signals:
 
 $$
 W = \begin{bmatrix} du \\ dy \\ y^\circ \\ n \end{bmatrix}

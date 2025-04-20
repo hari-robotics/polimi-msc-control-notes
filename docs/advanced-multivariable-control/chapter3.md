@@ -7,7 +7,7 @@ $$
 ## 3.1 Linearization
 We know that for a linear system, 
 
-* Stability is a properity of the system
+* Stability is a property of the system
 * The system is A.S. if and only if all the eigenvalues of its dynamic matrix $A$ have negative real parts
 
 So for defining the stability of nonlinear systems, the idea is how to convert it into a linear system. Giving the nonlinear system of the following form:
@@ -78,7 +78,7 @@ Limitation of the linearization approach is:
         ![](pics/chapter3/figure3.png){ width="200" }
     </figure>
 
-## 3.2 Phase Portait for 2nd Order Systems
+## 3.2 Phase Portrait for 2nd Order Systems
 For the system:
 
 $$
@@ -101,7 +101,7 @@ z_2(t) &= e^{a_2 t}z_2(0)
 \end{aligned}
 $$
 
-$a_1$, $a_2$ can be referred to $v_1$, $v_2$ as eigen vectors.
+$a_1$, $a_2$ can be referred to $v_1$, $v_2$ as eigenvectors.
 
 <figure markdown="span">
     ![](pics/chapter3/figure4.png){ width="600" }
@@ -127,7 +127,7 @@ $$
     <figure markdown="span">
         ![](pics/chapter3/figure8.png){ width="200" }
     </figure>
-    For a pundulum system, the dynamic equation is:
+    For a pendulum system, the dynamic equation is:
 
     $$
     \begin{aligned}

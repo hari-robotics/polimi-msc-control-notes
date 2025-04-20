@@ -45,11 +45,11 @@ And the voltage becomes:
 </figure>
 
 ### 3.1.5 Capacitor
-For convient, we keep using single phase to analize the circuit, and now we add inductor and capacitor together,
+For convenient, we keep using single phase to analyze the circuit, and now we add inductor and capacitor together,
 <figure markdown="span">
     ![](pics/chapter3/figure10.png){ width="200" }
 </figure>
-And the volgate we get likes:
+And the voltage we get likes:
 <figure markdown="span">
     ![](pics/chapter3/figure11.png){ width="400" }
 </figure>
@@ -73,14 +73,14 @@ The curve of the device would be:
 <figure markdown="span">
     ![](pics/chapter3/figure15.png){ width="400" }
 </figure>
-We can find that the current pass though capacitor experienced a huge current in a short time, to solve this problem, one possiable way is to connect a large resistor in serial with the capacitor. To improve the energy efficiency, we can add more components like switching device to adjust the time to connect in the resistor, we called this a __brake__.
+We can find that the current pass though capacitor experienced a huge current in a short time, to solve this problem, one possible way is to connect a large resistor in serial with the capacitor. To improve the energy efficiency, we can add more components like switching device to adjust the time to connect in the resistor, we called this a __brake__.
 
 ### 3.1.8 Buck Converter
 A buck converter have the simplified diagram below:
 <figure markdown="span">
     ![](pics/chapter3/figure16.png){ width="200" }
 </figure>
-We also called it step-down converter, and in buck converter, $V_{out} < V_{in}$ alwaysly.
+We also called it step-down converter, and in buck converter, $V_{out} < V_{in}$ always.
 
 And for the converter which $V_{out} > V_{in}$, we called it boost converter.
 
@@ -91,12 +91,12 @@ The boost converter is ued to step-up the voltage
 </figure>
 
 ## 3.3 Buck-boost Converter 
-When 2 switch with diode connected together, it could be called an __arm__ or a __leg__, this structure could realize the stepping dowm or stepping up the voltage, it could be called buck-boost converter.
+When 2 switch with diode connected together, it could be called an __arm__ or a __leg__, this structure could realize the stepping down or stepping up the voltage, it could be called buck-boost converter.
 <figure markdown="span">
     ![](pics/chapter3/figure18.png){ width="200" }
 </figure>
 
-It should be mentioned that the 2 swith cannot close at the same time, otherwise it will cause a short circuit.
+It should be mentioned that the 2 switch cannot close at the same time, otherwise it will cause a short circuit.
 
 ## 3.4 Full Bridge Converter
 The full bridge contains 2 arms, within the load connected the middle part together:

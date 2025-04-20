@@ -18,7 +18,7 @@ $$
 \end{aligned}\right.
 $$
 
-Where $\delta d = d - \bar d$, $\delta u = u - \bar u$, $\delta x = x - \bar x$. Draw the schmetics of the system:
+Where $\delta d = d - \bar d$, $\delta u = u - \bar u$, $\delta x = x - \bar x$. Draw the schematics of the system:
 
 <figure markdown="span">
     ![](pics/chapter10/figure1.png){ width="400" }
@@ -51,10 +51,10 @@ Our target is to design a regulator $R(s)$ to control the input $\delta u$ withi
 
 This design methods has some drawbacks:
 
-1. The linearized model is a local properity
+1. The linearized model is a local property
 2. The control scheme depends on $\bar y^\circ$ and $\bar d$, if the value changes, the operating condition changes.
 
-To the robust control design methodology, we neet to implement the controller without $\bar u$ and $\bar y = \bar y^\circ$.
+To the robust control design methodology, we need to implement the controller without $\bar u$ and $\bar y = \bar y^\circ$.
 
 ## 2. Sensitivity Functions
 
@@ -78,7 +78,7 @@ Let $L(s) = R(s)G(s)$, we have:
 |Description|Formulation|
 |---|---|
 |Sensitivity function|$S(s) = \frac{1}{1+L(s)}$|
-|Complementary sensitiviy function|$T(s) = \frac{L(s)}{1+L(s)}$ |
+|Complementary sensitivity function|$T(s) = \frac{L(s)}{1+L(s)}$ |
 |Control sensitivity function |$K(s) = \frac{R(s)}{1+L(s)} = R(s)S(s)$|
 
 By looking at the poles of $S(s)$, $T(s)$, $K(s)$, and $G(s)S(s)$, we can check the stability of the system.
@@ -106,7 +106,7 @@ The N&S condition for the system to be A.S. is:
 
 ### 2.3 Stability Margin
 
-The system is A.S. is not enough for the pratical implementations, we need to do more for the robustness of the control system. The __stability margin__ $s_m$ is a natural index of robustness, which is the shortest distance of the Nyquist diagram to the critical point.
+The system is A.S. is not enough for the practical implementations, we need to do more for the robustness of the control system. The __stability margin__ $s_m$ is a natural index of robustness, which is the shortest distance of the Nyquist diagram to the critical point.
 
 We can represent the gain margin $k_m$ and phase margin $\varphi_m$ in the Nyquist diagram, 
 
@@ -157,7 +157,7 @@ $$
 \end{aligned}\right.
 $$
 
-* When $|T| \simeq 1$ ($|L|$ is big), the spectrum of the reference signal has significant harmonic components (low-midium frequency).
+* When $|T| \simeq 1$ ($|L|$ is big), the spectrum of the reference signal has significant harmonic components (low-medium frequency).
 * When $|T|$ is small ($|L|$ is small), the measurement noise $n$ has significant harmonic components (high frequency).
 
 ### 3.3 L(s) Design
@@ -167,7 +167,7 @@ $$
 * $\varphi_m \geq \bar \varphi_m$ $\Rightarrow$ increase stability, robustness, and limit the peaks of $T(j\omega)$
 * $g_m \geq \bar g_m$ $\Rightarrow$ increase robustness
 
-### 3.4 Limitaion on Performance
+### 3.4 Limitation on Performance
 
 * $T(s) + S(s) = 1$
 * There have constraints for the crossover frequency $\omega_c$ when:
@@ -226,11 +226,11 @@ $$
 
 $|M_T - M_S| \leq 1$. A typical choice is: $\bar M_S = 2$, $\bar M_T = 1.5$.
 
-### 4.2 Rephase to Gain Margin
+### 4.2 Rephrase to Gain Margin
 
 We want to reformulate the system with gain margin, given:
 
-$g_m \geq \bar g_m$ $\Rightarrow$ repharse it in terms of $S$ and $T$.
+$g_m \geq \bar g_m$ $\Rightarrow$ rephrase it in terms of $S$ and $T$.
 
 $$
 \begin{aligned}
@@ -243,7 +243,7 @@ $$
 
 and we can know that $g_m \geq \bar g_m$, $\Rightarrow$ $M_T \leq \bar M_T$.
 
-### 4.3 Rephase to Phase Margin
+### 4.3 Rephrase to Phase Margin
 
 For $M_S$, we have:
 
@@ -254,7 +254,7 @@ g_m &\geq \frac{M_S}{M_S - 1} \geq \frac{\bar M_S}{\bar M_S - 1} \geq \bar g_m
 \end{aligned}
 $$
 
-We want to repharse the phase margin $\varphi_m$, we have: $\varphi_m \geq \bar \varphi_m$
+We want to rephrase the phase margin $\varphi_m$, we have: $\varphi_m \geq \bar \varphi_m$
 
 <figure markdown="span">
     ![](pics/chapter10/figure8.png){ width="400" }

@@ -24,25 +24,25 @@ Give the PI controller design for DC machine:
 
 !!! warning
     * Commonly we don't use the encoder to measure the speed because installing the speed sensor to the rotor part will lead to a vibration to the rotor. In this case, we need to improve our controller design without the speed sensor.
-    * Between the controller and electrical machine there have the power converter, but we often ignore it because compared with the controll loop, the power converter module have a fast response.
-    * The system is not fesiable when $\frac{1}{R_a + s L_a} = \frac{1}{sJ + G}$
+    * Between the controller and electrical machine there have the power converter, but we often ignore it because compared with the control loop, the power converter module have a fast response.
+    * The system is not feasible when $\frac{1}{R_a + s L_a} = \frac{1}{sJ + G}$
 
-If the DC machine is seperately excited, then the controller for the exciting loop should be:
+If the DC machine is separately excited, then the controller for the exciting loop should be:
 <figure markdown="span">
     ![](pics/chapter5/figure3.png){ width="600" }
 </figure>
 
 
-## 2. Magnetic Field of the Isotorpic Machines
+## 2. Magnetic Field of the Isotropic Machines
 
-### 2.1 Machines that have Concerntrated Windings
-First we look at the isotorpic rotor electrical machine with concerntrated winding, which have a constant airgap around the machine:
+### 2.1 Machines that have Concentrated Windings
+First we look at the isotropic rotor electrical machine with concentrated winding, which have a constant airgap around the machine:
 
 <figure markdown="span">
     ![](pics/chapter5/figure4.png){ width="300" }
 </figure>
 
-For the concerntrated windings, we only have one __magneticmotive force (MMF)__ source $\mathcal F$ around the machine, where
+For the concentrated windings, we only have one __magnetomotive force (MMF)__ source $\mathcal F$ around the machine, where
  
 $$
 \mathcal F = N_{turns}i
@@ -55,20 +55,20 @@ When it is supplied by a constant current source, the MMF is a constant. It only
 </figure>
 
 ### 2.2 Machines that have Distributed Windings
-For the distributed windings electical machine with the following diagram:
+For the distributed windings electrical machine with the following diagram:
 
 <figure markdown="span">
     ![](pics/chapter5/figure7.png){ width="300" }
 </figure>
 
-Because the distributed winding allocation, the MMF of the circuit is the summation of each winding, so the MMF distribution gives a sinosodial like wave form:
+Because the distributed winding allocation, the MMF of the circuit is the summation of each winding, so the MMF distribution gives a sinusoidal like wave form:
 
 <figure markdown="span">
     ![](pics/chapter5/figure8.png){ width="300" }
 </figure>
 
-### 2.3 Flux Density Calculation for Concerntrated Windings
-Because of the isotorpic rotor structure, the airgap is constant in all angle, so the reluctance of airgap $\mathcal R_g$ is also a constant. Thus we can draw the magnetic circuit of the electrical machine:
+### 2.3 Flux Density Calculation for Concentrated Windings
+Because of the isotropic rotor structure, the airgap is constant in all angle, so the reluctance of airgap $\mathcal R_g$ is also a constant. Thus we can draw the magnetic circuit of the electrical machine:
 
 <figure markdown="span">
     ![](pics/chapter5/figure5.png){ width="400" }
@@ -82,7 +82,7 @@ $$
 \end{aligned}
 $$
 
-* $S$ is the corss sectional area of the magnetic circuit path
+* $S$ is the cross sectional area of the magnetic circuit path
 
 From the equation of reluctance, $\mathcal R = \frac{l}{\mu S}$, 
 
@@ -94,7 +94,7 @@ $$
 
 Because the stator and rotor material have a very large permeability, we can know that $\mathcal R_g \gg \mathcal R_{s, r}$, thus we have $\mathcal R_{tot} \simeq 2 \mathcal R_g$, the airgap length $l_g$ is the same for all $\theta$, the flux density $B$ and MMF $\mathcal F$ has a linear relationship, $B$ and $\mathcal F$ have the same shape with respect to $\theta$. 
 
-In reality, we ignore the higher harmonics of the waveform, and only look at the first harmonic (sinosodial wave), by using the __Fourier Transform (FT)__, we can get:
+In reality, we ignore the higher harmonics of the waveform, and only look at the first harmonic (sinusoidal wave), by using the __Fourier Transform (FT)__, we can get:
 
 $$
 \mathcal F(\theta) = \frac{4}{\pi} Ni \cos \theta

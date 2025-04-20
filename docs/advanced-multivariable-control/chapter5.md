@@ -43,7 +43,7 @@ $\bar x = 0$ is G.A.S.
 
     The system is A.S. for $Q  = Q^T\succ 0$
 
-    Let $A^TP+PA=-Q$, we can choose the value $Q = \mathbf I$, $P = \begin{bmatrix} P_{11} & P_{12} \\ P_{21} & P_{22}\end{bmatrix} = \begin{bmatrix} \frac32 & -\frac12 \\ -\frac12 & 1\end{bmatrix}$, the eigenvalue of $P$ is $\lambda = \frac54 \pm \frac{\sqrt 5}{4}$, $P \succ 0$. Let $V(x) = x^TPx$ is globally PD in $\bar x = 0$ and radially unbunded
+    Let $A^TP+PA=-Q$, we can choose the value $Q = \mathbf I$, $P = \begin{bmatrix} P_{11} & P_{12} \\ P_{21} & P_{22}\end{bmatrix} = \begin{bmatrix} \frac32 & -\frac12 \\ -\frac12 & 1\end{bmatrix}$, the eigenvalue of $P$ is $\lambda = \frac54 \pm \frac{\sqrt 5}{4}$, $P \succ 0$. Let $V(x) = x^TPx$ is globally PD in $\bar x = 0$ and radially unbounded
 
     $$
     \dot V(x) = \dot x^TPx + x^TP\dot x

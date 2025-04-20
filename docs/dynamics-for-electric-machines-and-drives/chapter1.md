@@ -20,7 +20,7 @@ Permeability is different for different materials, commonly, we have:
 |ferr materials|$\mu = 1000 \sim 10000 \mu_0$|
 |diamag materials|$\mu < \mu_0$|
 
-For the electrical machines, we only consider __param materals__ and __ferr materials__.
+For the electrical machines, we only consider __param materials__ and __ferr materials__.
 
 ## 2. BH Curve
 
@@ -30,11 +30,11 @@ Within the permeability, we can draw the BH curve:
     ![](pics/chapter1/figure2.png){ width="300" }
 </figure>
 
-In the BH curve, the ferr material keeps linear untill $1.2 \sim 1.5 T$, then due to the material saturates, the slope will be reduced, and after saturation, the slope is similar to $\mu_0$.
+In the BH curve, the ferr material keeps linear until $1.2 \sim 1.5 T$, then due to the material saturates, the slope will be reduced, and after saturation, the slope is similar to $\mu_0$.
 
-## 3. Farady's Law
+## 3. Faraday's Law
 
-Farady's law helps us to find the relations between __flux density__ ($B$) and __electric motive force__ ($e$):
+Faraday's law helps us to find the relations between __flux density__ ($B$) and __electric motive force__ ($e$):
 
 $$
 e = \frac{d\psi}{dt}
@@ -89,5 +89,5 @@ c = \frac{1}{\sqrt{\mu_0 \varepsilon_0}}
 $$
 
 * $c$ is the speed of light.
-* $\mu_0$ is the magnetic permeability of vaccum.
-* $\varepsilon_0$ is the electric permeability of vaccum.
+* $\mu_0$ is the magnetic permeability of vacuum.
+* $\varepsilon_0$ is the electric permeability of vacuum.

@@ -2,7 +2,7 @@
 
 Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of the vector is:
 
-| Discription | Formulation|
+| Description | Formulation|
 |----|----|
 | $L_2$ norm | $\left\lVert e \right\rVert_2 = \sqrt{e^Te} = \sqrt{\sum_{i=1}^m e_i^2}$ |
 | $L_n$ norm | $\left\lVert e \right\rVert_n = (\sum_{i=1}^m\left\lvert e_i \right\rvert ^n)$ |
@@ -88,7 +88,7 @@ $$
 ### 8.2.1 L-norm for signal
 Given $e = \begin{bmatrix} e_1 & \dots & e_m \end{bmatrix}^T$, the L-norm of a signal is:
 
-| Discription | Formulation|
+| Description | Formulation|
 |----|----|
 | $L_2$ norm | $\left\lVert e \right\rVert_2 = \sqrt{\int_{-\infty}^{+\infty} e^T(t)e(t)}$ |
 | $L_\infty$ norm | $\left\lVert e \right\rVert_\infty = \sup_t (\sup_i \left\lvert e_i(t) \right\rvert)$|
@@ -268,7 +268,7 @@ $$
 $$
 
 ### 8.3.5 Conclusion
-| Discription | Formulation|
+| Description | Formulation|
 |----|----|
 | $H_2$ norm for SISO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \left\lvert G(j\omega) \right\rvert^2 d\omega}$ |
 | $H_2$ norm for MIMO | $\left\lVert G \right\rVert_2 = \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} \text{tr}(G(j\omega)G^*(j\omega)) d\omega}$ |

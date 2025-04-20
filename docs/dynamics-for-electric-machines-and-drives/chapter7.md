@@ -12,7 +12,7 @@ T &= n_p \Im(\bar \psi_r \underline {i_r})
 \end{aligned}
 $$
 
-From these equations, we can get: $\bar i_r = \frac{\bar \psi_r}{M} - \bar i_s$, And we substitude the equation into $v_s$ and $v_r$:
+From these equations, we can get: $\bar i_r = \frac{\bar \psi_r}{M} - \bar i_s$, And we substitute the equation into $v_s$ and $v_r$:
 
 $$
 \begin{aligned}
@@ -162,7 +162,7 @@ $$
 To perform the inverse transform, we use the inverse matrix to do so.
 
 ## 3. SPWM
-To generate the sinosodial wave, we compare the sinosodial wave with the triangular wave using the comparator, and the output is SPWM wave：
+To generate the sinusoidal wave, we compare the sinusoidal wave with the triangular wave using the comparator, and the output is SPWM wave：
 
 <figure markdown="span">
     ![](pics/chapter7/figure4.png){ width="500" }

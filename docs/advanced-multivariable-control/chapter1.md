@@ -1,5 +1,5 @@
 ## 1.1 System Formulation
-The general continues time and time invarient systems have the following formulations:
+The general continues time and time invariant systems have the following formulations:
 
 $$
 \dot{x}(t) = f(x(t), u(t)),
@@ -22,9 +22,9 @@ $$
 $$
 
 ## 1.2 Equilibrium
-Give the defination of equilibrium of a system:
+Give the definition of equilibrium of a system:
 !!! note
-    Giving the equilibrium state $\bar x$, $\exists u = \bar u$, at $t \geq 0$, that makes $f(\bar x, \bar u) = 0$, such a point $(\bar x, \bar u)$ is called equibrium pair, and $\bar x$ is an isolated equilibrium.
+    Giving the equilibrium state $\bar x$, $\exists u = \bar u$, at $t \geq 0$, that makes $f(\bar x, \bar u) = 0$, such a point $(\bar x, \bar u)$ is called equilibrium pair, and $\bar x$ is an isolated equilibrium.
 
 For a general system, the system is equilibria if: $\exists \delta > 0$ that makes $\bar x$ is the only equilibrium contained in the region $B_\delta(\bar{x}) = \{x\in \mathbb{R}^n:||x-\bar{x}||\leq \delta\}$.
 
