@@ -13,4 +13,19 @@
     ],
     "markdown-preview-enhanced.enableExtendedTableSyntax": true,
     "python.venvPath": "${workspaceFolder}/.venv",
+    "cSpell.words": [
+      "arithmatex",
+      "chtml",
+      "glightbox",
+      "inlinehilite",
+      "javascripts",
+      "katex",
+      "linenums",
+      "mathjax",
+      "Poli",
+      "pygments",
+      "superfences",
+      "tasklist",
+      "vercel"
+    ],
   }

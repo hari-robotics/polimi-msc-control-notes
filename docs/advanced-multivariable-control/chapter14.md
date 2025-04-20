@@ -1,4 +1,5 @@
-## 1. State Observer
+## 1. State Observer (Luenburger Observer (LO) )
+### 1.1 Nominal LO Design
 Given a linear system,
 
 $$
@@ -54,7 +55,9 @@ $$
 L^T = \begin{bmatrix} 0&\cdots&0&1\end{bmatrix}(M_O^T)^{-1} p^*(A^T)
 $$
 
-When the system have $p > 1$, where $C  = \begin{bmatrix} C_1 \\ \vdots \\ C_p \end{bmatrix}$, if $(A,C)$ is observable $\Rightarrow$ $\exists i$, such that $(A, C_i)$ that is observable. We can apply Ackermann's formula on $(A,C_i)$,
+When the system with $p > 1$, $C  = \begin{bmatrix} C_1 \\ \vdots \\ C_p \end{bmatrix}$
+
+If $(A,C)$ is observable, $\Rightarrow$ $\exists i$, such that $(A, C_i)$ that is observable. We can apply Ackermann's formula on $(A,C_i)$:
 
 $$
 \begin{aligned}
@@ -63,7 +66,8 @@ L &= \begin{bmatrix} L_1&\cdots&L_p\end{bmatrix} \\
 \end{aligned}
 $$
 
-## 2. Observer for System with Disturbances
+### 1.2 LO for the System With Disturbances
+Given the linear system with disturbances,
 
 $$
 \begin{aligned}
@@ -72,44 +76,57 @@ $$
 \end{aligned}
 $$
 
-If $d$ is measurable,
 
-$$
-\dot{\hat x} = A \dot{\hat x} + Bu + Md + L(y - C\hat x - Du - Nd)
-$$
+* If $d$ is measurable, we can calculate the estimation error directly:
 
-We let $e=x - \hat x$, thus we have:$\dot e=(A-LC)e$
+    $$
+    \dot{\hat x} = A \dot{\hat x} + Bu + Md + L(y - C\hat x - Du - Nd)
+    $$
 
-If $d$ is not measurable,
+    We let $e=x - \hat x$, thus we have:$\dot e=(A-LC)e$
 
-$$
-\begin{aligned}
-\dot{\hat x} &= A \dot{\hat x} + Bu + L(y - C\hat x - Du) \\
-\dot e &= (A-LC) e + (M-LN) d \\
-e &= x - \hat x
-\end{aligned}
-$$
 
-If $d(t) = \bar d$, $\forall t \geq 0$,
+* If $d$ is not measurable:
 
-$$
-e_\infty = -(A-LC)^{-1} (M-LN) \bar d
-$$
+    $$
+    \begin{aligned}
+    \dot{\hat x} &= A \dot{\hat x} + Bu + L(y - C\hat x - Du) \\
+    e &= x - \hat x \\
+    \dot e &= (A-LC) e + (M-LN) d
+    \end{aligned}
+    $$
 
-!!! bug
-    missing figure
+    If $d(t) = \bar d$, $\forall t \geq 0$,
 
-## 3. Estimation of Constant Disturbances via Observer Design
+    $$
+    e_\infty = -(A-LC)^{-1} (M-LN) \bar d
+    $$
 
+We can draw the system schematic:
+
+<figure markdown="span">
+    ![](pics/chapter14/figure1.png){ width="600" }
+</figure>
+
+### 1.3 Estimation of Constant Disturbances via Observer Design
 Motivations:
 
 1. You can estimate the state correctly
 2. You can use the disturbances estimation for the disturbance compensation
 
-    !!! bug
-        missing figure
+Consider a system with disturbance:
 
-Give the system disturbance: $d(t) = \bar d$, $\forall t$, 
+<figure markdown="span">
+    ![](pics/chapter14/figure2.png){ width="400" }
+</figure>
+
+To eliminate the disturbance, we can design a disturbance estimator:
+
+<figure markdown="span">
+    ![](pics/chapter14/figure3.png){ width="400" }
+</figure>
+
+If the disturbance is constant, $d(t) = \bar d$, $\forall t$, 
 
 $$
 \begin{aligned}
@@ -118,46 +135,49 @@ $$
 \end{aligned}
 $$
 
-Because the disturbance $d$ is constant, $\dot d = 0$, and we have:
+Since $d$ is constant, $\dot d = 0$, and we have:
 
 $$
 \begin{aligned}
 \begin{bmatrix} \dot x \\ \dot d \end{bmatrix} &= 
-\begin{bmatrix} A&M \\ 0&0 \end{bmatrix}
+\underbrace{\begin{bmatrix} A&M \\ 0&0 \end{bmatrix}}_{\tilde A}
 \begin{bmatrix} x \\ d \end{bmatrix} + 
-\begin{bmatrix} B \\ 0 \end{bmatrix} u \\
+\underbrace{\begin{bmatrix} B \\ 0 \end{bmatrix}}_{\tilde B} u \\
 y &= \underbrace{\begin{bmatrix} C&N \end{bmatrix}}_{\tilde C}
-\begin{bmatrix} x \\ d \end{bmatrix} + Du
+\begin{bmatrix} x \\ d \end{bmatrix} + \underbrace{D}_{\tilde D} u
 \end{aligned}
 $$
 
+The condition should be satisfied for designing the observer:
+
 * $(\tilde A, \tilde C)$ must be observable $\Leftrightarrow$ $(A,C)$ is observable
 
-* $\text{rank}\begin{bmatrix} A&M \\ 0&0 \end{bmatrix} = n+r$, 
+* $\text{rank}\begin{bmatrix} A&M \\ 0&0 \end{bmatrix} = n+r \left\{\begin{aligned} 
+&r \leq p \quad \text{more output than disturbances} \\
+&\text{No invariant zero in 0 in the transfer matrix for } d \text{ to } y
+\end{aligned}\right.$
 
-    $r \leq p$, more output than disturbances
+---
+__What are the close loop eigenvalues?__
 
-    No invariant zero in $0$ in the transfer matrix for $d$ to $y$
-
-!!! bug 
-    missing figure
-
-What are the close loop eigenvalues:
+<figure markdown="span">
+    ![](pics/chapter14/figure4.png){ width="500" }
+</figure>
 
 We assume the order of the system is $n$, 
 
 $$
 \begin{aligned}
-\text{system: }&\begin{aligned}
-\dot x &= Ax + Bu \\
-y &= Cx + Du
-\end{aligned} \\
-\text{control law: }&u = -K\hat x + \gamma \\
-\text{observer: }&\dot{\hat x} = A \hat x + Bu + L(y-C\hat x -Du)
+\text{system:}&\quad \left\{\begin{aligned}
+&\dot x = Ax + Bu \\
+&y = Cx + Du
+\end{aligned}\right. \\
+\text{control law:}&\quad u = -K\hat x + \gamma \\
+\text{observer:}&\quad \dot{\hat x} = A \hat x + Bu + L(y-C\hat x -Du)
 \end{aligned}
 $$
 
-And we can get:
+Apply the controller and observer to the system:
 
 $$
 \begin{aligned}
@@ -169,13 +189,13 @@ $$
 Since we have: $e = x - \hat x$,
 
 $$
-\begin{aligned}
+\left\{\begin{aligned}
 \dot x &= (A-BK)x + BKe + B\gamma \\
 \dot e &= (A-LC)e
-\end{aligned} \\
+\end{aligned}\right.
 $$
 
-### 3.1 Separation Principle
+### 1.4 Separation Principle
 We can let:
 
 $$
@@ -184,17 +204,24 @@ $$
 
 The eigenvalue of $\tilde A$ are the union of the eigenvalue of $A-BK$ and $A-LC$, it means that we can design controller and observer independently.
 
-## 4. Stabilizing Regulator Transfer Matrix
+## 2. Stabilizing Regulator Transfer Matrix
 
-!!! bug
-    missing figure
+<figure markdown="span">
+    ![](pics/chapter14/figure5.png){ width="500" }
+</figure>
 
-We replaced observer with the transfer matrix $R(s)$, to find the expression of $R(s)$,
+We replaced observer with the transfer matrix $R(s)$, 
+
+<figure markdown="span">
+    ![](pics/chapter14/figure6.png){ width="300" }
+</figure>
+
+to find the expression of $R(s)$,
 
 $$
 \begin{aligned}
-\text{control law: }&u = -K\hat x \\
-\text{observer: }&\dot{\hat x} = A \hat x + Bu + L(y-C\hat x)
+\text{control law: }& \quad u = -K\hat x \\
+\text{observer: }& \quad \dot{\hat x} = A \hat x + Bu + L(y-C\hat x)
 \end{aligned}
 $$
 
@@ -213,31 +240,31 @@ $$
 R(s) = K(sI - (A-BK-LC))^{-1}L
 $$
 
-## 5. Reduced Order Observer
-We start with a simplified linear system:
+## 3. Reduced Order Observer (RO)
+For the linear system with the state space equation below:
 
 $$
-\begin{aligned}
+\left\{\begin{aligned}
 \dot x &= Ax + Bu \\
 y &= Cx
-\end{aligned}
+\end{aligned}\right.
 $$
 
-We can transfer the system,
+We can transfer the system into canonical form,
 
 $$
 \begin{aligned}
 \tilde x &= Tx \\
 \tilde A &= TAT^{-1} \\
 \tilde B &= TB \\
-\tilde C &= CT^{-1} = \begin{bmatrix} I&0 \end{bmatrix}
+\tilde C &= CT^{-1} = \begin{bmatrix} \mathbf I&\mathbf 0 \end{bmatrix}
 \end{aligned}
 $$
 
 * $T = \begin{bmatrix} C \\ T_1 \end{bmatrix}$, $\det T \neq 0$
 * $(A,C)$ should be observable
 
-$\tilde y = \begin{bmatrix} y \\ \tilde x_v \end{bmatrix}$
+We have the output part $y$ and other unknown states $x_v$, $\tilde x = \begin{bmatrix} y \\ \tilde x_v \end{bmatrix}$, thus:
 
 $$
 \begin{aligned}
@@ -248,23 +275,16 @@ $$
 
 We can let:
 
-$$
-\begin{aligned}
-z &= \dot y - \tilde A_{11}y - \tilde B_1 u \\ 
-&= \tilde A_{12} \tilde x_v \\
-\eta &= \tilde A_{21}y + \tilde B_2 u
-\end{aligned}
-$$
+* $z = \dot y - \tilde A_{11}y - \tilde B_1 u = \tilde A_{12} \tilde x_v$
+* $\eta = \tilde A_{21}y + \tilde B_2 u$
 
-And we have $\dot {\tilde x}_v = \tilde A_{22}\tilde x_v + \eta$, 
-
-Now, we can build the new system:
+and we can simplify the system:
 
 $$
-\begin{aligned}
-\dot {\tilde x}_v &= \tilde A_{22}\tilde x_v + \eta \\
-z &= \tilde A_{12} \tilde x_v
-\end{aligned}
+\left\{\begin{aligned}
+&\dot {\tilde x}_v = \tilde A_{22}\tilde x_v + \eta \\
+&z = \tilde A_{12} \tilde x_v
+\end{aligned}\right.
 $$
 
 Now this new system have $n-p$ states,
@@ -278,6 +298,8 @@ $$
 
 * $(\tilde A_{22}, \tilde A_{12})$ must be observable
 
+For this system, we can apply the observer design:
+
 $$
 \begin{aligned}
 \dot{\hat{\tilde x}}_v &= \tilde A_{22} \hat{\tilde x}_v + \tilde A_{21}y + \tilde B_2 u + L(\dot y - \tilde A_{11}y - \tilde B_1 u-\tilde A_{12}\hat{\tilde x}_v) \\
@@ -288,8 +310,8 @@ Let $w = \tilde x_v - Ly$,
 
 $$
 \begin{aligned}
-\dot w &= (\tilde A_{22} - L\tilde A_{12})\hat{\tilde x}_v + (\tilde A_{21} - L\tilde A_{11})y + (\tilde B_2 - L\tilde B_1) u \\
-&= (\tilde A_{22} - L\tilde A_{12})w + (\tilde A_{22} - L\tilde A_{12})Ly + (\tilde A_{21} - L\tilde A_{11})y + (\tilde B_2 - L\tilde B_1) u
+\dot w &= (\tilde A_{22} - L\tilde A_{12})w + (\tilde A_{21} - L\tilde A_{11})Ly + 
+\tilde A_{21}y + \tilde B_2 u - L\tilde A_{11}y - L\tilde B_1 u \\
 \end{aligned}
 $$
 
@@ -309,14 +331,12 @@ $$
     \end{aligned}\right.
     $$
 
-    * $A = \begin{bmatrix} 0&1\\0&0 \end{bmatrix}$
-    * $B = \begin{bmatrix} 0\\1 \end{bmatrix}$
-    * $C = \begin{bmatrix} 1&0 \end{bmatrix}$
+    * $A = \begin{bmatrix} 0&1\\0&0 \end{bmatrix}$, $B = \begin{bmatrix} 0\\1 \end{bmatrix}$, $C = \begin{bmatrix} 1&0 \end{bmatrix}$
     * $(A,C)$ is observable
 
-    let $z = \dot y$, 
+    let $z = \dot y$, We have $\left\{\begin{aligned} &\dot y = x_2 \\ &\dot x_2 = u \\ &z = x_2 \end{aligned}\right.$, 
     
-    We have $\dot y = x_2$, $\dot x_2 = u$, $z = x_2$, from these equations, we have:
+    from these equations:
 
     $$
     \begin{aligned}
@@ -325,280 +345,316 @@ $$
     \end{aligned}
     $$
 
-    let $w = \dot x_2 - L\dot y$, we have $\dot w = -L$, and:
-
-    $$
-    \dot {\hat x}_2 - L\dot y = u - L\hat x_2 \\
-    $$
-
-    Thus we have: $\dot w = -L(\hat x_2 - Ly) - L^2y + u$,
+    let $w = \hat x_2 - Ly$,
 
     $$
     \begin{aligned}
-    \dot w &= -Lw - L^2y + u \\
-    \hat x_2 &= w + Ly
+    \dot w &= \dot{\hat x}_2 - L\dot y \\
+    &= u - L\hat x_2 \\
+    &= -L(\hat x_2 - Ly) - L^2y + u \\
+    &= -Lw - L^2y + u
     \end{aligned}
     $$
 
-    Now we have: $\hat x = \begin{bmatrix} y\\ \hat x_2 \end{bmatrix}$
+    And because there have: $\hat x_2 = w + Ly$, we can draw the block diagram:
 
-    !!! bug 
-        missing figure
+    <figure markdown="span">
+        ![](pics/chapter14/figure7.png){ width="600" }
+    </figure>
 
-## 6. Pole placement for Observer design
+    Thus all the states could be obtained: $\hat x = \begin{bmatrix} y \\ \hat x_2 \end{bmatrix}$
 
-## 7. Pole placement via TF Approach for SISO Linear Systems
-
-!!! bug 
-    missing figure
-
-We assume $G(s)$ have following structure:
-
-$$
-G(s) = \frac{B(s)}{A(s)} = \frac{b_ns^{n-1}+b_{n-1}s^{n-2}+\dots + b_1s+b_0}{s^{n}+a_{n-1}s^{n-1}+\dots + a_1s+a_0}
-$$
-
-And for $R(s)$, it have the order of $n-1$:
-
-$$
-R(s) = \frac{F(s)}{\Gamma(s)} = \frac{f_{n-1}s^{n-1}+f_{n-2}s^{n-2}+\dots + f_1s+f_0}{\gamma_{n-1}s^{n-1}+\gamma_{n-2}s^{n-2}+\dots +\gamma_1s+\gamma_0}
-$$
-
-We give $P^*(s)$, which  is the desired characteristic polynomial in the closed loop,
-
-$$
-P(s) = s^{2n-1} + p_{2n-2}s^{2n-2} + \dots + p_1s + p_0
-$$
-
-The characteristic polynomial of the closed loop system is:
-
-$$
-P(s) = \Gamma(s)A(s) + B(s)F(s)
-$$
-
-We can set the system desired polynomial function the same as our desired one:
-
-$$
-P(s) = P^*(s)
-$$
-
-Expend it, we have:
+## 4. Pole placement and State Observer in Discrete Time Systems
+Given the discrete time system with state space equation:
 
 $$
 \begin{aligned}
-\begin{bmatrix} 
-1 & 0 &  &&&0&&&& \\
-a_{n-1} & 0 &&&& b_{n-1} & 0\\
-\vdots & a_{n-1} & \ddots &&& \vdots & b_{n-1} & \ddots \\
-a_0  &  \vdots & \ddots &&& b_0  &  \vdots & \ddots \\
-0 & a_0 & \ddots && 1 & 0 & b_0 & \ddots && 0\\
-\vdots & 0 &\ddots && a_{n-1} & \vdots & 0 &\ddots && b_{n-1}\\
-0 & \vdots &&& \vdots & 0 & \vdots &&& \vdots\\
-0 & 0 &&& a_0 & 0 & 0 &&& b_0
-\end{bmatrix}
-\begin{bmatrix} \gamma_{n-1} \\ \vdots \\ \gamma_0 \\ f_{n-1} \\ \vdots \\ f_0\end{bmatrix} = 
-\begin{bmatrix} 1 \\ p_{2n-2} \\ p_{2n-3} \\ \vdots \\ p_0 \end{bmatrix}
+x(k+1) &= Ax(k) + Bu(k) \\
+y(k) &= Cx(k) + Du(k)
 \end{aligned}
 $$
 
-!!! bug
-    missing figure
+Assume all the states can be observed directly, thus:
+
+* $y(k) = x(k)$
+
+And we can design the state feedback controller for the system,
 
 $$
-\tilde G(s) = \frac{1}{s}G{s} = \frac{B(s)}{sA(s)}
+u = -Kx(k) + \gamma(k)
 $$
 
-$\tilde G(s)$ have the order of $n+1$, And we want to design $R(s)$ of order $n$,
+Apply the controller to the system, we can get the closed loop function:
 
 $$
-R(s) = \frac{F'(s)}{\Gamma'(s)}
+x(k+1) = \underbrace{(A-BK)}_{\bar A_{cl}}x(k) + B\gamma(k)
 $$
 
-The desired polynomial TF $P^*(s)$ have a order of $2n+1$, the characteristic polynomial function of the system is:
+To make sure the controller is feasible, it should meet the condition:
+
+* $(A, B)$ is reachable
+
+When designing the eigenvalues, we need to consider the stability regions of the system
+
+---
+Since not all the state could be obtained directly, for estimating the state, there have following methods:
+
+* Predictor: use the info up to $K$ to estimate $x(k+1)$
+* Filter: use the info up to $K$ to estimate $x(k)$
+
+### 4.1 Predictor
+We can design a state estimator with predicted states:
 
 $$
-P(s) = P(s) = \Gamma'(s)\underbrace{sA(s)}_{\tilde A(s)} + B(s)F'(s) = P^*(s)
+\hat x(k+1|k) = A\hat x(k|k-1) + Bu(k) + L(y(k) - C\hat x(k|k-1) - Du(k))
 $$
 
-### 7.1 Zeros of the Closed Loop System
-!!! bug
-    missing figure
-
-To calculate the zeros, we need to calculate the complementary sensitive functions
-
-!!! warning
-    Because in the previous part, we already use the $F(s)$, which is not the complementary sensitivity function, so here we rename it to $H(s)$ to resolve the naming conflict
-
-$$
-H(s) = \frac{\frac{H(s)B(s)}{\Gamma(s)A(s)}}{1 + \frac{H(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(s)B(s)}{\Gamma(s)A(s) + F(s)B(s)} = \frac{F(s)B(s)}{P^*(s)}
-$$
-
-!!! bug
-    missing figure
-
-The chosen $\Delta$ should be:
-
-$$
-\Delta(s) = s^{n-1} \delta_{n-2}s^{n-2}+\dots +\delta_1s + \delta_0
-$$
-
-Calculate the TF from $y^\circ$ to $y$:
-
-$$
-W(s) = \frac{F(0)}{\Delta(0)} \frac{\frac{\Delta(s)}{\Gamma(s)}\frac{B(s)}{A(s)}}{1+\frac{F(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(0)}{\Delta(0)}\frac{\Delta(s)B(s)}{P^*(s)}
-$$
-
-### 7.2 How to cancel the poles in the system
-Given the system:
-
-$$
-G(s) = \frac{B(s)}{\underbrace{(s+a)A'(s)}_{A(s)}}
-$$
-
-The desired polynomial function is:
-
-$$
-P^*(s) = \underbrace{(s+a)\tilde P^*(s)}_{2n-1}
-$$
-
-For the system polynomial function:
+And the estimation error is:
 
 $$
 \begin{aligned}
-P(s) &= (s+a)A'(s)\Gamma(s) + B(s)F(s) = (s+a)\tilde P^*(s) \\
-B(s)F(s) &= (s+a)[\tilde P^*(s) - A'(s)]
+e(k) &= x(k) - \hat x(k|k-1) \\
+e(k+1) &= (A-LC)e(k)
 \end{aligned}
 $$
 
-For the condition that $F(s)$ has a root in $a$, which $F(s) = (s+a)F'(s)$,
+To make the observer design feasible,
 
-$$
-L(s) = R(s)G(s) = \frac{(s+a)F'(s)}{\Gamma(s)} \frac{B(s)}{(s+a)A'(s)}
-$$
+* $(A, C)$ must be observable
 
-For the system disturbance $d_u$ to $y$, there have the TF:
+If all the eigenvalues of $A-LC$ are set to 0, then you get a deadbeat observer (for the finite number of $x$, the estimation error goes to $0$)
 
-$$
-\begin{aligned}
-V(s) &= \frac{G(s)}{1+R(s)G(s)} \\
-&= \frac{\frac{B(s)}{(s+a)A'(s)}}{1+\frac{B(s)}{(s+a)A'(s)} \frac{(s+a)F'(s)}{\Gamma(s)}} \\
-&= \frac{A'(s)\Gamma(s)B(s)}{\underbrace{\underbrace{(A'(s)\Gamma(s)+B(s)F'(s))}_{\tilde P^*(s)}(s+a)A'(s)}_{P^*(s)}}
-\end{aligned}
-$$
-
-!!! bug
-    missing figure
-
-!!! example
-    Given the system:
-
+!!!example
     $$
-    G(s) = \frac{1}{s-1}
+    \bar A = \mathbf 0_{3\times 3}
     $$
 
-    Design a regulator which include an integral action such that all the close loop poles are $-1$
+    $$
+    \begin{aligned}
+    e(k+1) &= \bar Ae(k) = 0
+    \end{aligned}
+    $$
 
-    1. State space approach
+### 4.2 Filter
+We can design a state estimator with current states:
 
-        $$
-        \begin{aligned}
-            \dot x &= x + u \\
-            y &= x
-            \dot v= -x
-        \end{aligned}
-        $$
+$$
+\hat x(k+1|k+1) = A\hat x(k|k) + Bu(k) + L(y(k+1) - C(A\hat x(k|k) + Bu(k)) - Du(k+1))
+$$
 
-        !!! bug
-            missing figure
+And the estimation error is:
 
-        $$
-        \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} = 
-        \underbrace{\begin{bmatrix} 1&0 \\ -1&0 \end{bmatrix}}_{\tilde A}
-        \begin{bmatrix} x \\ v \end{bmatrix} + 
-        \underbrace{\begin{bmatrix} 1 \\ 0 \end{bmatrix}}_{\tilde B} u
-        $$
+$$
+\begin{aligned}
+e(k+1|k+1) &= x(k+1) - \hat x(k+1|k+1) \\
+&= (A-L\underbrace{CA}_{\tilde C})e(k|k)
+\end{aligned}
+$$
 
-        $$
-        u = -K \begin{bmatrix} x \\ v \end{bmatrix} = -K_xx - K_vv
-        $$
+To make the observer design feasible,
 
-        The closed loop system is:
+* $(A, \tilde C)$ must be observable
 
-        $$
-        \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} =
-        \underbrace{(A-BK)}_{\hat L} \begin{bmatrix} x \\ v \end{bmatrix} 
-        $$
+!!!info
+    __Proof__:
 
-        The characteristic polynomial is:
+    $$
+    \tilde M_o = 
+    \begin{bmatrix} \tilde C \\ \tilde CA \\ \vdots \\ \tilde CA^{n-1} \end{bmatrix} = 
+    \begin{bmatrix} \tilde CA \\ \tilde CA^2 \\ \vdots \\ \tilde CA^{n} \end{bmatrix} = M_o A
+    $$
 
-        $$
-        P_{\tilde A - \tilde BK}(\lambda) = \det
-        \begin{bmatrix} \lambda - 1+ K_x & K_v \\ 1&\lambda \end{bmatrix} =
-        \lambda^2 + (K_x - 1)\lambda - K_v
-        $$
+    This is observable when $A$ is non singular and $(A, C)$ is observable
 
-        And the desired polynomial function is:
-        
-        $$
-        P^*(\lambda) = (\lambda + 1)^2 = \lambda^2 + 2\lambda + 1
-        $$
+If $A$ is singular, $(A, \tilde C)$ is not observable even if $(A,C)$ is observable and $\lambda = 0$ is in the unobservable part.
 
-        And the result is:
+!!!example
+    For a system:
 
-        $$
-        \begin{aligned}
-        K_x &= 3 \\
-        K_v &= -1
-        \end{aligned}
-        $$
+    $$
+    \begin{aligned}
+    x(k+1) &= Ax(k) \\
+    z(k) &= CAx(k)
+    \end{aligned}
+    $$
 
-    2. Pole placement with TF
+    * $x(0) = v$, $v$ is the eigenvector assume to $\lambda = 0$
+    * $x(1) = Av = \lambda v = 0$
+    * $x(k) = 0$, $k\geq 1$
+    * $z(0) = CAV = 0$ 
+    * $z(k) = 0$, $k \geq 0$
 
-        !!! bug
-            missing figure
+### 4.3 Regulator Transfer Matrix
+For the discrete time system:
 
-        $$
-        \tilde G(s) = \frac{1}{s(s-1)}
-        $$
+$$
+\begin{aligned}
+x(k+1) &= Ax(k) + Bu(k) \\
+y(k) &= Cx(k)
+\end{aligned}
+$$
 
-        $$
-        R'(s) = \frac{f_1s + f_0}{\gamma_1s + \gamma_0}
-        $$
+Within the predictor:
 
-        $$
-        \begin{aligned}
-        P(s) &= (s^2 - s)(\gamma_1s + \gamma_0) + f_1s + f_0 \\
-        P^*(s) &= (s+1)^3 = s^3 + 3s^2 + 3s + 1
-        \end{aligned}
-        $$
+$$
+\hat x(k+1|k) = A\hat x(k|k-1) + Bu(k) + L(y(k) - C\hat x(k|k-1) - Du(k))
+$$
 
-        $$
-        \begin{bmatrix} 
-        1 & 0 & 0 & 0\\
-        -1& 1 & 0 & 0\\
-        0 &-1 & 1 & 0\\
-        0 & 0 & 0 & 1
-        \end{bmatrix}
-        \begin{bmatrix} \gamma_1 \\ \gamma_0 \\ f_1 \\ f_0 \end{bmatrix} = 
-        \begin{bmatrix} 1 \\ 3 \\ 3 \\ 1 \end{bmatrix}
-        $$
+And control law:
 
-        $$
-        \begin{aligned}
-        &\gamma_1 = 1 & f_1 = 7 \\
-        &\gamma_2 = 4 & f_0 = 1
-        \end{aligned}
-        $$
+$$
+u(k) = -Kx(k|k-1)
+$$
 
-        $$
-        R'(s) = \frac{f_1s+f_0}{\gamma_1s+\gamma_0} = \frac{7(s+\frac17)}{s+4}
-        $$
+We can draw the system schematics:
 
-    3. $R(s) = p\frac{s+\alpha}{s}$
+<figure markdown="span">
+    ![](pics/chapter14/figure8.png){ width="300" }
+</figure>
 
-        $$
-        \begin{aligned}
-        1 + R(s)G(s) &= 0 \\
-        s(s-1) + p(s+\alpha) &= (s+1)^2
-        \end{aligned}
-        $$
+And we can ge the expression for $R(z)$:
+
+$$
+U(z) = -\underbrace{K(zI - A + BK + LC)^{-1}L}_{R(z)} Y(z)
+$$
+
+* $R(z)$ is strictly proper
+
+Within the Filter Design:
+
+$$
+\hat x(k+1|k+1) = A\hat x(k|k) + Bu(k) + L(y(k+1) - C(A\hat x(k|k) + Bu(k)) - Du(k+1))
+$$
+
+The expression of $R(z)$ becomes:
+
+$$
+U(z) = - \underbrace{K(zI - A+BK+LCA-LCBK)^{-1}Lz}_{R(z)} Y(z)
+$$
+
+* $R(z)$ is proper
+
+!!!example
+    Consider a strict proper case for the SISO system:
+
+    $$
+    \begin{aligned}
+    R(z) &= \frac{b_{n-1}z^{n-1} + b_{n-2}z^{n-2} + \dots + b_{1}z + b_0}{z^n + a_{n-1}z^{n-1} + \dots + a_{1}z + a_0} \\
+    &= \frac{(b_{n-1}z^{n-1} + b_{n-2}z^{n-2} + \dots + b_{1}z + b_0)z^{-n}}{(z^n + a_{n-1}z^{n-1} + \dots + a_{1}z + a_0)z^{-n}} \\
+    &= \frac{b_{n-1}z^{-1} + b_{-2}z^{n-2} + \dots + b_0z^{-n}}{1 + a_{n-1}z^{-1} + \dots + a_0z^{-n}} \\
+    \end{aligned}
+    $$
+
+    We can let $V(z) = R(z) Y(z)$,
+
+    $$
+    (1 + a_{n-1}z^{-1} + \dots + a_0z^{-n})V(z) = (b_{n-1}z^{-1} + b_{-2}z^{n-2} + \dots + b_0z^{-n}) Y(z)
+    $$
+
+    Do the inverse z-transform, we can get:
+
+    $$
+    v(k) = -a_{n-1}v(k-1) - \dots - a_0 v(k-n) + b_{n-1}y(k-1) + \dots + b_0 y(k-n)
+    $$
+
+!!!example
+    And we consider the proper case for the SISO system:
+
+    $$
+    \begin{aligned}
+    R(z) &= \frac{b_{n}z^{n} + b_{n-1}z^{n-1} + b_{n-2}z^{n-2} + \dots + b_{1}z + b_0}{z^n + a_{n-1}z^{n-1} + \dots + a_{1}z + a_0} \\
+    &= \frac{(b_{n}z^{n} + b_{n-1}z^{n-1} + b_{n-2}z^{n-2} + \dots + b_{1}z + b_0)z^{-n}}{(z^n + a_{n-1}z^{n-1} + \dots + a_{1}z + a_0)z^{-n}} \\
+    &= \frac{b_{n} + b_{n-1}z^{-1} + b_{-2}z^{n-2} + \dots + b_0z^{-n}}{1 + a_{n-1}z^{-1} + \dots + a_0z^{-n}} \\
+    \end{aligned}
+    $$
+
+    We can let $V(z) = R(z) Y(z)$,
+
+    $$
+    (1 + a_{n-1}z^{-1} + \dots + a_0z^{-n})V(z) = (b_{n}z^{n} + b_{n-1}z^{-1} + b_{-2}z^{n-2} + \dots + b_0z^{-n}) Y(z)
+    $$
+
+    Do the inverse z-transform, we can get:
+
+    $$
+    v(k) = -a_{n-1}v(k-1) - \dots - a_0 v(k-n) + b_{n}y(k) + b_{n-1}y(k-1) + \dots + b_0 y(k-n)
+    $$
+
+    This case use the instant data from $y(k)$, which does not provide time for calculation
+
+### 4.4 Estimate of Constant Disturbance via Observer
+Consider the discrete time system with constant disturbance:
+
+$$
+\begin{aligned}
+x(k+1) &= Ax(k) + Bu(k) + Md(k)\\
+y(k) &= Cx(k) + Du(k) + Nd(k)
+\end{aligned}
+$$
+
+We can write the equation with extended form:
+
+$$
+\begin{aligned}
+\begin{bmatrix} x(k+1) \\ d(k+1) \end{bmatrix} &= 
+\underbrace{\begin{bmatrix} A&M \\ 0&I \end{bmatrix}}_{\bar A}
+\begin{bmatrix} x(k) \\ d(k) \end{bmatrix} + 
+\underbrace{\begin{bmatrix} B \\ 0 \end{bmatrix} u(k)}_{\bar B} \\
+y(t) &= \underbrace{\begin{bmatrix} C&N \end{bmatrix}}_{\bar C}
+\begin{bmatrix} x(k) \\ d(k) \end{bmatrix} + Du(k)
+\end{aligned}
+$$
+
+It should satisfy that $(\bar A, \bar C)$ is observable, which is equivalent to:
+
+* $(A, C)$ is observable
+* $r \leq p$
+* No invariant zeros in $z = 1$ in the transfer matrix of $d \to y$
+
+## 5. Discrete Time RO
+Given the discrete time system:
+
+$$
+\begin{aligned}
+x(k+1) &= Ax(k) + Bu(k) \\
+y(k) &= Cx(k)
+\end{aligned}
+$$
+
+We can transform it into canonical form:
+
+$$
+\tilde x = \underbrace{\begin{bmatrix} C \\ T_1 \end{bmatrix}}_T x = 
+\begin{bmatrix} y \\ \tilde x_v \end{bmatrix}
+$$
+
+And there have $z(k) = Cx(k) = y(k) - Du(k)$
+
+* $(A, C)$ should be observable
+
+$$
+\begin{aligned}
+y(k+1) &= \tilde A_{11}y(k) + \tilde A_{12} \tilde x_v(k) + \tilde B_1 u(k) \\
+\tilde x_v(k+1) &= \tilde A_{21}y(k) + \tilde A_{22} \tilde x_v(k) + \tilde B_2 u(k)
+\end{aligned}
+$$
+
+* $\tilde A = TAT^{-1} = \begin{bmatrix} \tilde A_{11}&\tilde A_{12} \\ \tilde A_{21}&\tilde A_{22} \end{bmatrix}$, $\tilde B = TB = \begin{bmatrix} \tilde B_1 \\ \tilde B_2 \end{bmatrix}$
+
+And,
+
+* $z(k+1) = y(k+1) - \tilde A_{11}y(k) - \tilde B_1 u = \tilde A_{12} \tilde x_v(k)$
+* $\eta(k) = \tilde A_{21}y(k) + \tilde B_2 u$
+* $\tilde x_v(k) = \tilde A_{22} \tilde x_v(k) + \eta(k)$
+
+For the filter design, there have:
+
+$$
+\hat{\tilde x}_v(k+1|k+1) = \tilde A_{22} \tilde x_v(k|k) + \eta(k) + L(z(k+1) - \tilde A_{12} \tilde x_v(k|k))
+$$
+
+We know that $\tilde x = Tx$, The full state could be expressed as:
+
+$$
+\hat x(k+1|k+1) = T^{-1}\begin{bmatrix} y(k+1) \\ \tilde x_v(k+1|k+1) \end{bmatrix}
+$$

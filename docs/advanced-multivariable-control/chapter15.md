@@ -1,290 +1,255 @@
-## 1. LQR infinity horizon control
+## 1. Pole placement via TF Approach for SISO Linear Systems
 
-Given linear system,
+!!! bug 
+    missing figure
+
+We assume $G(s)$ have following structure:
+
+$$
+G(s) = \frac{B(s)}{A(s)} = \frac{b_ns^{n-1}+b_{n-1}s^{n-2}+\dots + b_1s+b_0}{s^{n}+a_{n-1}s^{n-1}+\dots + a_1s+a_0}
+$$
+
+And for $R(s)$, it have the order of $n-1$:
+
+$$
+R(s) = \frac{F(s)}{\Gamma(s)} = \frac{f_{n-1}s^{n-1}+f_{n-2}s^{n-2}+\dots + f_1s+f_0}{\gamma_{n-1}s^{n-1}+\gamma_{n-2}s^{n-2}+\dots +\gamma_1s+\gamma_0}
+$$
+
+We give $P^*(s)$, which  is the desired characteristic polynomial in the closed loop,
+
+$$
+P(s) = s^{2n-1} + p_{2n-2}s^{2n-2} + \dots + p_1s + p_0
+$$
+
+The characteristic polynomial of the closed loop system is:
+
+$$
+P(s) = \Gamma(s)A(s) + B(s)F(s)
+$$
+
+We can set the system desired polynomial function the same as our desired one:
+
+$$
+P(s) = P^*(s)
+$$
+
+Expend it, we have:
 
 $$
 \begin{aligned}
-\dot x(t) &= Ax(t) + Bu(t), &x(0) = x_0
+\begin{bmatrix} 
+1 & 0 &  &&&0&&&& \\
+a_{n-1} & 0 &&&& b_{n-1} & 0\\
+\vdots & a_{n-1} & \ddots &&& \vdots & b_{n-1} & \ddots \\
+a_0  &  \vdots & \ddots &&& b_0  &  \vdots & \ddots \\
+0 & a_0 & \ddots && 1 & 0 & b_0 & \ddots && 0\\
+\vdots & 0 &\ddots && a_{n-1} & \vdots & 0 &\ddots && b_{n-1}\\
+0 & \vdots &&& \vdots & 0 & \vdots &&& \vdots\\
+0 & 0 &&& a_0 & 0 & 0 &&& b_0
+\end{bmatrix}
+\begin{bmatrix} \gamma_{n-1} \\ \vdots \\ \gamma_0 \\ f_{n-1} \\ \vdots \\ f_0\end{bmatrix} = 
+\begin{bmatrix} 1 \\ p_{2n-2} \\ p_{2n-3} \\ \vdots \\ p_0 \end{bmatrix}
 \end{aligned}
 $$
 
-The LQR cost function could be defined:
+!!! bug
+    missing figure
 
 $$
-J(x_0, u, 0) = \int_0^\infty(x^T(\tau)Qx(\tau) + u^T(\tau)Ru(\tau))d\tau
+\tilde G(s) = \frac{1}{s}G{s} = \frac{B(s)}{sA(s)}
 $$
 
-* $Q = Q^T = C_q^TC_q \succeq 0$
-* $R = R^T \succ 0$
-
-It should satisfy the condition: 
-
-* $(A, C_q)$ is observable
-* $(A, B)$ is reachable
-
-The optimal $LQ_\infty$ Control law is:
+$\tilde G(s)$ have the order of $n+1$, And we want to design $R(s)$ of order $n$,
 
 $$
-\bar K = R^{-1}B^T\bar P
+R(s) = \frac{F'(s)}{\Gamma'(s)}
 $$
 
-And the Riccati equation is:
+The desired polynomial TF $P^*(s)$ have a order of $2n+1$, the characteristic polynomial function of the system is:
+
+$$
+P(s) = P(s) = \Gamma'(s)\underbrace{sA(s)}_{\tilde A(s)} + B(s)F'(s) = P^*(s)
+$$
+
+### 1.1 Zeros of the Closed Loop System
+!!! bug
+    missing figure
+
+To calculate the zeros, we need to calculate the complementary sensitive functions
+
+!!! warning
+    Because in the previous part, we already use the $F(s)$, which is not the complementary sensitivity function, so here we rename it to $H(s)$ to resolve the naming conflict
+
+$$
+H(s) = \frac{\frac{H(s)B(s)}{\Gamma(s)A(s)}}{1 + \frac{H(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(s)B(s)}{\Gamma(s)A(s) + F(s)B(s)} = \frac{F(s)B(s)}{P^*(s)}
+$$
+
+!!! bug
+    missing figure
+
+The chosen $\Delta$ should be:
+
+$$
+\Delta(s) = s^{n-1} \delta_{n-2}s^{n-2}+\dots +\delta_1s + \delta_0
+$$
+
+Calculate the TF from $y^\circ$ to $y$:
+
+$$
+W(s) = \frac{F(0)}{\Delta(0)} \frac{\frac{\Delta(s)}{\Gamma(s)}\frac{B(s)}{A(s)}}{1+\frac{F(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(0)}{\Delta(0)}\frac{\Delta(s)B(s)}{P^*(s)}
+$$
+
+### 1.2 How to cancel the poles in the system
+Given the system:
+
+$$
+G(s) = \frac{B(s)}{\underbrace{(s+a)A'(s)}_{A(s)}}
+$$
+
+The desired polynomial function is:
+
+$$
+P^*(s) = \underbrace{(s+a)\tilde P^*(s)}_{2n-1}
+$$
+
+For the system polynomial function:
 
 $$
 \begin{aligned}
-\bar PA + A^T\bar P + Q - \bar PBR^{-1}B^T\bar P &= 0 \\
-\bar PA + A^T\bar P + Q - \bar K^TR\bar K &= 0
+P(s) &= (s+a)A'(s)\Gamma(s) + B(s)F(s) = (s+a)\tilde P^*(s) \\
+B(s)F(s) &= (s+a)[\tilde P^*(s) - A'(s)]
 \end{aligned}
 $$
 
-The closed loop system have:
+For the condition that $F(s)$ has a root in $a$, which $F(s) = (s+a)F'(s)$,
 
 $$
-\dot x = (A-B\bar K)x(t)
+L(s) = R(s)G(s) = \frac{(s+a)F'(s)}{\Gamma(s)} \frac{B(s)}{(s+a)A'(s)}
 $$
 
-is A.S.
+For the system disturbance $d_u$ to $y$, there have the TF:
+
+$$
+\begin{aligned}
+V(s) &= \frac{G(s)}{1+R(s)G(s)} \\
+&= \frac{\frac{B(s)}{(s+a)A'(s)}}{1+\frac{B(s)}{(s+a)A'(s)} \frac{(s+a)F'(s)}{\Gamma(s)}} \\
+&= \frac{A'(s)\Gamma(s)B(s)}{\underbrace{\underbrace{(A'(s)\Gamma(s)+B(s)F'(s))}_{\tilde P^*(s)}(s+a)A'(s)}_{P^*(s)}}
+\end{aligned}
+$$
+
+!!! bug
+    missing figure
 
 !!! example
-    $$
-    \dot x(t) = ax(t) + b_1u_1(t) + b_2u_2(t)
-    $$
+    Given the system:
 
     $$
-    \begin{aligned}
-    A &= a, 
-    &B = \begin{bmatrix} b_1 & b_2 \end{bmatrix}
-    \end{aligned}
+    G(s) = \frac{1}{s-1}
     $$
 
-    We can define the weights:
+    Design a regulator which include an integral action such that all the close loop poles are $-1$
 
-    $$
-    \begin{aligned}
-    Q = q, 
-    &&R^{-1} = \begin{bmatrix} \rho_1&0 \\ 0&\rho_2 \end{bmatrix},
-    &&R = \begin{bmatrix} \frac{1}{\rho_1}&0 \\ 0&\frac{1}{\rho_2} \end{bmatrix}
-    \end{aligned}
-    $$
+    1. State space approach
 
-    * $\rho_1 > 0$, $\rho_2 > 0$
-    * $C_q = \sqrt{q}$
+        $$
+        \begin{aligned}
+            \dot x &= x + u \\
+            y &= x
+            \dot v= -x
+        \end{aligned}
+        $$
 
-    The Riccati Equation are:
+        !!! bug
+            missing figure
 
-    $$
-    2\bar pa + q - \bar p^2(b_1^2\rho_1 + b_2^2\rho_2) = 0
-    $$
+        $$
+        \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} = 
+        \underbrace{\begin{bmatrix} 1&0 \\ -1&0 \end{bmatrix}}_{\tilde A}
+        \begin{bmatrix} x \\ v \end{bmatrix} + 
+        \underbrace{\begin{bmatrix} 1 \\ 0 \end{bmatrix}}_{\tilde B} u
+        $$
 
-    And given:
+        $$
+        u = -K \begin{bmatrix} x \\ v \end{bmatrix} = -K_xx - K_vv
+        $$
 
-    * $a = 0$, $b_1 = b_2 = 1$
+        The closed loop system is:
 
-    We can solve the Riccati Equation:
+        $$
+        \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} =
+        \underbrace{(A-BK)}_{\hat L} \begin{bmatrix} x \\ v \end{bmatrix} 
+        $$
 
-    * $\bar p = \sqrt{\frac{q}{\rho_1 + \rho_2}}$
-    * $\bar K = 
-    \begin{bmatrix} \rho_1&0 \\ 0&\rho_2 \end{bmatrix}
-    \begin{bmatrix} 1&1 \end{bmatrix}^T
-    \sqrt{\frac{q}{\rho_1 + \rho_2}} =
-    \begin{bmatrix} k_1 \\ k_2 \end{bmatrix} = 
-    \begin{bmatrix} \sqrt{\frac{\rho_1^2q}{\rho_1 + \rho_2}} \\ \sqrt{\frac{\rho_2^2q}{\rho_1 + \rho_2}} \end{bmatrix}$
+        The characteristic polynomial is:
 
-!!! example 2
-    $$
-    \dot x(t) = ax(t) + u(t)
-    $$
+        $$
+        P_{\tilde A - \tilde BK}(\lambda) = \det
+        \begin{bmatrix} \lambda - 1+ K_x & K_v \\ 1&\lambda \end{bmatrix} =
+        \lambda^2 + (K_x - 1)\lambda - K_v
+        $$
 
-    $$
-    \begin{aligned}
-    A &= a, &B = 1
-    \end{aligned}
-    $$
+        And the desired polynomial function is:
+        
+        $$
+        P^*(\lambda) = (\lambda + 1)^2 = \lambda^2 + 2\lambda + 1
+        $$
 
-    We can choose the weight:
-    
-    * $Q = 1$, $R = r$
+        And the result is:
 
-    The Riccati Equation:
+        $$
+        \begin{aligned}
+        K_x &= 3 \\
+        K_v &= -1
+        \end{aligned}
+        $$
 
-    $$
-    \begin{aligned}
-    2a\bar p + 1 - \frac{\bar p^2}{r} &= 0 \\
-    \bar p^2 - 2ar\bar p - r &= 0 \\ \hfill \\
-    \bar p = ar + \sqrt{(ar)^2 + r}
-    \end{aligned}
-    $$
+    2. Pole placement with TF
 
-    * $\bar k = \frac{ar + \sqrt{(ar)^2 + r}}{r} = a + \sqrt{a^2 + \frac{1}{r}}$
+        !!! bug
+            missing figure
 
-    The closed loop system is:
+        $$
+        \tilde G(s) = \frac{1}{s(s-1)}
+        $$
 
-    $$
-    \dot x(t) = -\sqrt{a^2 + \frac{1}{r}}x(t)
-    $$
+        $$
+        R'(s) = \frac{f_1s + f_0}{\gamma_1s + \gamma_0}
+        $$
 
-    When $r \to \infty$,
+        $$
+        \begin{aligned}
+        P(s) &= (s^2 - s)(\gamma_1s + \gamma_0) + f_1s + f_0 \\
+        P^*(s) &= (s+1)^3 = s^3 + 3s^2 + 3s + 1
+        \end{aligned}
+        $$
 
-    $$
-    \dot x(t) = -|a|x(t)
-    $$
+        $$
+        \begin{bmatrix} 
+        1 & 0 & 0 & 0\\
+        -1& 1 & 0 & 0\\
+        0 &-1 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{bmatrix}
+        \begin{bmatrix} \gamma_1 \\ \gamma_0 \\ f_1 \\ f_0 \end{bmatrix} = 
+        \begin{bmatrix} 1 \\ 3 \\ 3 \\ 1 \end{bmatrix}
+        $$
 
-    is A.S.
+        $$
+        \begin{aligned}
+        &\gamma_1 = 1 & f_1 = 7 \\
+        &\gamma_2 = 4 & f_0 = 1
+        \end{aligned}
+        $$
 
-    When $r \to 0$,
+        $$
+        R'(s) = \frac{f_1s+f_0}{\gamma_1s+\gamma_0} = \frac{7(s+\frac17)}{s+4}
+        $$
 
-    $$
-    \dot x(t) = -\alpha x(t)
-    $$
+    3. $R(s) = p\frac{s+\alpha}{s}$
 
-    * $\alpha = \sqrt{a^2 + \frac{1}{r}} \to \infty$
-
-    And the complementary sensitive function is:
-
-    $$
-    L(s) = \bar k G(s) = \frac{a + \sqrt{a^2 + \frac{1}{r}}}{s-a}
-    $$
-
-    At the crossing frequency: $|L(j\omega_c)| = 1$
-    
-    $$
-    |\frac{a + \sqrt{a^2 + \frac{1}{r}}}{j\omega_c - a}| = \frac{a + \sqrt{a^2 + \frac{1}{r}}}{\sqrt{a^2 + \omega_c^2}} = 1
-    $$
-
-
-!!! example
-    Constrain the speed of converging: $\tilde A = A + \alpha I$
-
-    Given the system
-
-    $$
-    \dot x(t) = x(t) + u(t)
-    $$
-
-    $$
-    A = B = 1
-    $$
-
-    * $\tilde A = 1 + \alpha$
-
-    The Riccati Equation:
-
-    $$
-    \bar P \tilde A + \tilde A^T P + Q - \bar PBR^{-1}B^T\bar P = 0
-    $$
-
-    * $Q = q > 0$
-    * $R = r > 0$
-
-    $$
-    2\bar p(1+\alpha) + q - \frac{\bar p^2}{r} = 0
-    $$
-
-    * $\bar p = \frac{1+\alpha + \sqrt{(1+\alpha)^2 + q/r}}{1/r}$
-    * $\bar k_\alpha = 1+\alpha + \sqrt{(1+\alpha)^2 + q/r}$
-    
-    $$
-    A - B\bar k_\alpha = 1 - \bar k_\alpha = -\alpha - \sqrt{(1+\alpha)^2 + q/r} < -\alpha
-    $$
-
-!!!example
-    $$
-    \left\{\begin{aligned}
-    &\dot x_1(t) = bu(t) \\
-    &x_2(t) = x_1(t) + u(t)
-    \end{aligned}\right.
-    $$
-
-    $$
-    \begin{aligned}
-    A = \begin{bmatrix} 0&0 \\ 1&0 \end{bmatrix}
-    &&B = \begin{bmatrix} b \\ 1 \end{bmatrix}
-    \end{aligned}
-    $$
-
-    * $Q = \begin{bmatrix} q_1&0 \\ 0&q_2 \end{bmatrix}$, $q_1 \geq 0$, $q_2 \geq 0$
-    * $R = 1$
-
-    We need $(A, B)$ is reachable and $(A, C_q)$ is observable, $Q = C_q^TC_q$: 
-
-    $$
-    M_R = 
-    \begin{bmatrix} B&AB \end{bmatrix} = 
-    \begin{bmatrix} b&0 \\ 1&b \end{bmatrix}
-    $$
-
-    The system is reachable,
-
-    $$
-    C_q = Q^\frac12 = \begin{bmatrix} \sqrt{q_1}&0 \\ 0&\sqrt{q_2} \end{bmatrix}
-    $$
-
-    $$
-    M_O = 
-    \begin{bmatrix} C_q \\ C_qA \end{bmatrix} = 
-    \begin{bmatrix} \sqrt{q_1}&0 \\ 0&\sqrt{q_2} \\ 0&0 \\ \sqrt{q_2}&0 \end{bmatrix}
-    $$
-
-    To make the system observable, $q_2 \neq 0$,
-
-    $$
-    \tilde y(t) = C_qx(t) = 
-    \begin{bmatrix} \sqrt{q_1}x_1(t) \\ \sqrt{q_2}x_2(t) \end{bmatrix} 
-    $$
-
-    We can set $Q = I$, and $b = 1$, $\Rightarrow$ $\bar P = I$, check the stability of the closed loop system
-
-    $$
-    \dot x(t) = (A-B\bar K)x(t)
-    $$
-
-    1. by computing the eigenvalue of $(A-B\bar K)$
-    2. by using a suitable Lyapunov Function
-
-    ---
-    * $\bar K = \begin{bmatrix} 1&1 \end{bmatrix}$
-    
-    $$
-    A-B\bar K = \begin{bmatrix} 0&0\\1&0 \end{bmatrix} 
-    \begin{bmatrix} 1\\1 \end{bmatrix} 
-    \begin{bmatrix} 1&1 \end{bmatrix} = 
-    \begin{bmatrix} -1&-1\\0&-1 \end{bmatrix}  
-    $$
-
-    * $\lambda_1 = \lambda_2 = -1$
-
-    ---
-    
-    $$
-    \begin{aligned}
-    V(x) &= J^\circ(x) = x^T\bar P x = x^Tx \\
-    \dot V(x) &= \dot x^T x + x^T\dot x \\
-    &= x^T(A-B\bar K)^Tx + x^T(A-B\bar K)x \\
-    &= -x^T 
-    \begin{bmatrix} 2&1\\1&2 \end{bmatrix}
-    x
-    \end{aligned}
-    $$
-
-    $$
-    \det(\lambda I - \begin{bmatrix} 2&1\\1&2 \end{bmatrix}) = 
-    \det\begin{bmatrix} \lambda-2&-1\\-1&\lambda-2 \end{bmatrix} = 
-    \lambda^2 - 4\lambda + 3
-    $$
-
-    * $\lambda_1 = 1$, $\lambda_2 = 3$
-
-!!! example
-    $$
-    u(t) = -\rho \bar K x(t)
-    $$
-
-    We can get the new closed loop function:
-
-    $$
-    \tilde A_\rho = A-\rho B\bar K = \begin{bmatrix} -\rho&-\rho\\1-\rho&-\rho \end{bmatrix}
-    $$
-
-    $$
-    \det(\lambda I - \tilde A_\rho) = \lambda^2 + 2\rho\lambda + \rho
-    $$
+        $$
+        \begin{aligned}
+        1 + R(s)G(s) &= 0 \\
+        s(s-1) + p(s+\alpha) &= (s+1)^2
+        \end{aligned}
+        $$
