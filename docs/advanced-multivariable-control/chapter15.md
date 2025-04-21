@@ -1,21 +1,26 @@
 ## 1. Pole placement via TF Approach for SISO Linear Systems
 
-!!! bug 
-    missing figure
-
-We assume $G(s)$ have following structure:
+Given a system
 
 $$
 G(s) = \frac{B(s)}{A(s)} = \frac{b_ns^{n-1}+b_{n-1}s^{n-2}+\dots + b_1s+b_0}{s^{n}+a_{n-1}s^{n-1}+\dots + a_1s+a_0}
 $$
 
-And for $R(s)$, it have the order of $n-1$:
+We want to design the regulator $R(s)$, given the schematic:
+
+<figure markdown="span">
+    ![](pics/chapter15/figure1.png){ width="400" }
+</figure>
+
+To build the state realization, we need to apply the pole-placement method within a RO.
+
+For $R(s)$, it have $n-1$ poles:
 
 $$
 R(s) = \frac{F(s)}{\Gamma(s)} = \frac{f_{n-1}s^{n-1}+f_{n-2}s^{n-2}+\dots + f_1s+f_0}{\gamma_{n-1}s^{n-1}+\gamma_{n-2}s^{n-2}+\dots +\gamma_1s+\gamma_0}
 $$
 
-We give $P^*(s)$, which  is the desired characteristic polynomial in the closed loop,
+And we can design a desired characteristic polynomial $P^*(s)$ for the close loop TF,
 
 $$
 P(s) = s^{2n-1} + p_{2n-2}s^{2n-2} + \dots + p_1s + p_0
@@ -37,23 +42,26 @@ Expend it, we have:
 
 $$
 \begin{aligned}
-\begin{bmatrix} 
-1 & 0 &  &&&0&&&& \\
-a_{n-1} & 0 &&&& b_{n-1} & 0\\
-\vdots & a_{n-1} & \ddots &&& \vdots & b_{n-1} & \ddots \\
-a_0  &  \vdots & \ddots &&& b_0  &  \vdots & \ddots \\
-0 & a_0 & \ddots && 1 & 0 & b_0 & \ddots && 0\\
-\vdots & 0 &\ddots && a_{n-1} & \vdots & 0 &\ddots && b_{n-1}\\
-0 & \vdots &&& \vdots & 0 & \vdots &&& \vdots\\
-0 & 0 &&& a_0 & 0 & 0 &&& b_0
+\begin{bmatrix}
+\begin{matrix} \begin{bmatrix} 1 \\ a_{n-1} \\ \vdots \\ a_0 \end{bmatrix} \\ 0 \\ 0 \\ \vdots \\ 0 \end{matrix} &
+\begin{matrix} 0 \\ \begin{bmatrix} 1 \\ a_{n-1} \\ \vdots \\ a_0 \end{bmatrix} \\ 0 \\ \vdots \\ 0 \end{matrix} & \cdots &
+\begin{matrix} 0 \\ 0 \\ \vdots \\ 0 \\ \begin{bmatrix} 1 \\ a_{n-1} \\ \vdots \\ a_0 \end{bmatrix} \end{matrix}
+\begin{matrix} \begin{bmatrix} 0 \\ b_{n-1} \\ \vdots \\ b_0 \end{bmatrix} \\ 0 \\ 0 \\ \vdots \\ 0 \end{matrix} & \cdots &
+\begin{matrix} 0 \\ 0 \\ \vdots \\ 0 \\ \begin{bmatrix} 0 \\ b_{n-1} \\ \vdots \\ b_0 \end{bmatrix} \end{matrix}
 \end{bmatrix}
 \begin{bmatrix} \gamma_{n-1} \\ \vdots \\ \gamma_0 \\ f_{n-1} \\ \vdots \\ f_0\end{bmatrix} = 
 \begin{bmatrix} 1 \\ p_{2n-2} \\ p_{2n-3} \\ \vdots \\ p_0 \end{bmatrix}
 \end{aligned}
 $$
 
-!!! bug
-    missing figure
+### 1.1 Regulator with Integral Actions
+For the regulator with integral actions, we can treat it as one part of the controller or the part of the system:
+
+<figure markdown="span">
+    ![](pics/chapter15/figure2.png){ width="500" }
+</figure>
+
+Move the integrator inside the system, thus:
 
 $$
 \tilde G(s) = \frac{1}{s}G{s} = \frac{B(s)}{sA(s)}
@@ -71,9 +79,13 @@ $$
 P(s) = P(s) = \Gamma'(s)\underbrace{sA(s)}_{\tilde A(s)} + B(s)F'(s) = P^*(s)
 $$
 
-### 1.1 Zeros of the Closed Loop System
-!!! bug
-    missing figure
+### 1.2 Zeros of the Close-Loop System
+For the close-loop system, there have:
+
+<figure markdown="span">
+    ![](pics/chapter15/figure3.png){ width="400" }
+</figure>
+
 
 To calculate the zeros, we need to calculate the complementary sensitive functions
 
@@ -84,13 +96,20 @@ $$
 H(s) = \frac{\frac{H(s)B(s)}{\Gamma(s)A(s)}}{1 + \frac{H(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(s)B(s)}{\Gamma(s)A(s) + F(s)B(s)} = \frac{F(s)B(s)}{P^*(s)}
 $$
 
-!!! bug
-    missing figure
+<figure markdown="span">
+    ![](pics/chapter15/figure4.png){ width="500" }
+</figure>
 
-The chosen $\Delta$ should be:
+The chosen $\Delta$ should be the order of $n-1$, $\Delta$ is stable polynomial:
 
 $$
 \Delta(s) = s^{n-1} \delta_{n-2}s^{n-2}+\dots +\delta_1s + \delta_0
+$$
+
+And the loop transfer function is:
+
+$$
+L(s) = \frac{F(s)}{\Gamma(s)} \frac{B(s)}{A(s)}
 $$
 
 Calculate the TF from $y^\circ$ to $y$:
@@ -99,12 +118,18 @@ $$
 W(s) = \frac{F(0)}{\Delta(0)} \frac{\frac{\Delta(s)}{\Gamma(s)}\frac{B(s)}{A(s)}}{1+\frac{F(s)B(s)}{\Gamma(s)A(s)}} = \frac{F(0)}{\Delta(0)}\frac{\Delta(s)B(s)}{P^*(s)}
 $$
 
-### 1.2 How to cancel the poles in the system
-Given the system:
+### 1.3 How to cancel the poles in the system
+Given the system with negative poles:
 
 $$
 G(s) = \frac{B(s)}{\underbrace{(s+a)A'(s)}_{A(s)}}
 $$
+
+We can give the control schematic:
+
+<figure markdown="span">
+    ![](pics/chapter15/figure5.png){ width="500" }
+</figure>
 
 The desired polynomial function is:
 
@@ -127,7 +152,7 @@ $$
 L(s) = R(s)G(s) = \frac{(s+a)F'(s)}{\Gamma(s)} \frac{B(s)}{(s+a)A'(s)}
 $$
 
-For the system disturbance $d_u$ to $y$, there have the TF:
+For the system disturbance $d_u \to y$, there have the TF:
 
 $$
 \begin{aligned}
@@ -137,8 +162,13 @@ V(s) &= \frac{G(s)}{1+R(s)G(s)} \\
 \end{aligned}
 $$
 
-!!! bug
-    missing figure
+Apply the step signal in the input, with the disturbance inserted in some time after the system stabilizing,
+
+<figure markdown="span">
+    ![](pics/chapter15/figure6.png){ width="500" }
+</figure>
+
+We can get that after inserting the disturbance, the system is stabilizing with oscillation. The system have 2 conjugate poles in the negative plane.
 
 !!! example
     Given the system:
@@ -151,6 +181,11 @@ $$
 
     1. State space approach
 
+        We can separate the system into different parts to reconstruct the system design:
+        <figure markdown="span">
+            ![](pics/chapter15/figure7.png){ width="500" }
+        </figure>
+
         $$
         \begin{aligned}
             \dot x &= x + u \\
@@ -158,9 +193,6 @@ $$
             \dot v= -x
         \end{aligned}
         $$
-
-        !!! bug
-            missing figure
 
         $$
         \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} = 
@@ -205,15 +237,14 @@ $$
 
     2. Pole placement with TF
 
-        !!! bug
-            missing figure
+        <figure markdown="span">
+            ![](pics/chapter15/figure2.png){ width="500" }
+        </figure>
 
         $$
-        \tilde G(s) = \frac{1}{s(s-1)}
-        $$
-
-        $$
-        R'(s) = \frac{f_1s + f_0}{\gamma_1s + \gamma_0}
+        \begin{aligned}
+        &\tilde G(s) = \frac{1}{s(s-1)} & R'(s) = \frac{f_1s + f_0}{\gamma_1s + \gamma_0}
+        \end{aligned}
         $$
 
         $$
@@ -225,10 +256,10 @@ $$
 
         $$
         \begin{bmatrix} 
-        1 & 0 & 0 & 0\\
-        -1& 1 & 0 & 0\\
-        0 &-1 & 1 & 0\\
-        0 & 0 & 0 & 1
+        \begin{matrix} \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} \\ 0 \end{matrix} & 
+        \begin{matrix} 0 \\ \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} \end{matrix} & 
+        \begin{matrix} \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \\ 0 \end{matrix} & 
+        \begin{matrix} 0 \\ \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \end{matrix}
         \end{bmatrix}
         \begin{bmatrix} \gamma_1 \\ \gamma_0 \\ f_1 \\ f_0 \end{bmatrix} = 
         \begin{bmatrix} 1 \\ 3 \\ 3 \\ 1 \end{bmatrix}
