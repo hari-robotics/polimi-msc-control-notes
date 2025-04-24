@@ -288,3 +288,190 @@ is A.S.
     $$
     \det(\lambda I - \tilde A_\rho) = \lambda^2 + 2\rho\lambda + \rho
     $$
+
+## 2. Kalman Filter
+
+The reference system gives:
+
+$$
+\begin{aligned}
+\dot x(t) &= Ax(t) + Bu(t) + v_x(t) \\
+y(t) &= Cx(t) + v_y(t)
+\end{aligned}
+$$
+
+* $v_x(t)$, $v_y(t)$ is defined as gaussian noise, $v(t) = \begin{bmatrix} v_x(t) \\ v_y(t) \end{bmatrix} \sim \mathcal{G}(0, V)$, $E(v_x(t)) = E(v_y(t)) = 0$
+
+$$
+\begin{aligned}
+E(V(t_1)V(t_2)^T) = V\delta(t_2 - t_1)
+\end{aligned}
+$$
+
+* $V$ is the covariance matrix, $V = \begin{bmatrix} \tilde Q & z \\ z^T & \tilde R \end{bmatrix}$, where $\tilde Q \succeq 0$, $\tilde R \succ 0$
+* $\delta(\tau) = \left\{\begin{aligned} &0, &\tau \neq 0 \\ &1, &\tau = 0\end{aligned}\right.$
+
+For the initial condition, there have:
+
+$$
+\begin{aligned}
+&x(0) \sim \mathcal{G}(\bar x, \tilde P) \\
+&E((x(0) - \bar x_0)v(t)^T) = 0
+\end{aligned}
+$$
+
+### 2.1 Covariance Matrix is independent
+Assume $z = 0$,
+
+$$
+\begin{aligned}
+\dot{\hat x}(t) &= A\hat x + Bu(t) + L(t)(y(t) - C\hat x(t)) \\
+e(t) &= x(t) - \hat x(t) \\ \hfill \\
+\dot e(t) &= Ae(t) + v_x(t) + L(t)(Ce(t) + v_y(t)) \\
+&= (A - L(t)C)e(t) + B_c(t)v(t) \\ \hfill \\
+\dot{\bar e}(t) &= (A - L(t)C)e(t)
+\end{aligned}
+$$
+
+* $B_c(t) = \begin{bmatrix} I & -L(t) \end{bmatrix}$
+* $\bar e(t) = E(e(t))$, at initial state, $e(0) = x(0) - \hat x(0) = x(0) - \bar x(0)$, $\bar e(0) = 0$, thus there have, $\bar e(t) = 0$, $\forall t \geq 0$
+
+For the variance $e(t)$, 
+
+$$
+\tilde P(t) = E(e(t) e(t)^T)
+$$
+
+* $\tilde P(t)$ is symmetric and $\tilde P(t) \succeq 0$, $\tilde P(0) = \tilde P_0$
+
+Our optimization target is:
+
+$$
+\begin{aligned}
+&\min_{L(t)} &\gamma^T \tilde P(t) \gamma
+\end{aligned}
+$$
+
+* $\gamma$ is a generic vector in $\Re^n$
+
+$$
+\begin{aligned}
+\dot{\tilde P}(t) &= A\tilde P(t) + \tilde P(t)A^T + \tilde Q - \tilde P(t) C^T \tilde R^{-1}C \tilde P(t) \\
+\tilde P(0) &= \tilde P_0 \\
+L(t) &= \tilde P(t) C^T \tilde R^{-1} \rightarrow L(t)^T = \tilde R^{-1}C\tilde P(t)
+\end{aligned}
+$$
+!!!info
+    We go back to look at the LQ controller design:
+
+    $$
+    \begin{aligned}
+    &\min_{K(t)} &x^T P(t) x
+    \end{aligned}
+    $$
+
+    $$
+    \begin{aligned}
+    -\dot P(t) &= AP(t) + P(t)A^T + Q - P(t)C^TR^{-1}CP(t) \\
+    P(T) &= S \\
+    K(t) &= R^{-1}B^TP(t) \\
+    P'(\tau) &= P(T-\tau) \leftarrow \dot P'(\tau) = -\dot P(T-\tau)
+    \end{aligned}
+    $$
+
+The duality of LQ controller and Kalman Filter is:
+
+|KF|LQR|
+|---|---|
+|$C$|$B^T$|
+|$A$|$A^T$|
+|$\tilde Q = B_qB_q^T$|$Q = C_q^TC_q$|
+|$\tilde R$|$R$|
+|$L$|$K^T$|
+|$\tilde P(t)$|$P(T-t)$|
+
+For the LQR design, 
+
+* $(A, B)$ should be reachable
+* $(A, C_q)$ should be observable
+
+Similarly, we can derive the condition for Kalman Filter:
+
+* $(A, C)$ should be observable $\Leftrightarrow$ $(A^T, C^T)$ should be reachable
+* $(A, B_q)$ should be reachable $\Leftrightarrow$ $(A^T, B_q^T)$ should be observable
+
+If $(A, C)$ is observable and $(A, B_q)$ is reachable, $\tilde Q = B_qB_q^T$, then, the optimal steady state observer is:
+
+$$
+\begin{aligned}
+\dot{\hat x}(t) &= A\hat x(t) + Bu(t) + L(y(t) - C\hat x(t)) \\
+&= (A-LC) \hat x(t) + Bu(t) + Ly(t)
+\end{aligned}
+$$
+
+With $L = \bar{\tilde P}C^T R^{-1}$,
+
+Where $\bar{\tilde P}$ is the unique (symmetric) positive definite solution to the stationary Riccati equation, 
+
+$$
+\begin{aligned}
+A\bar{\tilde P} + \bar{\tilde P}A^T + \tilde Q - \bar{\tilde P}C^TR^{-1}C\bar{\tilde P} = 0
+\end{aligned}
+$$
+
+The observer is A.S. ($A-LC$ has all eigenvalues with negative real part)
+
+### 2.2 Covariance Matrix is non-independent
+Assume $z \neq 0$,
+
+$$
+V = \begin{bmatrix} \tilde Q & z \\ z^T & \tilde R \end{bmatrix}
+$$
+
+The state space equation becomes:
+
+$$
+\begin{aligned}
+\dot x(t) &= Ax(t) + Bu(t) + v_x(t) + z\tilde R^{-1}(y(t) - (Cx(t) + v_y(t))) \\
+&= (A-z\tilde R^{-1}C)x(t) + Bu(t) + z\tilde R^{-1}y(t) + v_x(t) - z\tilde R^{-1}v_y(t)
+\end{aligned}
+$$
+
+The Kalman Filter equation becomes:
+
+$$
+\begin{aligned}
+\dot{\hat x}(t) &= \tilde A\hat x(t) + Bu(t) + z\tilde R^{-1}y(t) + L(y(t) - C\hat x(t)) \\
+\end{aligned}
+$$
+
+* $E(v_x(t)) = 0$, $E(v_x(t)v_x(t)^T) = \tilde Q$
+* $v(t) = \begin{bmatrix} v_x(t) \\ v_y(t) \end{bmatrix} \sim \mathcal{G}(0, V)$
+* $E(\tilde v_x(t)) = 0$, 
+
+$$
+\begin{aligned}
+E(\tilde v_x(t)\tilde v_x(t)^T) &= E((v_x(t)z\tilde R^{-1}v_y(t))(v_x(t)z\tilde R^{-1}v_y(t))^T) \\
+&= E(v_x(t)v_x(t)^T) + z\tilde R^{-1} E(v_x(t)v_y(t)^T)\tilde R^{-1}z^T - z\tilde R^{-1} E(v_y(t)v_x(t)^T) - E(v_x(t)v_y(t)^T)\tilde R^{-1}z^T \\
+&= \tilde Q - z\tilde R^{-1}z^T \succeq 0
+\end{aligned}
+$$
+
+Now we have:
+
+$$
+\begin{aligned}
+\tilde v &= \begin{bmatrix} \tilde v_x(t) \\ \tilde v_y(t) \end{bmatrix} &
+V &= \begin{bmatrix} \tilde Q - z\tilde R^{-1}z^T & 0 \\ 0 & \tilde R \end{bmatrix}
+\end{aligned}
+$$
+
+Thus we can define $\tilde z$, 
+
+$$
+\begin{aligned}
+\tilde z &= E(\tilde v_x(t) \tilde v_y(t)^T) \\
+&= E((v_x(t) - z\tilde R^{-1}v_y^T)v_t(t)^T) \\
+&= \underbrace{E(v_x(t)v_y(t)^T)}_{z} - z\tilde R^{-1}\underbrace{E(v_y(t)v_y(t)^T)}_{\tilde R} = 0
+\end{aligned}
+$$
