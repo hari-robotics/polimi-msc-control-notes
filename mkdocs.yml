@@ -25,6 +25,7 @@ nav:
     - 'E.3 Exercise 3': 'advanced-multivariable-control/exercise3.md'
     - 'E.5 Exercise 5': 'advanced-multivariable-control/exercise5.md'
 - Dynamics for Electric Machines and Drives:
+    - '0. Notations': 'dynamics-for-electric-machines-and-drives/notation.md'
     - '1. Basic Electromagnetic': 'dynamics-for-electric-machines-and-drives/chapter1.md'
     - '2. Dynamics of DC Machine': 'dynamics-for-electric-machines-and-drives/chapter2.md'
     - '3. Basics of Power Converter': 'dynamics-for-electric-machines-and-drives/chapter3.md'

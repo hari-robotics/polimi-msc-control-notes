@@ -70,7 +70,7 @@ $$
 
     $$
     \begin{aligned}
-    P &= \Re(\bar v \cdot \underline i) \\
+    P &= \Re(\bar v \cdot \bar i^*) \\
     &=\Re(\frac23(\frac32 V_me^{j(\omega t+\varphi)})(\frac32 I_me^{-j\omega t})) \\
     &=\Re(\frac32 I_mV_me^{j\varphi}) \\
     &=\frac32 I_mV_m \cos(\varphi)
@@ -78,7 +78,6 @@ $$
     $$
 
     * $\varphi$ is the electrical angle between $v$ and $i$
-    * $\underline i$ is the conjugate vector of $\bar i$
 
     For the sinusoidal wave, there have: $V_m = \sqrt{2}V_{RMS}$, $I_m = \sqrt{2}I_{RMS}$,
 
@@ -341,13 +340,11 @@ From the equivalent circuit, the mechanical power can be given:
 
 $$
 \begin{aligned}
-P_m &= \Re(-j\omega_m\bar \psi_r \cdot \underline{i_r}) \\
-&= -\Im(\omega_m\bar \psi_r \cdot \underline{i_r}) \\
-&= -\omega_m\Im(\bar \psi_r \cdot \underline{i_r})
+P_m &= \Re(-j\omega_m\bar \psi_r \cdot \bar i^*_r) \\
+&= -\Im(\omega_m\bar \psi_r \cdot \bar i^*_r) \\
+&= -\omega_m\Im(\bar \psi_r \cdot \bar i^*_r)
 \end{aligned}
 $$
-
-* $\underline{i_r}$ is the conjugate current of $\bar i_r$.
 
 We consider the number of pole pairs $n_p$, and we look back at the machine structure,
 
@@ -384,17 +381,17 @@ $$
 For the mechanical power, 
 
 $$
-P_m = -\omega_m\Im(\bar \psi_r \cdot \underline{i_r}) = T\Omega_m = T\frac{\omega_m}{n_p}
+P_m = -\omega_m\Im(\bar \psi_r \cdot \bar i^*_r) = T\Omega_m = T\frac{\omega_m}{n_p}
 $$
 
 ### 3.6 Reduced Parameters for Induction Machine
 We can introduce new parameters that not changing the power,
 
 $$
-\frac{v_r^*}{v_r} = \frac{i_r}{i_r^*} =\frac{\psi_r^*}{\psi_r} = k
+\frac{v_r^o}{v_r} = \frac{i_r}{i_r^o} =\frac{\psi_r^o}{\psi_r} = k
 $$
 
-There have: $v_r i_r = v_r^*i_r^*$.
+There have: $v_r i_r = v_r^oi_r^o$.
 
 Recall on the voltage equation:
 
@@ -409,25 +406,25 @@ Within the above equation, we can have the new parameter equations:
 
 $$
 \begin{aligned}
-\frac{v_r^*}{k} &= R_r ki_r^* + (L_r - M) pki_r^* + M p(\bar i_s+ki_r^*) - j\omega_m \bar \psi_r \\
-v_r^* &= R_r k^2i_r^* + (L_r - M) pk^2i_r^* + M p(k\bar i_s+k^2i_r^*) - jk\omega_m \bar \psi_r \\
-&= R_r k^2i_r^* + L_rpk^2i_r^* + Mpk\bar i_s - jk\omega_m \bar \psi_r + M p k i_r^* - M p k i_r^* \\
-&= R_r k^2i_r^* + (k^2L_r - kM)pi_r^* + kM(\bar i_s + i_r^*) - jk\omega_m \bar \psi_r
+\frac{v_r^o}{k} &= R_r ki_r^o + (L_r - M) pki_r^o + M p(\bar i_s+ki_r^o) - j\omega_m \bar \psi_r \\
+v_r^o &= R_r k^2i_r^o + (L_r - M) pk^2i_r^o + M p(k\bar i_s+k^2i_r^o) - jk\omega_m \bar \psi_r \\
+&= R_r k^2i_r^o + L_rpk^2i_r^o + Mpk\bar i_s - jk\omega_m \bar \psi_r + M p k i_r^o - M p k i_r^o \\
+&= R_r k^2i_r^o + (k^2L_r - kM)pi_r^o + kM(\bar i_s + i_r^o) - jk\omega_m \bar \psi_r
 \end{aligned}
 $$
 
 If we select $k = \frac{M}{L_r}$,
 
 $$
-v_r^* = R_r k^2i_r^* + kM(\bar i_s + i_r^*) - jk\omega_m \bar \psi_r
+v_r^o = R_r k^2i_r^o + kM(\bar i_s + i_r^o) - jk\omega_m \bar \psi_r
 $$
 
 And for $\bar v_s$, we have:
 
 $$
 \begin{aligned}
-\bar v_{s} &= R_s \bar i_{s} + (L_s - M) p\bar i_s + M p(\bar i_s+ki_r^*) \\
-&= R_s \bar i_{s} + (L_s - kM) p\bar i_s + kM p(\bar i_s+i_r^*)
+\bar v_{s} &= R_s \bar i_{s} + (L_s - M) p\bar i_s + M p(\bar i_s+ki_r^o) \\
+&= R_s \bar i_{s} + (L_s - kM) p\bar i_s + kM p(\bar i_s+i_r^o)
 \end{aligned}
 $$
 
