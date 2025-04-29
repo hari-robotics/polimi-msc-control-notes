@@ -1,10 +1,17 @@
 ## 1. AC Brushless, DC Brushless and Switch Reluctance Machine
-
 BLDC, BLAC and SR Machines are all synchronous machines, 
 
 * BLDC and BLAC are the machine within permanent magnet, SR machine does not have permanent magnets
 * BLDC is the PMSM that optimized the design for apply the DC controller
 * BLAC is the PMSM that optimized the design for apply the AC controller
+
+### 1.1 The difference between BLAC and BLDC
+
+|BLAC|BLDC|
+|----|----|
+|distributed winding|concentrated winding|
+|sinusoidal wave magnetic field|triangular wave magnetic field|
+|sinusoidal wave EMF|square wave EMF|
 
 ## 2. Surface Mounted PMSM
 
@@ -49,22 +56,24 @@ For dq axis, there have:
 
 $$
 \begin{aligned}
-\bar v_d + jv_q &= R_s(i_{sd} + ji_{sq}) + p(\psi_{sd} + j\psi_{sq}) + j\dot \theta_m(\psi_{sd} + j\psi{sq}) \\
+v_d + jv_q &= R_s(i_{sd} + ji_{sq}) + p(\psi_{sd} + j\psi_{sq}) + j\dot \theta_m(\psi_{sd} + j\psi{sq}) \\
 \psi_{sd} &= L_{sd}i_{sd} + \psi_{pm} \\
 \psi_{sq} &= L_{sq}i_{sq} \\
-\bar v_d + jv_q &= R_si_{sd} + jR_si_{sq} + p\psi_{sd} + jp\psi_{sq} + j\dot \theta_m(L_{sd}i_{sd} + \psi_{pm} + jL_{sq}i_sq) \\ \hfill \\
+v_d + jv_q &= R_si_{sd} + jR_si_{sq} + p\psi_{sd} + jp\psi_{sq} + j\dot \theta_m(L_{sd}i_{sd} + \psi_{pm} + jL_{sq}i_sq) \\ \hfill \\
+\Rightarrow&\left\{\begin{aligned}
 v_{sd} &= R_si_{sd} + L_{sd}pi_{sd} - \dot \theta_m L_{sq}i_{sq} \\ 
 v_{sq} &= R_si_{sq} + L_{sq}pi_{sq} + \dot \theta_m L_{sd}i_{sd} + \psi_{pm}\dot \theta_m
+\end{aligned}\right.
 \end{aligned}
 $$
 
 $$
-\Re(\bar v_s i_s) = \Re(R_s \bar i_s \underline{i_s}) + \Re(p\psi_s \underline{i_s}) + \Re(j\dot \theta_m \bar \psi_s \underline{i_s})
+\Re(\bar v_s i_s) = \Re(R_s \bar i_s \bar i_s^*) + \Re(p\psi_s \bar i_s^*) + \Re(j\dot \theta_m \bar \psi_s \bar i_s^*)
 $$
 
 $$
 \begin{aligned}
-P_m &= -\dot \theta_m \Im(\bar i_s \underline{i_s}) \\
+P_m &= -\dot \theta_m \Im(\bar i_s \bar i_s^*) \\
 &= -\dot \theta_m \Im(L_{sd}i_{sd} + \psi_{pm} + jL_{sq}i_{sq})(i_{sd} - ji_{sq}) \\
 &= -\dot \theta_m \Im(L_{sd}i_{sd}^{2} + \psi_{pm}i_{sd} + j(L_{sq}i_{sq}i_{sd} - \psi_{pm}i_{sq} + L_{sq}i_{sq}^{2} - L_{sd}i_{sd}i_{sq})) \\
 &= -\dot \theta_m \Im(L_{sd}i_{sd}^2 + L_{sd}i_{sq}^2 + \psi_{pm}i_{sd} + j(-\psi_{pm}i_{sq} + (L_{sq} - L_{sd})i_{sd}i_{sq}))
@@ -81,3 +90,38 @@ v_{sq} &= \dot \theta_m L_{sd}i_{sd} + \dot \theta_m \psi_{pm}
 $$
 
 We consider $L_{sd} = L_{sq}$, and we let $i_{sd} = 0$
+
+!!! warning
+    Not all PMSM can apply the field weakening control, if the hysteresis is nonlinear, after many times of magnetizing and demagnetizing, the magnetics will loss its magnetic field.
+
+## 5. BLDC Machine Control
+
+$$
+\begin{aligned}
+\psi &= \int_{\frac{-\pi}{2}}^{\frac{\pi}{2}} B(\theta)Rld\theta = BRl\int_{\frac{-\pi}{2} + 2\theta_m}^{\frac{\pi}{2}}d\theta \\
+&= BRl(\pi - 2\theta_m)
+\end{aligned}
+$$
+
+The flux have a triangular shape, and because $e = p\psi$, the EMF have a square wave shape. And because the flux cannot have a perfect triangular wave, we approximate the EMF with trapezoidal wave. When designing the BLDC machine, it is necessary to make sure there have $120^\circ$ constant part.
+
+<figure markdown="span">
+    ![](pics/chapter8/figure1.png){ width="400" }
+</figure>
+
+The power of the BLDC have:
+
+$$
+\begin{aligned}
+P &= e_a i_a + e_b i_b + e_c i_c \\
+&= 2K_e \Omega_m I_c
+\end{aligned}
+$$
+
+And the generated torque have:
+
+$$
+T = \frac{P}{\Omega_m} = 2K_e I_c
+$$
+
+So we only need 3 hall sensor to identify the position of the rotor
