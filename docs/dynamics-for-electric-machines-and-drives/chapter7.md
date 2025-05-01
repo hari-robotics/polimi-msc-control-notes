@@ -113,25 +113,27 @@ To generate the desired voltage, we use the voltage source inverter,
 
 * The numbers of the MOSFET represents for the opening sequence of the 6-step control.
 
-By operating the MOSFETs as the following figure:
+By operating the MOSFETs in a particular sequence, the ground reference voltage $V_{AG}$, $V_{BG}$ and $V_{CG}$ will have the following shape:
 <figure markdown="span">
     ![](pics/chapter7/figure5.png){ width="400" }
 </figure>
 
 And because there have: 
 
-* $V_{AG} + V_{BG} + V_{CG} = 0$
-* $V_{AG} = V_{AN} - V_{NG}$
-* $V_{BG} = V_{BN} - V_{NG}$
-* $V_{CG} = V_{CN} - V_{NG}$
+* $V_{AN} + V_{BN} + V_{CN} = 0$
+* $V_{AN} = V_{AG} - V_{NG}$
+* $V_{BN} = V_{BG} - V_{NG}$
+* $V_{CN} = V_{CG} - V_{NG}$
 
-We can draw the figure for $V_{AG}$, $V_{BG}$, $V_{CG}$ and $V_{NG}$.
-!!! bug
-    missing figure
+The measured $V_{AG}$, $V_{BG}$, $V_{CG}$ and $V_{NG}$ have the following shape.
+<span style="display: flex; center;">
+  ![](pics/chapter7/figure6a.png){ width="450" }
+  ![](pics/chapter7/figure6b.png){ width="450" }
+</span>
 
 And this technique is called __6-step modulation__.
 
-To get the measured dq axis voltage and current, we need to measure the 3 phase voltage and current and apply the park transform to it.
+To get the measured dq axis voltage and current, we need to measure the 3 phase voltage and current and apply the clarke transform,
 
 $$
 \bar i_s = \sqrt{\frac23}(i_a + \alpha i_b + \alpha^2 i_c)e^{-j\dot \theta_s}
