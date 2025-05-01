@@ -96,6 +96,7 @@ We consider $L_{sd} = L_{sq}$, and we let $i_{sd} = 0$
 
 ## 5. BLDC Machine Control
 
+### 5.1 2-Phase Working Condition
 $$
 \begin{aligned}
 \psi &= \int_{\frac{-\pi}{2}}^{\frac{\pi}{2}} B(\theta)Rld\theta = BRl\int_{\frac{-\pi}{2} + 2\theta_m}^{\frac{\pi}{2}}d\theta \\
@@ -125,3 +126,27 @@ T = \frac{P}{\Omega_m} = 2K_e I_c
 $$
 
 So we only need 3 hall sensor to identify the position of the rotor
+
+### 5.2 3-Phase Working Condition
+$$
+\begin{aligned}
+&\begin{aligned}
+&V_{DC} = R_s i_b + L_s pi_b + e_b - e_a -L_s pi_a - R_s i_a \\
+&0 = R_s i_a + L_s pi_a + e_a - e_c - L_s pi_c -R_s i_c \\
+&i_a + i_b + i_c = 0
+\end{aligned} \\
+\Rightarrow
+0 &= R_s i_a + L_s pi_a + e_a - e_c - L_s p(-i_a -i_b) - R_s(-i_a -i_b) \\
+L_s pi_b + R_s i_b &= -2R_s i_{sa} - 2L_s i_{sa} + e_c - e_a \\
+V_{DC} &= -2R_s i_{sa} - 2L_s i_{sa} + e_c - e_a + e_b - e_a - L_s pi_a - R_s i_a\\
+V_{DC} &= -3R_s i_{sa} - 3L_s i_{sa} - 2k\Omega_m \\
+R_s i_{sa} + L_s i_{sa} &= \frac{V_{DC} + 2k\Omega_m}{3} \\
+R_s i_{sb} + L_s i_{sb} &= \frac{2V_{DC} - 2k\Omega_m}{3} \\
+\end{aligned}
+$$
+
+When phase A and phase B have the same speed of transient,
+
+$$
+-\frac{V_{DC} + 2k\Omega_m}{3} = \frac{2V_{DC} - 2k\Omega_m}{3}
+$$

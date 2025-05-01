@@ -85,41 +85,47 @@ $$
 The voltage can be represented in d-q axis:
 
 $$
+\left\{
 \begin{aligned}
 v_{sd} &= \underbrace{R_k}_{R_s+R_r} i_{sd} + L_{ks}pi_{sd} - \frac{R_r}{M}\psi_r - \dot\theta_s L_{ks}i_{sq} \\
 v_{sq} &= R_k i_{sq} + L_{ks}pi_{sq} + \dot\theta_s L_{ks}i_{sd} + \dot\theta_m\psi_r
 \end{aligned}
+\right.
 $$
 
-
-## 2. Controller Design for Induction Machine
-Within $v_{sd}$ and $v_{sq}$, we can draw the scheme for induction machine:
+From the equations of $v_{sd}$ and $v_{sq}$, we can draw the system schematics of the induction machine:
 
 <figure markdown="span">
     ![](pics/chapter7/figure2.png){ width="400" }
 </figure>
 
-We can design the PI controller for dq axis,
-
+## 2. Controller Design for Induction Machine
+For the induction machine system, we can design a control system like a DC machine:
 <figure markdown="span">
     ![](pics/chapter7/figure3.png){ width="600" }
 </figure>
 
-Within the 3 phase power inverter, we can supply the 3 phase voltage to the induction machine within the DC voltage source.
-
+### 2.1 6-steps Voltage Inverter
+To generate the desired voltage, we use the voltage source inverter,
 <figure markdown="span">
     ![](pics/chapter7/figure4.png){ width="400" }
 </figure>
 
-!!! bug
-    missing figure
+* The numbers of the MOSFET represents for the opening sequence of the 6-step control.
 
-And the summation of the voltage is: $V_{AG} + V_{BG} + V_{CG} = 0$
+By operating the MOSFETs as the following figure:
+<figure markdown="span">
+    ![](pics/chapter7/figure5.png){ width="400" }
+</figure>
 
+And because there have: 
+
+* $V_{AG} + V_{BG} + V_{CG} = 0$
 * $V_{AG} = V_{AN} - V_{NG}$
 * $V_{BG} = V_{BN} - V_{NG}$
 * $V_{CG} = V_{CN} - V_{NG}$
 
+We can draw the figure for $V_{AG}$, $V_{BG}$, $V_{CG}$ and $V_{NG}$.
 !!! bug
     missing figure
 
@@ -180,20 +186,20 @@ To perform the inverse transform, we use the inverse matrix to do so.
 To generate the sinusoidal wave, we compare the sinusoidal wave with the triangular wave using the comparator, and the output is SPWM wave：
 
 <figure markdown="span">
-    ![](pics/chapter7/figure5.png){ width="500" }
+    ![](pics/chapter7/figure6.png){ width="500" }
 </figure>
 
 ## 4. SVPWM
 Another modulation method is space vector modulation, it base on the real inverter design only have 6 different steps, we have 6 MOSFET, and we control it in 3 control signals: $S_1$, $S_2$ and $S_3$, which was shown in the figure:
 
 <figure markdown="span">
-    ![](pics/chapter7/figure6.png){ width="400" }
+    ![](pics/chapter7/figure7.png){ width="400" }
 </figure>
 
 The switch state have the following relationship to the space vector:
 
 <figure markdown="span">
-    ![](pics/chapter7/figure7.png){ width="400" }
+    ![](pics/chapter7/figure8.png){ width="400" }
 </figure>
 
 ## 5. Estimator Design
@@ -225,7 +231,7 @@ There have 2 main estimators for induction machine $I$-$\Omega$ and $V$-$I$ esti
     We can calculate the stator speed $\dot \theta_s$ and integrating it, we can get $\theta_s$, the whole estimator block have the schematic:
 
     <figure markdown="span">
-        ![](pics/chapter7/figure8.png){ width="600" }
+        ![](pics/chapter7/figure9.png){ width="600" }
     </figure>
 
 2. $V$-$I$ estimator:
@@ -254,7 +260,7 @@ There have 2 main estimators for induction machine $I$-$\Omega$ and $V$-$I$ esti
 
     And we can draw the schematics:
     <figure markdown="span">
-        ![](pics/chapter7/figure9.png){ width="600" }
+        ![](pics/chapter7/figure10.png){ width="600" }
     </figure>
 
 ## 6. Scalar Control (V/F Control)
@@ -267,11 +273,11 @@ v_{sq} &= \underbrace{R_si_{sq} + L_{ks}i_{sq} + \theta_s L_{ks}i_{sq}}_{\text{v
 $$
 
 <figure markdown="span">
-    ![](pics/chapter7/figure10.png){ width="600" }
+    ![](pics/chapter7/figure11.png){ width="600" }
 </figure>
 
 <figure markdown="span">
-    ![](pics/chapter7/figure11.png){ width="300" }
+    ![](pics/chapter7/figure12.png){ width="300" }
 </figure>
 
 ## 7. DSC/DTC
@@ -289,5 +295,5 @@ $$
 It is impossible to follow the circle strictly, we can define the upper boundary and lower boundary to make flux move between 2 circles.
 
 <figure markdown="span">
-    ![](pics/chapter7/figure12.png){ width="400" }
+    ![](pics/chapter7/figure13.png){ width="400" }
 </figure>
