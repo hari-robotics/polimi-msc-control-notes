@@ -475,3 +475,195 @@ $$
 &= \underbrace{E(v_x(t)v_y(t)^T)}_{z} - z\tilde R^{-1}\underbrace{E(v_y(t)v_y(t)^T)}_{\tilde R} = 0
 \end{aligned}
 $$
+
+!!! example
+    Estimation of a constant
+
+    $$
+    \begin{aligned}
+    &\dot x(t) = 0 &&x(0) = \bar x \\
+    &y(t) = x(t) + v_y(t) &&v_y = \mathcal G(0,r)
+    \end{aligned}
+    $$
+
+    We can find the state space matrices: $A = 0$, $B = 0$, $\dot Q = 0$, $C = 1$, $\tilde R = r$.
+
+    * $(A,C)$ is observable
+    * $(A,B_q)$ is not reachable
+
+    $$
+    \begin{aligned}
+    \dot{\hat x} &= L(t)(y(t) - \hat x(t)) \\
+    \dot{\tilde P}(t) &= -\frac{\tilde P(t)^2}{r} &\tilde P(0) = 0 \\
+    \tilde P(t) &= \frac{1}{r^{-1}t + \frac{1}{\tilde P}_0} &t\geq0 \\
+    L(t) &= \frac{r^{-1}}{r^{-1}t + \frac{1}{\tilde P}_0}
+    \end{aligned}
+    $$
+
+!!! example
+    $$
+    \begin{aligned}
+    \dot x(t) &= Ax(t) + N_x(t) \\
+    y(t) &= N_y(t)
+    \end{aligned}
+    $$
+
+    Here, $C = 0$, $L(t) = 0$
+
+    * $(A,C)$ is not observable
+
+!!! example
+    __Brownian Motion__
+
+    $$
+    \begin{aligned}
+    \dot x(t) &= v_x(t) &&v_x = \mathcal G(0,\tilde Q) &&\tilde Q > 0\\
+    y(t) &= Cx(t) + v_y(t) &&v_y = \mathcal G(0,\tilde R) &&\tilde R > 0\\
+    \end{aligned}
+    $$
+
+    Here, $C>0$, $A=0$, $B=0$, $B_q = \sqrt{\tilde Q} > 0$
+
+    * $(A,C)$ is observable
+    * $(A,B_q)$ is reachable
+
+    $$
+    \begin{aligned}
+    &\tilde Q - \frac{\tilde P^2 C^2}{\tilde R} = 0 \\
+    &\bar{\tilde P} = \sqrt{\frac{\tilde P^2 \tilde R}{C^2}} \\
+    &\bar L = \bar{\tilde P}C\tilde R^{-1} = \sqrt{\frac{\tilde Q}{\tilde R}} \\
+    &\dot{\hat x} = \bar L(y(t)-C\hat x(t)) \\
+    &\dot{\hat x} = -\sqrt{\frac{\tilde Q}{\tilde R}}C\hat x(t) + \sqrt{\frac{\tilde Q}{\tilde R}}y(t) \\
+    \end{aligned}
+    $$
+
+    We assume $\tilde Q$ and $\tilde R$ and $C$ to be 1
+
+    $$
+    \dot{\hat x} = -\hat x(t) + y(t) \\
+    $$
+
+    Now assume $\tilde R = \begin{bmatrix} \sigma_1^2 & 0 \\ 0 & \sigma_2^2 \end{bmatrix} = I$, $C = \begin{bmatrix} 1\\1 \end{bmatrix}$,
+
+    $$
+    \begin{aligned}
+    \bar{\tilde P} &= \sqrt{\frac12} \\
+    \bar L &= \sqrt{\frac12} \begin{bmatrix} 1&1 \end{bmatrix} \\
+    \dot{\hat x} &= \sqrt{\frac12} (y_1 + y_2 - 2\hat x)
+    \end{aligned}
+    $$
+
+!!! example
+    $$
+    \begin{aligned}
+    &\dot x = -ax + bu + v && \dot v = \gamma v + \delta v_x && v_x = \mathcal G(0,\tilde q^2)\\
+    &y = x + v_y && v_y = \mathcal G(0,\tilde R) && \tilde R > 0\\
+    \end{aligned}
+    $$
+
+    We can define the enlarged system with the noise:
+
+    $$
+    \begin{aligned}
+    \begin{bmatrix} \dot x \\ \dot v \end{bmatrix} &=
+    \begin{bmatrix} -a&1 \\ 0&-\gamma \end{bmatrix}
+    \begin{bmatrix} x\\v \end{bmatrix} + 
+    \begin{bmatrix} b\\0 \end{bmatrix}u + 
+    \begin{bmatrix} 0\\ \gamma \end{bmatrix}v_x \\
+    y &= \begin{bmatrix} 1&0 \end{bmatrix}\begin{bmatrix} x\\v \end{bmatrix} + v_y
+    \end{aligned}
+    $$
+
+    Where, $\tilde v_x = \mathcal G(0,\tilde Q)$, $\tilde Q = E\begin{bmatrix} \tilde v_x & \tilde v_x^T \end{bmatrix} = Mq^2M^T = q^2\begin{bmatrix} 0&0\\ 0&\delta^2 \end{bmatrix}$
+
+    $$
+    M_o = \begin{bmatrix} 1&0\\ -Q&1 \end{bmatrix}
+    $$
+
+    $(A,C)$ is observable
+
+    $$
+    \begin{aligned}
+    \tilde Q &= B_q B_q^T = \tilde q M \tilde q M^T \\ 
+    B_q &= \begin{bmatrix} 0\\ \delta \tilde q \end{bmatrix} \\ 
+    M_r &= \begin{bmatrix} 0 & \delta \tilde q  \\ \delta \tilde q & -\gamma \delta \tilde q\end{bmatrix}
+    \end{aligned}
+    $$
+
+    $(A,B_q)$ is reachable
+
+    $$
+    \begin{aligned}
+    \begin{bmatrix} \hat{\dot x} \\ \hat{\dot v} \end{bmatrix} &= 
+    A \begin{bmatrix} \hat{x} \\ \hat{v} \end{bmatrix} + Bu + \bar L(y - C
+    \begin{bmatrix} \hat{x} \\ \hat{v} \end{bmatrix}) \\
+    \hat{\dot x} &= -a\hat{x} + \hat{v} + bu + \bar l_1(y - \hat x) \\
+    \hat{\dot v} &= -\gamma\hat{v} + \bar l_2(y - \hat x)
+    \end{aligned}
+    $$
+
+    Consider $a=1$, $\tilde R = 1$, $\delta = \gamma > 0$, $\tilde q = 1$
+
+    * $\gamma = 0.1$ $\rightarrow$ slow
+    * $\gamma = 10$ $\rightarrow$ fast
+
+    We look at the TF of $y\rightarrow x$,
+
+    $$
+    C(sI - (A-\bar LC))^{-1} \bar L
+    $$
+
+!!! example
+    When the noise is not a gaussian noise:
+
+    $$
+    \dot x = Ax + Bu + v
+    $$
+
+    we can use spectral factorization
+
+    $v$ is stationary
+    
+    $$
+    \Phi_v(s) = \int_{-\infty}^{+\infty}c_v(\tau)e^{-s\tau}d\tau
+    $$
+
+## 3. LQG Control
+
+$$
+\begin{aligned}
+\dot x(t) = Ax(t) + Bu(t) + v_x(t) \\
+y(t) = Cx(t) + v_y(t)
+\end{aligned}
+$$
+
+Same assumption as for kalman filter on $v_x(t)$, $v_y(t)$, $x(0)$.
+
+The loss function is:
+
+$$
+J = \lim_{T\to \infty}\frac{1}{T}E[\int_0^T(x(t)^TQx(t) + u(t)^TRu(t)dt)]
+$$
+
+In the long run, if the system is A.S., the loss function becomes:
+
+$$
+J = E[(x_\infty(t)^TQx_\infty(t) + u_\infty(t)^TRu_\infty(t)dt)]
+$$
+
+The solution is:
+if $(A,B)$ is reachable, and $(A,C_q)$ is observable ($(A,C)$ is observable, and $(A,B_q)$ is reachable)
+
+* $R \succ 0$, $\tilde R \succ 0$
+* $u(t) = -\bar K \hat x(t)$
+* $\dot{\hat x}(t) = A\hat x(t) + Bu(t) + \bar L(y(t)-C\hat x(t))$
+
+It combined LQ controller and Kalman filter together, we can find the transfer function of $y \to u$.
+
+$$
+\begin{aligned}
+\dot{\hat x}(t) &= \underbrace{(A-B\bar K - \bar LC)}_{\tilde A} \hat x + \underbrace{\bar L}_{\tilde B} y(t) \\
+u(t) &= \underbrace{-K}_{\tilde C}\hat x(t) \\
+R(s) &= \bar K(sI - (A-B\bar K - \bar LC))^{-1}\bar L
+\end{aligned}
+$$
